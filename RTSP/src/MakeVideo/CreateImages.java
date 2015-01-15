@@ -45,7 +45,7 @@ public class CreateImages
     }
     protected ArrayList<BufferedImage> captureMultiple(int start,int number) throws InterruptedException
     {
-        ArrayList<BufferedImage> imagesList = new ArrayList<>();
+        ArrayList<BufferedImage> imagesList = new ArrayList<BufferedImage>();
         for(int i=start;i<number;i++)
         {
             BufferedImage image = this.capture(i);
