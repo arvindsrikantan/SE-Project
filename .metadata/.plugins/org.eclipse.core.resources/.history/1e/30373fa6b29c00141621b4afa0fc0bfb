@@ -12,8 +12,6 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.ImageIcon;
-
 /**
  *
  * @author arvind
@@ -26,7 +24,7 @@ public class Transmit
     {
         try
         {
-            this.server = new ServerSocket(4444);
+            this.server = new ServerSocket(3333);
         }
         catch (IOException ex) 
         {
@@ -34,7 +32,7 @@ public class Transmit
         }
     }
     
-    public void sendImageIcon(BufferedImage image) throws IOException
+    public void sendBufferedImage(BufferedImage image) throws IOException
     {
         Socket clientSocket = null;
         try {
@@ -44,6 +42,6 @@ public class Transmit
             ex.printStackTrace();
         }
         ObjectOutputStream obStream = new ObjectOutputStream(clientSocket.getOutputStream());
-        obStream.writeObject(new ImageIcon(image));
+        obStream.writeObject(image);
     }
 }

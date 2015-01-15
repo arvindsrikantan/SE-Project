@@ -44,17 +44,15 @@ public class Receive {
 
 		try {
 			ImageIcon image = (ImageIcon) (inStream.readObject());
-			
-			/*
-			 * Image img = image.getImage();
-			 * 
-			 * BufferedImage bi = new BufferedImage(img.getWidth(null),
-			 * img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-			 * 
-			 * Graphics2D g2 = bi.createGraphics(); g2.drawImage(img, 0, 0,
-			 * null); g2.dispose(); ImageIO.write(bi, "jpg", new
-			 * File("../../image1.jpg"));
-			 */
+			Image img = image.getImage();
+
+			BufferedImage bi = new BufferedImage(img.getWidth(null),
+					img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+			Graphics2D g2 = bi.createGraphics();
+			g2.drawImage(img, 0, 0, null);
+			g2.dispose();
+			ImageIO.write(bi, "jpg", new File("../../image1.jpg"));
 
 			try {
 				Thread.sleep(3000);

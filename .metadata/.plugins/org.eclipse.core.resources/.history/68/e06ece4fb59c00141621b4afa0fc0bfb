@@ -44,7 +44,7 @@ public class Receive {
 
 		try {
 			ImageIcon image = (ImageIcon) (inStream.readObject());
-			
+
 			/*
 			 * Image img = image.getImage();
 			 * 

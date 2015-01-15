@@ -26,7 +26,7 @@ public class RTSP {
 		new Thread(new Runnable() {
 			public void run() {
 				try {
-					new Transmit().sendImageIcon(ImageIO.read(new File(
+					new Transmit().sendBufferedImage(ImageIO.read(new File(
 							"images/1.jpg")));
 				} catch (IOException ex) {
 					Logger.getLogger(RTSP.class.getName()).log(Level.SEVERE,
