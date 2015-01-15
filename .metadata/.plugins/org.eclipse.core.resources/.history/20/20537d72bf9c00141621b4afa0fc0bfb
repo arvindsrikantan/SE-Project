@@ -30,10 +30,10 @@ public class CreateVideo
         frame.setUndecorated(true);
         
         //frame.toFront();
-		ImageIcon icon = new ImageIcon(imageList.get(0));
-		JLabel image = new JLabel(icon);
-		frame.add(image);
-		frame.setVisible(true);
+        ImageIcon icon = new ImageIcon(imageList.get(0));
+        JLabel image = new JLabel(icon);
+        frame.add(image);
+        frame.setVisible(true);
         for(int i=1;i<imageList.size();i++)
         {
             Thread.sleep(140);
