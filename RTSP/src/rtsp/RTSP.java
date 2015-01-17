@@ -26,7 +26,7 @@ public class RTSP {
 			public void run() {
 				try {
 					new Transmit().sendImageIcon(ImageIO.read(new File(
-							"../../images/1.jpg")));
+							"C:\\Users\\Anish Narang.ANISHNARANG\\git\\SE-Project\\RTSP\\src\\rtsp\\1.jpg")));
 				} catch (IOException ex) {
 					Logger.getLogger(RTSP.class.getName()).log(Level.SEVERE,
 							null, ex);

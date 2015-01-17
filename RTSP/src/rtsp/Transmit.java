@@ -21,7 +21,7 @@ public class Transmit {
 
 	public Transmit() {
 		try {
-			this.server = new ServerSocket(5555);
+			this.server = new ServerSocket(5556);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}

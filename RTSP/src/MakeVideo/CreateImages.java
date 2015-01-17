@@ -12,13 +12,15 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 /**
  * 
  * @author arvind
  */
 public class CreateImages {
 	Robot robo;
-
+	public static ArrayList<ImageIcon> imagesList;
 	private BufferedImage capture(int name) {
 		BufferedImage image = null;
 		try {
@@ -40,12 +42,14 @@ public class CreateImages {
 		return image;
 	}
 
-	protected ArrayList<BufferedImage> captureMultiple(int start, int number)
+	public ArrayList<ImageIcon> captureMultiple(int start, int number)
 			throws InterruptedException {
-		ArrayList<BufferedImage> imagesList = new ArrayList<BufferedImage>();
+		imagesList = new ArrayList<ImageIcon>();
 		for (int i = start; i < number; i++) {
-			BufferedImage image = this.capture(i);
+			ImageIcon image = new ImageIcon(this.capture(i));
 			imagesList.add(image);
+    		System.out.println("Capturing image.");
+
 			Thread.sleep(180);
 		}
 		return imagesList;

@@ -22,22 +22,20 @@ public class CreateVideo
     public static void main(String[]args) throws InterruptedException
     {
         CreateImages img=new CreateImages();        
-        ArrayList<BufferedImage> imageList=img.captureMultiple(0,10);
+        ArrayList<ImageIcon> imageList=img.captureMultiple(0,200);
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension dm = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(dm);
         frame.setUndecorated(true);
-        
-        //frame.toFront();
-		ImageIcon icon = new ImageIcon(imageList.get(0));
+		ImageIcon icon = imageList.get(0);
 		JLabel image = new JLabel(icon);
 		frame.add(image);
 		frame.setVisible(true);
         for(int i=1;i<imageList.size();i++)
         {
             Thread.sleep(140);
-            icon.setImage(imageList.get(i));
+            icon=imageList.get(i);
             image.setIcon(icon);
             frame.repaint();
         }
