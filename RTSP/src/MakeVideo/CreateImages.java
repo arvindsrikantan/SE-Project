@@ -48,7 +48,7 @@ public class CreateImages {
 		for (int i = start; i < number; i++) {
 			ImageIcon image = new ImageIcon(this.capture(i));
 			imagesList.add(image);
-    		System.out.println("Capturing image.");
+    		//System.out.println("Capturing image.");
 
 			Thread.sleep(180);
 		}

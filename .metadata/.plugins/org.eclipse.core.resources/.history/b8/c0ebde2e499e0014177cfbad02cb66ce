@@ -1,0 +1,8 @@
+package rtspWithMultipleClients;
+
+public class MultipleClientHandler implements Runnable{
+	
+	public void run(){
+		
+	}
+}

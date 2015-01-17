@@ -1,0 +1,17 @@
+package rtspWithMultipleClients;
+
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+
+public class MultipleClientHandler implements Runnable {
+	Socket client;
+
+	public MultipleClientHandler(Socket client) {
+		this.client = client;
+	}
+
+	public void run() {
+		ObjectOutputStream clientStream = new ObjectOutputStream(
+				this.client.getOutputStream());
+	}
+}

@@ -1,0 +1,15 @@
+package rtspWithMultipleClients;
+
+import java.net.ServerSocket;
+
+public class ServerThread extends Thread {
+	ServerSocket server;
+	
+	public ServerThread(ServerSocket server) {
+		this.server = server;
+	}
+
+	public void run() {
+		
+	}
+}

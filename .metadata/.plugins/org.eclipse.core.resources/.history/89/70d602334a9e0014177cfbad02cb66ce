@@ -1,0 +1,28 @@
+package rtspWithMultipleClients;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import javax.swing.ImageIcon;
+
+public class ServerConnectionAcceptor {
+	ServerSocket server;
+
+	public ServerConnectionAcceptor()  {
+		try {
+			this.server = new ServerSocket(5556);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void acceptConnections() throws IOException {
+		ServerThread startAccepting = new ServerThread(this.server);
+//		ObjectOutputStream obStream = new ObjectOutputStream(
+//				clientSocket.getOutputStream());
+//		obStream.writeObject(new ImageIcon(image));
+	}
+}
