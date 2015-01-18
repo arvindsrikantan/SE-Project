@@ -6,9 +6,11 @@ import java.net.Socket;
 
 import javax.swing.ImageIcon;
 
+import MakeVideo.CreateImages;
+
 public class MultipleClientHandler implements Runnable {
 	Socket client;
-	int count=0;
+	int count = 0;
 
 	public MultipleClientHandler(Socket client) {
 		this.client = client;
@@ -22,7 +24,21 @@ public class MultipleClientHandler implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//ImageIcon img = ;
-		//clientStream.write();
+		// change true to a condition variable
+		try {
+			while (true) {
+				ImageIcon icon = CreateImages.getScreenShot();
+				clientStream.writeObject(icon);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				clientStream.close();
+				this.client.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -36,7 +36,7 @@ public class RTSPServer extends Thread {
 
 	public void sendImage() throws InterruptedException, IOException {
 		CreateImages img = new CreateImages();
-		imageList = img.captureMultiple(0, 200);
+		//imageList = img.captureMultiple(0, 200);
 		ObjectOutputStream obStream = new ObjectOutputStream(
 				socket.getOutputStream());
 

@@ -1,0 +1,64 @@
+package rtspWithMultipleClients;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+
+public class ClientImageReciever extends Thread
+{
+	ArrayList<ImageIcon> list;
+	ObjectInputStream inStream;
+
+	public ClientImageReciever(ArrayList<ImageIcon> list,
+			ObjectInputStream inStream)
+	{
+		this.list = list;
+		this.inStream = inStream;
+	}
+
+	public void run()
+	{
+		ImageIcon image = null;
+		while (true)
+		{
+			try
+			{
+				image = (ImageIcon) this.inStream.readObject();
+			}
+			catch (ClassNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			this.list.add(image);
+			if (this.list.size() >= 200)
+			{
+				this.clear();
+			}
+		}
+	}
+	
+	protected synchronized void clear()
+	{
+		for (int i = 0; i < 75; i++)
+		{
+			this.list.remove(i);
+		}
+		if (Client.picCount >= 75)
+		{
+			Client.picCount = Client.picCount - 75;
+		}
+	}
+	
+	protected synchronized void reset()
+	{
+		Client.picCount=0;
+	}
+}

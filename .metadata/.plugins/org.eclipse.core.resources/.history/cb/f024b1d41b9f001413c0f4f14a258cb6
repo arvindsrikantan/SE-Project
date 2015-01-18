@@ -1,0 +1,15 @@
+package rtspWithMultipleClients;
+
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+
+public class ClientImageReciever extends Thread{
+	ArrayList<ImageIcon> list;
+	
+	public ClientImageReciever(ArrayList<ImageIcon> list)
+	{
+		this.list=list;
+	}
+	
+}

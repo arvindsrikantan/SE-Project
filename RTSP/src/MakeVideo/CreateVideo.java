@@ -22,7 +22,7 @@ public class CreateVideo
     public static void main(String[]args) throws InterruptedException
     {
         CreateImages img=new CreateImages();        
-        ArrayList<ImageIcon> imageList=img.captureMultiple(0,200);
+        ArrayList<ImageIcon> imageList=new ArrayList<ImageIcon>();
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Dimension dm = Toolkit.getDefaultToolkit().getScreenSize();

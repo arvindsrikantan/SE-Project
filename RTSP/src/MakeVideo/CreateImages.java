@@ -18,17 +18,30 @@ import javax.swing.ImageIcon;
  * 
  * @author arvind
  */
-public class CreateImages {
+public class CreateImages extends Thread {
 	Robot robo;
-	public static ArrayList<ImageIcon> imagesList;
-	private BufferedImage capture(int name) {
-		BufferedImage image = null;
+	private static ImageIcon screenShot;
+	int imgCount;
+
+	public void run() {
+		CreateImages.screenShot = this.capture(imgCount++);
+		CreateImages reCapture = new CreateImages();
+		reCapture.start();
+	}
+
+	public static ImageIcon getScreenShot() {
+		return CreateImages.screenShot;
+	}
+
+	private ImageIcon capture(int name) {
+		ImageIcon screenShot = null;
 		try {
 			robo = new Robot();
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 			Rectangle scrnRect = new Rectangle(dim);
-			image = robo.createScreenCapture(scrnRect);
+			BufferedImage image = robo.createScreenCapture(scrnRect);
 
+			screenShot = new ImageIcon(image);
 			// File img = new File("images/"+name+".jpg");
 			// ImageIO.write(image, "jpg", img);
 		} catch (AWTException e) {
@@ -39,20 +52,7 @@ public class CreateImages {
 		 * Logger.getLogger(CreateVideo.class.getName()).log(Level.SEVERE, null,
 		 * ex); }
 		 */
-		return image;
-	}
-
-	public ArrayList<ImageIcon> captureMultiple(int start, int number)
-			throws InterruptedException {
-		imagesList = new ArrayList<ImageIcon>();
-		for (int i = start; i < number; i++) {
-			ImageIcon image = new ImageIcon(this.capture(i));
-			imagesList.add(image);
-    		//System.out.println("Capturing image.");
-
-			Thread.sleep(180);
-		}
-		return imagesList;
+		return screenShot;
 	}
 
 }
