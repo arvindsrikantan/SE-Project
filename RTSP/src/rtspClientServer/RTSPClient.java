@@ -16,18 +16,14 @@ import javax.swing.JLabel;
 import MakeVideo.CreateImages;
 import rtsp.Receive;
 
-public class RTSPClient {
-	Socket client;
+public class RTSPClient extends Thread {
+	static Socket client;
 
-	RTSPClient() throws UnknownHostException, IOException {
+	public static void main(String args[]) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 		client = new Socket("localhost", 8006);
 		System.out.println("Sent client request.");
-	}
-
-	public void showImage() throws IOException, ClassNotFoundException,
-			InterruptedException {
-		ObjectInputStream inStream = new ObjectInputStream(
-				client.getInputStream());
+		
+		ObjectInputStream inStream = new ObjectInputStream(client.getInputStream());
 		ImageIcon icon = (ImageIcon) (inStream.readObject());
 
 		JFrame frame = new JFrame();
