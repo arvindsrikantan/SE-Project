@@ -8,13 +8,14 @@ public class ServerConnectionAcceptor {
 
 	public ServerConnectionAcceptor()  {
 		try {
-			this.server = new ServerSocket(5556);
+			this.server = new ServerSocket(1234);
+			System.out.println("server started");
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	public void acceptConnections() throws IOException {
+	public void acceptConnections() {
 		ServerThread startAccepting = new ServerThread(this.server);
 		startAccepting.start();
 //		ObjectOutputStream obStream = new ObjectOutputStream(

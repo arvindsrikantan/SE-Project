@@ -25,6 +25,15 @@ public class CreateImages extends Thread {
 
 	public void run() {
 		CreateImages.screenShot = this.capture(imgCount++);
+		try
+		{
+			Thread.sleep(1000);
+		}
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		CreateImages reCapture = new CreateImages();
 		reCapture.start();
 	}

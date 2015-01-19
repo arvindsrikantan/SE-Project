@@ -21,8 +21,10 @@ public class ClientImageReciever extends Thread
 	public void run()
 	{
 		ImageIcon image = null;
+		
 		while (true)
 		{
+			//System.out.println("taken");
 			try
 			{
 				image = (ImageIcon) this.inStream.readObject();

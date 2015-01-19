@@ -8,12 +8,14 @@
 <fullyQualifiedTypeName name="rtspWithMultipleClients.ServerThread"/>
 <fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
 <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
-<fullyQualifiedTypeName name="MakeVideo.CreateImages"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="java.lang.Character"/>
 <fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
-<fullyQualifiedTypeName name="rtspWithMultipleClients.Client"/>
 <fullyQualifiedTypeName name="rtspWithMultipleClients.ClientImageReciever"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="rtspWithMultipleClients.Client"/>
+<fullyQualifiedTypeName name="rtspWithMultipleClients.ServerConnectionAcceptor"/>
+<fullyQualifiedTypeName name="MakeVideo.CreateImages"/>
 </qualifiedTypeNameHistroy>
