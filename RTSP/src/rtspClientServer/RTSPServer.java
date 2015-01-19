@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 import MakeVideo.CreateImages;
 
 public class RTSPServer extends Thread {
-	static ArrayList<ImageIcon> imageList;
+	static ImageIcon image;
 	static int port = 8006;
 	static ServerSocket server;
 	static Socket socket;
@@ -25,21 +25,21 @@ public class RTSPServer extends Thread {
 				server = new ServerSocket(port);
 				socket = server.accept();
 				System.out.println("Connection established.");
-				try {
-					CaptureImages img = new CaptureImages();
-					imageList = img.captureMultiple(0, 200);
+				try {					
 					ObjectOutputStream obStream = new ObjectOutputStream(socket.getOutputStream());
-					for (int i = 1; i < imageList.size(); i++) {
+					for (int i = 1; i < 200; i++) {
+						CaptureImages img = new CaptureImages();
+						image = img.captureMultiple(0, 200);
 						Thread.sleep(140);
 						System.out.println("Sending image.");
-						obStream.writeObject(imageList.get(i));	
+						obStream.writeObject(image);	
 					}
 				}
 				catch (InterruptedException e) {}
 				}
 			catch (Exception e) {}
-
 		}
+		
 }
 }
 

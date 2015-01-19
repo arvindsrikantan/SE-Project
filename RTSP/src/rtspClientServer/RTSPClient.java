@@ -1,8 +1,15 @@
 package rtspClientServer;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -16,6 +23,7 @@ import javax.swing.JLabel;
 import MakeVideo.CreateImages;
 import rtsp.Receive;
 
+import java.awt.*;
 public class RTSPClient extends Thread {
 	static Socket client;
 
@@ -23,10 +31,41 @@ public class RTSPClient extends Thread {
 		client = new Socket("localhost", 8006);
 		System.out.println("Sent client request.");
 		
-		ObjectInputStream inStream = new ObjectInputStream(client.getInputStream());
-		ImageIcon icon = (ImageIcon) (inStream.readObject());
+		Timer timer = new Timer(1000, new MyTimerActionListener());
 
+	    timer.start();
+	    try {
+	     Thread.sleep(10000);
+	    } catch (InterruptedException e) {
+   }
+	    timer.stop();
+	  }
+}
+
+class MyTimerActionListener implements ActionListener
+{
+
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
 		JFrame frame = new JFrame();
+		ObjectInputStream inStream = null;
+		try {
+			inStream = new ObjectInputStream(RTSPClient.client.getInputStream());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ImageIcon icon = null;
+		try {
+			icon = (ImageIcon) (inStream.readObject());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension dm = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setSize(dm);
@@ -36,12 +75,21 @@ public class RTSPClient extends Thread {
 		frame.setVisible(true);
 
 		for (int i = 1; i < 200; i++) {
-			Thread.sleep(140);
-			icon = (ImageIcon) inStream.readObject();
+			//Thread.sleep(140);
+			try {
+				icon = (ImageIcon) inStream.readObject();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			image.setIcon(icon);
-			frame.add(image);
 			frame.repaint();
-		}
+			frame.setIconImage(icon.getImage());
+			//frame.add(image);
+		
 	}
-
+	}
 }

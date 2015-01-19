@@ -21,7 +21,7 @@ import javax.swing.ImageIcon;
 public class CaptureImages {
 	Robot robo;
 	public static ArrayList<ImageIcon> imagesList;
-	private BufferedImage capture(int name) {
+	private BufferedImage capture() {
 		BufferedImage image = null;
 		try {
 			robo = new Robot();
@@ -42,17 +42,16 @@ public class CaptureImages {
 		return image;
 	}
 
-	public ArrayList<ImageIcon> captureMultiple(int start, int number)
-			throws InterruptedException {
-		imagesList = new ArrayList<ImageIcon>();
-		for (int i = start; i < number; i++) {
-			ImageIcon image = new ImageIcon(this.capture(i));
-			imagesList.add(image);
-    		//System.out.println("Capturing image.");
-
+	public ImageIcon captureMultiple(int start, int number)throws InterruptedException {
+//		imagesList = new ArrayList<ImageIcon>();
+//		for (int i = start; i < number; i++) {
+		ImageIcon image = new ImageIcon(this.capture());
+//			imagesList.add(image);
+		
+    		System.out.println("Capturing image.");			
 			Thread.sleep(180);
-		}
-		return imagesList;
+		
+		return image;
 	}
 
 }
