@@ -13,11 +13,13 @@ public class ServerThread extends Thread {
 		this.server = server;
 		CreateImages startCapture = new CreateImages();
 		startCapture.start();
+		startCapture=null;
 	}
 
 	public void run() {
 		Socket client = null;
 		try {
+			System.out.println("Server waiting");
 			client = this.server.accept();
 			System.out.println("Connection accepted");
 		} catch (IOException e) {
@@ -29,5 +31,10 @@ public class ServerThread extends Thread {
 		serverHandle.start();
 		ServerThread restartAccepting = new ServerThread(this.server);
 		restartAccepting.start();
+		runnable=null;
+		serverHandle=null;
+		restartAccepting=null;
+		client=null;
+		System.gc();
 	}
 }

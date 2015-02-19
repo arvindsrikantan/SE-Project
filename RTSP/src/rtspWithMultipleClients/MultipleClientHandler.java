@@ -8,35 +8,52 @@ import javax.swing.ImageIcon;
 
 import MakeVideo.CreateImages;
 
-public class MultipleClientHandler implements Runnable {
+public class MultipleClientHandler implements Runnable
+{
 	Socket client;
 	int count = 0;
 
-	public MultipleClientHandler(Socket client) {
+	public MultipleClientHandler(Socket client)
+	{
 		this.client = client;
 	}
 
-	public void run() {
+	public void run()
+	{
 		ObjectOutputStream clientStream = null;
-		try {
+		try
+		{
 			clientStream = new ObjectOutputStream(this.client.getOutputStream());
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// change true to a condition variable
-		try {
-			while (true) {
-				ImageIcon icon = CreateImages.getScreenShot();
+		try
+		{
+			ImageIcon icon = null;
+			while (true)
+			{
+				icon = CreateImages.getScreenShot();
 				clientStream.writeObject(icon);
+				icon = null;
 			}
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			ex.printStackTrace();
-		} finally {
-			try {
+		}
+		finally
+		{
+			try
+			{
 				clientStream.close();
 				this.client.close();
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				e.printStackTrace();
 			}
 		}

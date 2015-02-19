@@ -24,7 +24,8 @@ public class Client
 		imageListBuffer = new ArrayList<ImageIcon>();
 		try
 		{
-			this.server = new Socket("192.168.0.129", 1234);
+			this.server = new Socket("192.168.1.2", 5555);
+			System.out.println("Client socket created");
 		}
 		catch (UnknownHostException e)
 		{
@@ -37,6 +38,7 @@ public class Client
 			e.printStackTrace();
 		}
 		this.bufferImageIconList();
+		System.gc();
 	}
 
 	private void bufferImageIconList()
@@ -52,6 +54,7 @@ public class Client
 		}
 		startBuffer = new ClientImageReciever(this.imageListBuffer, inStream);
 		startBuffer.start();
+		inStream = null;
 	}
 
 	public void play()
@@ -67,15 +70,6 @@ public class Client
 		frame.add(image);
 		System.out.println(imageListBuffer.size());
 		frame.setVisible(true);
-		try
-		{
-			Thread.sleep(20000);
-		}
-		catch (InterruptedException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		for (int i = Client.picCount; i < imageListBuffer.size(); i++)
 		{
 			try
@@ -92,8 +86,13 @@ public class Client
 			image.setIcon(icon);
 			frame.repaint();
 		}
-		//change into thread and keep calling it
+		frame = null;
+		dm = null;
+		icon = null;
+		image = null;
+		// change into thread and keep calling it
 		System.out.println("Done");
+		System.gc();
 	}
 
 	public void pause()

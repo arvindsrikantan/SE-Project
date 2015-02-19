@@ -18,4 +18,12 @@
 <fullyQualifiedTypeName name="rtspWithMultipleClients.Client"/>
 <fullyQualifiedTypeName name="rtspWithMultipleClients.ServerConnectionAcceptor"/>
 <fullyQualifiedTypeName name="MakeVideo.CreateImages"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="javax.print.attribute.standard.MediaPrintableArea"/>
+<fullyQualifiedTypeName name="java.net.DatagramSocket"/>
+<fullyQualifiedTypeName name="java.net.DatagramPacket"/>
+<fullyQualifiedTypeName name="javax.imageio.stream.FileImageInputStream"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="org.jcodec.common.FileChannelWrapper"/>
+<fullyQualifiedTypeName name="org.jcodec.api.FrameGrab"/>
 </qualifiedTypeNameHistroy>

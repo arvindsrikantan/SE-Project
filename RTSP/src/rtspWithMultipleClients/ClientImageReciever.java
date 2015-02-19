@@ -21,10 +21,10 @@ public class ClientImageReciever extends Thread
 	public void run()
 	{
 		ImageIcon image = null;
-		
+
 		while (true)
 		{
-			//System.out.println("taken");
+			// System.out.println("taken");
 			try
 			{
 				image = (ImageIcon) this.inStream.readObject();
@@ -43,10 +43,12 @@ public class ClientImageReciever extends Thread
 			if (this.list.size() >= 200)
 			{
 				this.clear();
+				System.gc();
 			}
+			image = null;
 		}
 	}
-	
+
 	protected synchronized void clear()
 	{
 		for (int i = 0; i < 75; i++)
@@ -58,9 +60,9 @@ public class ClientImageReciever extends Thread
 			Client.picCount = Client.picCount - 75;
 		}
 	}
-	
+
 	protected synchronized void reset()
 	{
-		Client.picCount=0;
+		Client.picCount = 0;
 	}
 }
