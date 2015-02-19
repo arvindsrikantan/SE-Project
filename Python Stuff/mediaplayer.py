@@ -29,6 +29,7 @@ class Frame(wx.Frame):
         self.mplayer = mpc.MplayerCtrl(self.panel, -1, mplayer)
         self.playbackSlider = wx.Slider(self.panel, size=wx.DefaultSize)
         sliderSizer.Add(self.playbackSlider, 1, wx.ALL|wx.EXPAND, 5)
+        self.playbackSlider.Bind(wx.EVT_SCROLL_CHANGED, self.seek_setter)
         
         # create volume control
         self.volumeCtrl = wx.Slider(self.panel)
@@ -175,7 +176,17 @@ class Frame(wx.Frame):
         """
         self.currentVolume = self.volumeCtrl.GetValue()
         self.mplayer.SetProperty("volume", self.currentVolume)
+
+    #----------------------------------------------------------------------
+    def seek_setter(self, event):
+        """
+        Sets the seek
+        """
+        currentSeek = self.playbackSlider.GetValue()
+        print("change seek",currentSeek)
         
+        self.mplayer.Seek(currentSeek,2)
+                
     #----------------------------------------------------------------------
     def on_stop(self, event):
         """"""
