@@ -19,7 +19,7 @@ class Frame(wx.Frame):
         self.currentVolume = 50
         self.t_len = None
 
-        self.create_menu()
+        #self.create_menu()
         
         # create sizers
         mainSizer = wx.BoxSizer(wx.VERTICAL)
@@ -60,7 +60,13 @@ class Frame(wx.Frame):
         self.Show()
         self.panel.Layout()
         self.Bind(mpc.EVT_MEDIA_STARTED, self.media_started)
+        wx.CallAfter(self.loadFile)
+        #self.loadFile()
+        #self.mplayer.Loadfile("./2.mp4")
 
+
+    def loadFile(self):
+        self.mplayer.Loadfile("./2.mp4")
     def media_started(self,evt):
         print("hopefully works")
         
@@ -149,6 +155,7 @@ class Frame(wx.Frame):
     def on_pause(self, event):
         """"""
         if(self.t_len==None):
+            #self.mplayer.Loadfile("./2.mp4")
             self.t_len = self.mplayer.GetTimeLength()
             self.playbackSlider.SetRange(0, self.t_len)
             print("tlen",self.t_len)
@@ -213,11 +220,40 @@ class Frame(wx.Frame):
             self.trackCounter.SetLabel(secsPlayed)        
 
 #----------------------------------------------------------------------
+#----------------------------------------------------------------------            
+    def find_header_length(self):
+        """
+        self explanatory
+        """
+        length = self.mpc.GetTimeLength()
+        self.videoRate = self.mpc.GetVideoBitate()
+        self.audioRate = self.mpc.GetAudioBitrate()
+        videoSize = length * videoRate/8
+        audioSize = length * audioRate/8
+    
+        filesize = os.path.getsize()
+        self.headerLength = filesize - videoSize - audioSize
+        return self.headerLength
+    
+    #----------------------------------------------------------------------
+    def request_from_byte_value(self,secs):
+        """
+        Seek from this byte on the server
+        """
+        self.headerLength + secs * (self.videoRate + self.audioRate)/8    
+        
+    #----------------------------------------------------------------------
+    def update_seek(self,secs):
+        """
+        Yet to find the anomality
+        """
+        self.headerLength + secs * (self.videoRate + self.audioRate)/8   
+
 if __name__ == "__main__":
     import os, sys
     
     paths = [r'C:\Program Files (x86)\MPlayer for Windows\mplayer.exe',
-             r'E:\MPlayer-rtm-svn-31170\mplayer.exe']
+             r'/usr/bin/mplayer']
     mplayerPath = None
     for path in paths:
         if os.path.exists(path):
