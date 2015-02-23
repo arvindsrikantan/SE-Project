@@ -18,19 +18,15 @@ class Frame(wx.Frame):
         self.currentFolder = sp.GetDocumentsDir()
         self.currentVolume = 50
         self.t_len = None
-        print "Opened Mplayer"
-        self.mplayer = mpc.MplayerCtrl(self.panel, -1, mplayer,"./2.mp4")
 
-
-        # t_len = self.mplayer.GetTimeLength()
-        # self.playbackSlider.SetRange(0, t_len)
-        # self.playbackTimer.Start(100)
+        #self.create_menu()
         
         # create sizers
         mainSizer = wx.BoxSizer(wx.VERTICAL)
         controlSizer = self.build_controls()
         sliderSizer = wx.BoxSizer(wx.HORIZONTAL)
         
+        self.mplayer = mpc.MplayerCtrl(self.panel, -1, mplayer)
         self.playbackSlider = wx.Slider(self.panel, size=wx.DefaultSize)
         sliderSizer.Add(self.playbackSlider, 1, wx.ALL|wx.EXPAND, 5)
         self.playbackSlider.Bind(wx.EVT_SCROLL_CHANGED, self.seek_setter)
@@ -63,7 +59,14 @@ class Frame(wx.Frame):
         
         self.Show()
         self.panel.Layout()
+        self.Bind(mpc.EVT_MEDIA_STARTED, self.media_started)
+        wx.CallAfter(self.loadFile)
+        #self.loadFile()
+        #self.mplayer.Loadfile("./2.mp4")
 
+
+    def loadFile(self):
+        self.mplayer.Loadfile("./2.mp4")
     def media_started(self,evt):
         print("hopefully works")
         
@@ -97,43 +100,49 @@ class Frame(wx.Frame):
         return controlSizer
     
     #----------------------------------------------------------------------
-    # def create_menu(self,mplayer):
-    #     """
-    #     Creates a menu
-    #     """
-    #     menubar = wx.MenuBar()
-    #     fileMenu = wx.Menu()
-    #     add_file_menu_item = fileMenu.Append(wx.NewId(), "&Add File", "Add Media File")
-    #     menubar.Append(fileMenu, '&File')
+    def create_menu(self):
+        """
+        Creates a menu
+        """
+        menubar = wx.MenuBar()
+        fileMenu = wx.Menu()
+        add_file_menu_item = fileMenu.Append(wx.NewId(), "&Add File", "Add Media File")
+        menubar.Append(fileMenu, '&File')
         
-    #     self.SetMenuBar(menubar)
-    #     self.Bind(wx.EVT_MENU, self.on_add_file, add_file_menu_item)
-
+        self.SetMenuBar(menubar)
+        self.Bind(wx.EVT_MENU, self.on_add_file, add_file_menu_item)
         
-    # #----------------------------------------------------------------------
-    # def on_add_file(self, event):
-    #     """
-    #     Add a Movie and start playing it
-    #     """
-    #     #help(self.mplayer)
-    #     wildcard = "Media Files (*.*)|*.*"
-    #     dlg = wx.FileDialog(
-    #         self, message="Choose a file",
-    #         defaultDir=self.currentFolder, 
-    #         defaultFile="",
-    #         wildcard=wildcard,
-    #         style=wx.OPEN | wx.CHANGE_DIR
-    #         )
-    #     if dlg.ShowModal() == wx.ID_OK:
-    #         path = dlg.GetPath()
-    #         self.currentFolder = os.path.dirname(path[0])
-    #         trackPath = '"%s"' % path.replace("\\", "/")
-    #         mpc.Loadfile(trackPath)
-    #         #time.sleep(5)    
+    #----------------------------------------------------------------------
+    def on_add_file(self, event):
+        """
+        Add a Movie and start playing it
+        """
+        #help(self.mplayer)
+        wildcard = "Media Files (*.*)|*.*"
+        dlg = wx.FileDialog(
+            self, message="Choose a file",
+            defaultDir=self.currentFolder, 
+            defaultFile="",
+            wildcard=wildcard,
+            style=wx.OPEN | wx.CHANGE_DIR
+            )
+        if dlg.ShowModal() == wx.ID_OK:
+            path = dlg.GetPath()
+            self.currentFolder = os.path.dirname(path[0])
+            trackPath = '"%s"' % path.replace("\\", "/")
+            self.mplayer.Loadfile(trackPath)
+            #time.sleep(5)
+        
+        
+		
+            
+        
     #----------------------------------------------------------------------
     def on_media_started(self, event):
         print 'Media started!'
         t_len = self.mplayer.GetTimeLength()
+        #help(self.mplayer.GetTimeLength)
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",t_len)
         self.playbackSlider.SetRange(0, t_len)
         self.playbackTimer.Start(100)
         
@@ -242,7 +251,7 @@ class Frame(wx.Frame):
 
 if __name__ == "__main__":
     import os, sys
-    time.sleep(2)       ## Sleep so that more than header length is received at least.
+    
     paths = [r'C:\Program Files (x86)\MPlayer for Windows\mplayer.exe',
              r'/usr/bin/mplayer']
     mplayerPath = None
@@ -255,6 +264,5 @@ if __name__ == "__main__":
         sys.exit()
             
     app = wx.App(redirect=False)
-    frame = Frame(None, -1, 'RTSP', mplayerPath)
+    frame = Frame(None, -1, 'MediaPlayer Using MplayerCtrl', mplayerPath)
     app.MainLoop()
-
