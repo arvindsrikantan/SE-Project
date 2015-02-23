@@ -60,9 +60,9 @@ class Frame(wx.Frame):
         self.Show()
         self.panel.Layout()
         self.Bind(mpc.EVT_MEDIA_STARTED, self.media_started)
-        wx.CallAfter(self.loadFile)
-        #self.loadFile()
-        #self.mplayer.Loadfile("./2.mp4")
+        
+        #-- Uncomment to start playing video automatically instead of button click --#
+        #wx.CallAfter(self.loadFile)
 
 
     def loadFile(self):
@@ -90,7 +90,7 @@ class Frame(wx.Frame):
         """
         controlSizer = wx.BoxSizer(wx.HORIZONTAL)
         
-        btnData = [{'bitmap':'player_pause.png', 
+        btnData = [{'bitmap':'player_play.png', 
                     'handler':self.on_pause, 'name':'pause'},
                    {'bitmap':'player_stop.png',
                     'handler':self.on_stop, 'name':'stop'}]
@@ -100,42 +100,38 @@ class Frame(wx.Frame):
         return controlSizer
     
     #----------------------------------------------------------------------
-    def create_menu(self):
-        """
-        Creates a menu
-        """
-        menubar = wx.MenuBar()
-        fileMenu = wx.Menu()
-        add_file_menu_item = fileMenu.Append(wx.NewId(), "&Add File", "Add Media File")
-        menubar.Append(fileMenu, '&File')
+    # def create_menu(self):
+    #     """
+    #     Creates a menu
+    #     """
+    #     menubar = wx.MenuBar()
+    #     fileMenu = wx.Menu()
+    #     add_file_menu_item = fileMenu.Append(wx.NewId(), "&Add File", "Add Media File")
+    #     menubar.Append(fileMenu, '&File')
         
-        self.SetMenuBar(menubar)
-        self.Bind(wx.EVT_MENU, self.on_add_file, add_file_menu_item)
+    #     self.SetMenuBar(menubar)
+    #     self.Bind(wx.EVT_MENU, self.on_add_file, add_file_menu_item)
         
-    #----------------------------------------------------------------------
-    def on_add_file(self, event):
-        """
-        Add a Movie and start playing it
-        """
-        #help(self.mplayer)
-        wildcard = "Media Files (*.*)|*.*"
-        dlg = wx.FileDialog(
-            self, message="Choose a file",
-            defaultDir=self.currentFolder, 
-            defaultFile="",
-            wildcard=wildcard,
-            style=wx.OPEN | wx.CHANGE_DIR
-            )
-        if dlg.ShowModal() == wx.ID_OK:
-            path = dlg.GetPath()
-            self.currentFolder = os.path.dirname(path[0])
-            trackPath = '"%s"' % path.replace("\\", "/")
-            self.mplayer.Loadfile(trackPath)
-            #time.sleep(5)
-        
-        
-		
-            
+    # #----------------------------------------------------------------------
+    # def on_add_file(self, event):
+    #     """
+    #     Add a Movie and start playing it
+    #     """
+    #     #help(self.mplayer)
+    #     wildcard = "Media Files (*.*)|*.*"
+    #     dlg = wx.FileDialog(
+    #         self, message="Choose a file",
+    #         defaultDir=self.currentFolder, 
+    #         defaultFile="",
+    #         wildcard=wildcard,
+    #         style=wx.OPEN | wx.CHANGE_DIR
+    #         )
+    #     if dlg.ShowModal() == wx.ID_OK:
+    #         path = dlg.GetPath()
+    #         self.currentFolder = os.path.dirname(path[0])
+    #         trackPath = '"%s"' % path.replace("\\", "/")
+    #         self.mplayer.Loadfile(trackPath)
+    #         #time.sleep(5)
         
     #----------------------------------------------------------------------
     def on_media_started(self, event):
@@ -155,9 +151,9 @@ class Frame(wx.Frame):
     def on_pause(self, event):
         """"""
         if(self.t_len==None):
-            #self.mplayer.Loadfile("./2.mp4")
+            self.mplayer.Loadfile("./2.mp4")
             self.t_len = self.mplayer.GetTimeLength()
-            self.playbackSlider.SetRange(0, self.t_len)
+            self.playbackSlider.SetRange(0,self.t_len)
             print("tlen",self.t_len)
         if self.playbackTimer.IsRunning():
             print "pausing..."

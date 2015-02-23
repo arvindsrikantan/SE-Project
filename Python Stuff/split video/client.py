@@ -1,6 +1,7 @@
 import wx,os,time,socket as soc,mediaplayer as mp
+import subprocess
 s=soc.socket(soc.AF_INET,soc.SOCK_STREAM)
-s.connect(("192.168.1.2",2345))
+s.connect(("localhost",1231))
 second=open('2.mp4','wb')
 first = True
 while(True):#create thread
@@ -14,21 +15,23 @@ while(True):#create thread
         print("received")
         if(first):
             first = False
-            paths = [r'C:\Program Files (x86)\MPlayer for Windows\mplayer.exe',
-            r'/usr/bin/mplayer']
-            mplayerPath = None
-            for path in paths:
-                if os.path.exists(path):
-                    mplayerPath = path
+            subprocess.Popen("python mediaplayer.py",shell=True)
+        #     paths = [r'C:\Program Files (x86)\MPlayer for Windows\mplayer.exe',
+        #     r'/usr/bin/mplayer']
+        #     mplayerPath = None
+        #     for path in paths:
+        #         if os.path.exists(path):
+        #             mplayerPath = path
 
-            if not mplayerPath:
-                print "mplayer not found!"
-                sys.exit()
+        #     if not mplayerPath:
+        #         print "mplayer not found!"
+        #         sys.exit()
                     
-            app = wx.App(redirect=False) 
-            frame = mp.Frame(None, -1, 'RTSP', mplayerPath)
-            app.MainLoop()
-        frame.loadFile("./2.mp4")
+        #     app = wx.App(redirect=False) 
+        #     frame = mp.Frame(None, -1, 'RTSP', mplayerPath)
+        #     app.MainLoop()
+        # frame.loadFile("./2.mp4")
+
 second.close() 
 
 
