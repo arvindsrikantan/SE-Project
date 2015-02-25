@@ -1,19 +1,21 @@
 import wx,os,time,socket as soc,mediaplayer as mp
 import subprocess
 s=soc.socket(soc.AF_INET,soc.SOCK_STREAM)
-s.connect(("localhost",1231))
+s.connect(("192.168.1.2",2345))
 second=open('2.mp4','wb')
+count=0
 first = True
 while(True):#create thread
     inp = s.recv(1024*1024)
+    count+=1
     if(inp==""):
         print("jai")
         break
     else:
         second.write(inp)
         #Start mediaplayer only 1st time
-        print("received")
-        if(first):
+        print("received",count)
+        if(first and count>15):#change condition to count>header_length
             first = False
             subprocess.Popen("python mediaplayer.py",shell=True)
         #     paths = [r'C:\Program Files (x86)\MPlayer for Windows\mplayer.exe',

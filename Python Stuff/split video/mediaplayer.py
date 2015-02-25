@@ -62,7 +62,7 @@ class Frame(wx.Frame):
         self.Bind(mpc.EVT_MEDIA_STARTED, self.media_started)
         
         #-- Uncomment to start playing video automatically instead of button click --#
-        #wx.CallAfter(self.loadFile)
+        wx.CallAfter(self.loadFile)
 
 
     def loadFile(self):
@@ -151,7 +151,7 @@ class Frame(wx.Frame):
     def on_pause(self, event):
         """"""
         if(self.t_len==None):
-            self.mplayer.Loadfile("./2.mp4")
+            #self.mplayer.Loadfile("./2.mp4")
             self.t_len = self.mplayer.GetTimeLength()
             self.playbackSlider.SetRange(0,self.t_len)
             print("tlen",self.t_len)
