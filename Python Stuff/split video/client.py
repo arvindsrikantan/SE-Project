@@ -15,24 +15,9 @@ while(True):#create thread
         second.write(inp)
         #Start mediaplayer only 1st time
         print("received",count)
-        if(first and count>15):#change condition to count>header_length
+        if(first and count>15):#change condition to count>header_length(header_length will be received from tracker
             first = False
-            subprocess.Popen("python mediaplayer.py",shell=True)
-        #     paths = [r'C:\Program Files (x86)\MPlayer for Windows\mplayer.exe',
-        #     r'/usr/bin/mplayer']
-        #     mplayerPath = None
-        #     for path in paths:
-        #         if os.path.exists(path):
-        #             mplayerPath = path
-
-        #     if not mplayerPath:
-        #         print "mplayer not found!"
-        #         sys.exit()
-                    
-        #     app = wx.App(redirect=False) 
-        #     frame = mp.Frame(None, -1, 'RTSP', mplayerPath)
-        #     app.MainLoop()
-        # frame.loadFile("./2.mp4")
+            subprocess.Popen("python mediaplayerAnish.py",shell=True)
 
 second.close() 
 
