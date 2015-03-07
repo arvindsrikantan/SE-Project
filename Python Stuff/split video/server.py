@@ -10,8 +10,8 @@ def send_byte(secs):
 	Returns the requested byte number
 	"""
 	sec = secs	# Time in seconds to seek to
-	abr = 96000	# Audio bit rate (bps)
-	vbr = 344000	# Video bit rate (bps)
+	abr = 132000	# Audio bit rate (bps)
+	vbr = 812000	# Video bit rate (bps)
 	ovrb = abr + vbr	# Overall bit rate
 	seek = sec * ovrb	# Get the bit to seek to
 	return seek
