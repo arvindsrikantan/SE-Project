@@ -7,7 +7,7 @@ public class RunPython
 		Runtime rt = Runtime.getRuntime();
 		Process pr = rt.exec("python python.py");
 		pr.waitFor();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(pr.getInputStream()));//for error use pr.getErrorStream();
 		String line = "";			
 		while ((line = reader.readLine())!= null) 
 		{
