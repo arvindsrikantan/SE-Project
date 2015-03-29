@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package rtspClientServer; 
 
 import java.awt.AWTException;
@@ -13,11 +10,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-
-/**
- * 
- * @author arvind
- */
 public class CaptureImages {
 	Robot robo;
 	public static ArrayList<ImageIcon> imagesList;
@@ -29,8 +21,6 @@ public class CaptureImages {
 			Rectangle scrnRect = new Rectangle(dim);
 			image = robo.createScreenCapture(scrnRect);
 
-			// File img = new File("images/"+name+".jpg");
-			// ImageIO.write(image, "jpg", img);
 		} catch (AWTException e) {
 			e.printStackTrace();
 		}
@@ -43,11 +33,7 @@ public class CaptureImages {
 	}
 
 	public ImageIcon captureMultiple(int start, int number)throws InterruptedException {
-//		imagesList = new ArrayList<ImageIcon>();
-//		for (int i = start; i < number; i++) {
-		ImageIcon image = new ImageIcon(this.capture());
-//			imagesList.add(image);
-		
+		ImageIcon image = new ImageIcon(this.capture());		
     		System.out.println("Capturing image.");			
 			Thread.sleep(180);
 		

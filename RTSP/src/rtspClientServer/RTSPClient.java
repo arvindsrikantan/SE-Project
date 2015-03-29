@@ -28,24 +28,24 @@ public class RTSPClient extends Thread {
 	static Socket client;
 
 	public static void main(String args[]) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
-		client = new Socket("localhost", 8006);
+		client = new Socket("192.168.75.165", 8006);
 		System.out.println("Sent client request.");
-		
-		Timer timer = new Timer(1000, new MyTimerActionListener());
 
-	    timer.start();
 	    try {
 	     Thread.sleep(10000);
-	    } catch (InterruptedException e) {
-   }
-	    timer.stop();
+	     ShowImage s = new ShowImage();
+	     s.Display();
+	    } 
+	    catch (InterruptedException e) {
+	    	}
+	    
 	  }
 }
 
-class MyTimerActionListener implements ActionListener
+class ShowImage extends Thread  
 {
 
-	public void actionPerformed(ActionEvent arg0) {
+	public void Display() {
 		// TODO Auto-generated method stub
 		JFrame frame = new JFrame();
 		ObjectInputStream inStream = null;
@@ -69,13 +69,18 @@ class MyTimerActionListener implements ActionListener
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Dimension dm = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setSize(dm);
-		frame.setUndecorated(true);
+		//frame.setUndecorated(true);
 		JLabel image = new JLabel(icon);
 		frame.add(image);
 		frame.setVisible(true);
 
 		for (int i = 1; i < 200; i++) {
-			//Thread.sleep(140);
+			try {
+				Thread.sleep(140);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			try {
 				icon = (ImageIcon) inStream.readObject();
 			} catch (ClassNotFoundException e) {
@@ -88,8 +93,8 @@ class MyTimerActionListener implements ActionListener
 			image.setIcon(icon);
 			frame.repaint();
 			frame.setIconImage(icon.getImage());
-			//frame.add(image);
-		
-	}
+			frame.add(image);
+			frame.setVisible(true);
+		}
 	}
 }

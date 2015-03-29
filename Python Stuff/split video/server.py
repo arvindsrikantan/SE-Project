@@ -19,11 +19,11 @@ def send_byte(secs):
 client,add=s.accept()
 for i in range(0,os.path.getsize('1.mp4'),1024*1024):
 	s1 = client.recv(15)
-	if("GET" in s1):
-		sec = s1.strip("\n").split(":")[1].strip(" ")
-		print sec
-		req = send_byte(int(sec))
-		i = req
+	# if("GET" in s1):
+	# 	sec = s1.strip("\n").split(":")[1].strip(" ")
+	# 	print sec
+	# 	req = send_byte(int(sec))
+	# 	i = req
 	client.send(first[i:i+1024*1024])
 client.close()
 print("finally done")
