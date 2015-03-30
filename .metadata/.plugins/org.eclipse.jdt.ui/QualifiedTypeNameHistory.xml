@@ -12,7 +12,6 @@
 <fullyQualifiedTypeName name="java.lang.Character"/>
 <fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 <fullyQualifiedTypeName name="rtspWithMultipleClients.ClientImageReciever"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="rtspWithMultipleClients.Client"/>
@@ -26,4 +25,7 @@
 <fullyQualifiedTypeName name="java.io.FileInputStream"/>
 <fullyQualifiedTypeName name="org.jcodec.common.FileChannelWrapper"/>
 <fullyQualifiedTypeName name="org.jcodec.api.FrameGrab"/>
+<fullyQualifiedTypeName name="CaptureImages.CaptureImages"/>
+<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+<fullyQualifiedTypeName name="javax.swing.JLabel"/>
 </qualifiedTypeNameHistroy>

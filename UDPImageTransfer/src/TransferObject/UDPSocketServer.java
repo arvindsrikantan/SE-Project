@@ -10,15 +10,18 @@ import java.net.SocketException;
 
 import javax.swing.ImageIcon;
 
+import CaptureImages.CaptureImages;
+
 import utils.Addressing;
 
 public class UDPSocketServer
 {
 	DatagramSocket	socket	= null;
+	CaptureImages captureController = null;
 
 	public UDPSocketServer()
 	{
-
+		captureController = new CaptureImages();
 	}
 
 	public void createAndListenSocket()
@@ -28,12 +31,10 @@ public class UDPSocketServer
 			socket = new DatagramSocket();
 			// byte[] incomingData = new byte[1024];
 			int count = 0;
+			ImageStructure is = null;
 			while (true)
 			{
-				ImageStructure is = new ImageStructure(count++, new ImageIcon());
-				// Replace with the
-				// screenshot number and
-				// image
+				is = new ImageStructure(count++, captureController.captureWithInterval(180));
 				String ip = Addressing.getIpAddress();
 				System.out.println(ip);
 				String ipParts[] = ip.split("[.]");

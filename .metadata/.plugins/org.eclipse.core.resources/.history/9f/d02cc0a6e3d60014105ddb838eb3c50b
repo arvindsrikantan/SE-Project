@@ -1,0 +1,52 @@
+package CaptureImages;
+
+import java.awt.AWTException;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+
+public class CaptureImages
+{
+	Robot robo;
+	public static ArrayList<ImageIcon> imagesList;
+
+	private BufferedImage capture()
+	{
+		BufferedImage image = null;
+		try
+		{
+			robo = new Robot();
+			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+			Rectangle scrnRect = new Rectangle(dim);
+			image = robo.createScreenCapture(scrnRect);
+
+		}
+		catch (AWTException e)
+		{
+			e.printStackTrace();
+		}
+		return image;
+	}
+
+	public ImageIcon captureWithInterval(int interval)
+	{
+		ImageIcon image = new ImageIcon(this.capture());
+		System.out.println("Capturing image.");
+		try
+		{
+			Thread.sleep(interval);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
+
+		return image;
+	}
+
+}
