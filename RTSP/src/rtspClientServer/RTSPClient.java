@@ -20,15 +20,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import MakeVideo.CreateImages;
-import rtsp.Receive;
+//import MakeVideo.CreateImages;
+//import rtsp.Receive;
 
 import java.awt.*;
 public class RTSPClient extends Thread {
 	static Socket client;
 
 	public static void main(String args[]) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
-		client = new Socket("192.168.75.165", 8006);
+		client = new Socket("localhost", 8006);
 		System.out.println("Sent client request.");
 
 	    try {
