@@ -25,56 +25,61 @@ import javax.swing.ImageIcon;
 public class CreateImages extends Thread
 {
 	Robot robo;
-	private static ImageIcon screenShot;
+	private static BufferedImage image;
 	int imgCount;
 
 	public void run()
 	{
-		CreateImages.screenShot = this.capture(imgCount++);
-		try
+		CreateImages.image = this.capture(imgCount++);
+		while(true)
 		{
-			Thread.sleep(1000);
+			try
+			{
+				Thread.sleep(180);
+				this.capture(imgCount++);
+			}
+			catch (InterruptedException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		CreateImages reCapture = new CreateImages();
-		reCapture.start();
+//		CreateImages reCapture = new CreateImages();
+//		reCapture.start();
 	}
 
-	public static ImageIcon getScreenShot()
+	public static BufferedImage getScreenShot()
 	{
-		return CreateImages.screenShot;
+		return CreateImages.image;
 	}
 
-	private ImageIcon capture(int name)
+	private BufferedImage capture(int name)
 	{
-		ImageIcon screenShot = null;
+		BufferedImage image = null;
 		try
 		{
 			robo = new Robot();
 			Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 			Rectangle scrnRect = new Rectangle(dim);
-			BufferedImage image = robo.createScreenCapture(scrnRect);
+			image = robo.createScreenCapture(scrnRect);
 
-			screenShot = new ImageIcon(image);
-//			File img = new File("images/" + name + ".jpg");
-//			ImageIO.write(image, "jpg", img);
+//			screenShot = new ImageIcon(image);
+			System.out.println(name);
+			File img = new File("D:/engineering/CSE 6th sem/SE Project/images/" + name + ".jpg");
+			ImageIO.write(image, "jpg", img);
 		}
 		catch (AWTException e)
 		{
 			e.printStackTrace();
 		}
+		catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-//		catch (IOException ex)
-//		{
-//			Logger.getLogger(CreateVideo.class.getName()).log(Level.SEVERE,
-//					null, ex);
-//		}
 
-		return screenShot;
+		return image;
 	}
 
 }

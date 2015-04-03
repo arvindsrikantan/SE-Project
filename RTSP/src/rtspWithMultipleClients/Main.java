@@ -5,8 +5,15 @@ public class Main
 	public static void main(String[] args)
 	{
 		final ServerConnectionAcceptor startServer = new ServerConnectionAcceptor();
-		
-		// Thread.sleep(6000);
+		try
+		{
+			Thread.sleep(6000);
+		}
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		new Thread(new Runnable()
 		{
 			public void run()
@@ -22,12 +29,12 @@ public class Main
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//startClient.play();
+				// startClient.play();
 			}
 		}).start();
 
-		Client startClient2 = new Client();
-
-		startClient2.play();
+//		Client startClient2 = new Client();
+//
+//		startClient2.play();
 	}
 }

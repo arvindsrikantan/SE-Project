@@ -21,7 +21,7 @@ public class ServerThread extends Thread {
 		try {
 			System.out.println("Server waiting");
 			client = this.server.accept();
-			System.out.println("Connection accepted");
+			System.out.println("Connection accepted from:"+client.getLocalAddress());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

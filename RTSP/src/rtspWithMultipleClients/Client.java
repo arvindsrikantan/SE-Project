@@ -2,10 +2,12 @@ package rtspWithMultipleClients;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -16,15 +18,15 @@ public class Client
 {
 	Socket server;
 	static int picCount;
-	ArrayList<ImageIcon> imageListBuffer;
+	ArrayList<BufferedImage> imageListBuffer;
 	ClientImageReciever startBuffer;
 
 	public Client()
 	{
-		imageListBuffer = new ArrayList<ImageIcon>();
+		imageListBuffer = new ArrayList<BufferedImage>();
 		try
 		{
-			this.server = new Socket("192.168.1.2", 5555);
+			this.server = new Socket("localhost", 5555);
 			System.out.println("Client socket created");
 		}
 		catch (UnknownHostException e)
@@ -65,17 +67,19 @@ public class Client
 		Dimension dm = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setSize(dm);
 		frame.setUndecorated(true);
-		ImageIcon icon = imageListBuffer.get(0);
+		ImageIcon icon = new ImageIcon(imageListBuffer.get(0));
 		JLabel image = new JLabel(icon);
 		frame.add(image);
-		System.out.println(imageListBuffer.size());
+		System.out.println("size:"+imageListBuffer.size());
 		frame.setVisible(true);
+		int j=0;
+		while(j<1000)
 		for (int i = Client.picCount; i < imageListBuffer.size(); i++)
 		{
 			try
 			{
 				Thread.sleep(140);
-				System.out.println(imageListBuffer.size());
+				System.out.println("size:"+imageListBuffer.size());
 			}
 			catch (InterruptedException e)
 			{
@@ -85,6 +89,7 @@ public class Client
 			icon = imageListBuffer.get(i);
 			image.setIcon(icon);
 			frame.repaint();
+			j++;
 		}
 		frame = null;
 		dm = null;
@@ -95,23 +100,23 @@ public class Client
 		System.gc();
 	}
 
-	public void pause()
-	{
-		// Method to pause the video
-		startBuffer.reset();
-		this.play();
-	}
-
-	public void stop()
-	{
-		try
-		{
-			this.server.close();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public void pause()
+//	{
+//		// Method to pause the video
+//		startBuffer.reset();
+//		this.play();
+//	}
+//
+//	public void stop()
+//	{
+//		try
+//		{
+//			this.server.close();
+//		}
+//		catch (IOException e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 }

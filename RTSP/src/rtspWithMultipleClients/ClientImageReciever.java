@@ -1,17 +1,20 @@
 package rtspWithMultipleClients;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
+import javax.imageio.ImageIO;
 
 public class ClientImageReciever extends Thread
 {
-	ArrayList<ImageIcon> list;
+	ArrayList<BufferedImage> list;
 	ObjectInputStream inStream;
+	int i;
 
-	public ClientImageReciever(ArrayList<ImageIcon> list,
+	public ClientImageReciever(ArrayList<BufferedImage> list,
 			ObjectInputStream inStream)
 	{
 		this.list = list;
@@ -20,14 +23,15 @@ public class ClientImageReciever extends Thread
 
 	public void run()
 	{
-		ImageIcon image = null;
+		BufferedImage image = null;
 
 		while (true)
 		{
 			// System.out.println("taken");
 			try
 			{
-				image = (ImageIcon) this.inStream.readObject();
+				image = (BufferedImage) this.inStream.readObject();
+				ImageIO.write(image,"jpg",new File("D:\\receivedImages\\"+(i++)+".jpg"));
 			}
 			catch (ClassNotFoundException e)
 			{
@@ -39,30 +43,30 @@ public class ClientImageReciever extends Thread
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			this.list.add(image);
-			if (this.list.size() >= 200)
-			{
-				this.clear();
-				System.gc();
-			}
+			
+//			if (this.list.size() >= 200)
+//			{
+//				this.clear();
+//				System.gc();
+//			}
 			image = null;
 		}
 	}
 
-	protected synchronized void clear()
-	{
-		for (int i = 0; i < 75; i++)
-		{
-			this.list.remove(i);
-		}
-		if (Client.picCount >= 75)
-		{
-			Client.picCount = Client.picCount - 75;
-		}
-	}
-
-	protected synchronized void reset()
-	{
-		Client.picCount = 0;
-	}
+//	protected synchronized void clear()
+//	{
+//		for (int i = 0; i < 75; i++)
+//		{
+//			this.list.remove(i);
+//		}
+//		if (Client.picCount >= 75)
+//		{
+//			Client.picCount = Client.picCount - 75;
+//		}
+//	}
+//
+//	protected synchronized void reset()
+//	{
+//		Client.picCount = 0;
+//	}
 }

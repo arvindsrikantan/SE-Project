@@ -1,12 +1,12 @@
 package rtspWithMultipleClients;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import javax.swing.ImageIcon;
-
-import MakeVideo.CreateImages;
+import javax.imageio.ImageIO;
 
 public class MultipleClientHandler implements Runnable
 {
@@ -33,12 +33,25 @@ public class MultipleClientHandler implements Runnable
 		// change true to a condition variable
 		try
 		{
-			ImageIcon icon = null;
+			// ImageIcon icon = null;
+			BufferedImage image = null;
 			while (true)
 			{
-				icon = CreateImages.getScreenShot();
-				clientStream.writeObject(icon);
-				icon = null;
+				// icon = CreateImages.getScreenShot();
+				// clientStream.writeObject(icon);
+				// icon = null;
+				// Read from file and write to stream
+				for (int name = 0;; name++)
+				{
+					File imageFile = new File(
+							"D:/engineering/CSE 6th sem/SE Project/images/"
+									+ name + ".jpg");
+					if (imageFile.exists())
+					{
+						image = ImageIO.read(imageFile);
+					}
+					clientStream.writeObject(image);
+				}
 			}
 		}
 		catch (Exception ex)
