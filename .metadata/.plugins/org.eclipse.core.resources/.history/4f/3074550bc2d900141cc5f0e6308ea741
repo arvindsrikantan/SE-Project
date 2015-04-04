@@ -18,9 +18,9 @@ import javax.swing.JLabel;
 
 public class Client
 {
-	Socket				server;
-	static int			picCount;
-	ClientImageReciever	startBuffer;
+	Socket						server;
+	static int					picCount;
+	ClientImageReciever			startBuffer;
 
 	public Client()
 	{
@@ -72,8 +72,6 @@ public class Client
 		BufferedImage im = null;
 		ImageIcon icon = null;
 		JLabel image = null;
-		try
-		{
 		for (int name = 0;; name++)
 		{
 			File imageFile = new File(
@@ -102,11 +100,6 @@ public class Client
 			}
 			// clientStream.writeObject(image);
 		}
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
 
 		int j = 0;
 		while (j < 1000)
@@ -121,6 +114,7 @@ public class Client
 		System.out.println("Done");
 		System.gc();
 	}
+
 	// public void pause()
 	// {
 	// // Method to pause the video

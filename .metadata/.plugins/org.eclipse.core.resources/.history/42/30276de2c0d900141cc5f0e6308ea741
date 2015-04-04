@@ -50,10 +50,6 @@ public class MultipleClientHandler implements Runnable
 					{
 						image = ImageIO.read(imageFile);
 					}
-					else
-					{
-						name--;
-					}
 					clientStream.writeObject(image);
 				}
 			}

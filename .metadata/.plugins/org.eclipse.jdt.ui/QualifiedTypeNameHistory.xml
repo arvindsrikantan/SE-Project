@@ -24,9 +24,10 @@
 <fullyQualifiedTypeName name="org.jcodec.common.FileChannelWrapper"/>
 <fullyQualifiedTypeName name="org.jcodec.api.FrameGrab"/>
 <fullyQualifiedTypeName name="CaptureImages.CaptureImages"/>
-<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
 <fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 <fullyQualifiedTypeName name="javax.imageio.ImageIO"/>
+<fullyQualifiedTypeName name="java.nio.Buffer"/>
+<fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
+<fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 </qualifiedTypeNameHistroy>
