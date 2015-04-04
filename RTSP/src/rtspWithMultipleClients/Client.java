@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.nio.Buffer;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -74,36 +72,37 @@ public class Client
 		JLabel image = null;
 		try
 		{
-		for (int name = 0;; name++)
-		{
-			File imageFile = new File(
-					"D:/engineering/CSE 6th sem/SE Project/images/" + name
-							+ ".jpg");
-			if (imageFile.exists())
+			for (int name = 0;; name++)
 			{
-				im = ImageIO.read(imageFile);
+				File imageFile = new File(
+						"D:/engineering/CSE 6th sem/SE Project/images/" + name
+								+ ".jpg");
+				if (imageFile.exists())
+				{
+					im = ImageIO.read(imageFile);
+				}
+				else
+				{
+					name--;
+				}
+				if (name == 0)
+				{
+					System.out.println("\n\n\n\n\n\n\n\n\n\n\nFirst time\n\n\n\n");
+					icon = new ImageIcon(im);
+					image = new JLabel(icon);
+					frame.add(image);
+					frame.setVisible(true);
+				}
+				else
+				{
+					icon = new ImageIcon(im);
+					image.setIcon(icon);
+					frame.repaint();
+				}
+				// clientStream.writeObject(image);
 			}
-			else
-			{
-				name--;
-			}
-			if (name == 0)
-			{
-				icon = new ImageIcon(im);
-				image = new JLabel(icon);
-				frame.add(image);
-				frame.setVisible(true);
-			}
-			else
-			{
-				icon = new ImageIcon(im);
-				image.setIcon(icon);
-				frame.repaint();
-			}
-			// clientStream.writeObject(image);
 		}
-		}
-		catch(IOException e)
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}

@@ -1,12 +1,12 @@
 package rtspWithMultipleClients;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class MultipleClientHandler implements Runnable
 {
@@ -34,7 +34,7 @@ public class MultipleClientHandler implements Runnable
 		try
 		{
 			// ImageIcon icon = null;
-			BufferedImage image = null;
+			ImageIcon image = null;
 			while (true)
 			{
 				// icon = CreateImages.getScreenShot();
@@ -48,7 +48,7 @@ public class MultipleClientHandler implements Runnable
 									+ name + ".jpg");
 					if (imageFile.exists())
 					{
-						image = ImageIO.read(imageFile);
+						image = new ImageIcon(ImageIO.read(imageFile));
 					}
 					else
 					{

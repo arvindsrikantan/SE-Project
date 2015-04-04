@@ -13,7 +13,6 @@
 <fullyQualifiedTypeName name="rtspWithMultipleClients.ClientImageReciever"/>
 <fullyQualifiedTypeName name="java.lang.String"/>
 <fullyQualifiedTypeName name="rtspWithMultipleClients.Client"/>
-<fullyQualifiedTypeName name="rtspWithMultipleClients.ServerConnectionAcceptor"/>
 <fullyQualifiedTypeName name="MakeVideo.CreateImages"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="javax.print.attribute.standard.MediaPrintableArea"/>
@@ -30,4 +29,5 @@
 <fullyQualifiedTypeName name="java.nio.Buffer"/>
 <fullyQualifiedTypeName name="java.awt.image.BufferedImage"/>
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
+<fullyQualifiedTypeName name="rtspWithMultipleClients.ServerConnectionAcceptor"/>
 </qualifiedTypeNameHistroy>
