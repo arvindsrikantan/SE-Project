@@ -61,8 +61,8 @@ public class CreateImages extends Thread
 			image = robo.createScreenCapture(scrnRect);
 
 //			screenShot = new ImageIcon(image);
-			System.out.println(name);
-			File img = new File("D:/engineering/CSE 6th sem/SE Project/images/" + name + ".jpg");
+			//System.out.println(name);
+			File img = new File("E://TEMP//" + name + ".jpg");
 			ImageIO.write(image, "jpg", img);
 		}
 		catch (AWTException e)

@@ -3,8 +3,10 @@ package rtspWithMultipleClients;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -20,7 +22,7 @@ public class Client
 	static int			picCount;
 	ClientImageReciever	startBuffer;
 
-	public Client()
+	public Client() throws IOException, InterruptedException
 	{
 		try
 		{
@@ -37,28 +39,52 @@ public class Client
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		this.bufferImageIconList();
+		
+		StringBuffer output = new StringBuffer();
+		Runtime rt = Runtime.getRuntime();		
+		Process pr = rt.exec("python clientReceive.py");
+		play();
+		pr.waitFor();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(pr.getErrorStream()));//for error use pr.getErrorStream();
+		String line = "";			
+		while ((line = reader.readLine())!= null) 
+		{
+			output.append(line + "\n");
+		}
+		System.out.println(output.toString());
 		System.gc();
 	}
 
-	private void bufferImageIconList()
-	{
-		ObjectInputStream inStream = null;
-		try
-		{
-			inStream = new ObjectInputStream(this.server.getInputStream());
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		startBuffer = new ClientImageReciever(inStream);
-		startBuffer.start();
-		inStream = null;
-	}
+//	private void bufferImageIconList()
+//	{
+//		ObjectInputStream inStream = null;
+//		try
+//		{
+//			inStream = new ObjectInputStream(this.server.getInputStream());
+//		}
+//		catch (IOException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		startBuffer = new ClientImageReciever(inStream);
+//		startBuffer.start();
+//		inStream = null;
+//		
+//		play();
+//	}
 
 	public void play()
 	{
+		new Thread(new Runnable()
+		{
+			public void run()
+			{
+			try {
+				Thread.sleep(4000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 		// Method to start or continue playing
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,20 +96,35 @@ public class Client
 		BufferedImage im = null;
 		ImageIcon icon = null;
 		JLabel image = null;
+		int name = 0;
 		try
 		{
-			for (int name = 0;; name++)
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for (name = 0;; name++)
 			{
+				try {
+					Thread.sleep(800);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				File imageFile = new File(
-						"D:/engineering/CSE 6th sem/SE Project/images/" + name
+						"E:\\OUT\\" + name
 								+ ".jpg");
 				if (imageFile.exists())
 				{
+					System.out.println("File exists:"+name);
 					im = ImageIO.read(imageFile);
 				}
 				else
 				{
 					name--;
+					System.out.println("File doesnt exist:"+name);
 				}
 				if (name == 0)
 				{
@@ -92,12 +133,18 @@ public class Client
 					image = new JLabel(icon);
 					frame.add(image);
 					frame.setVisible(true);
+
 				}
 				else
 				{
 					icon = new ImageIcon(im);
+//					image.setIcon(icon);
+//					frame.repaint();
 					image.setIcon(icon);
 					frame.repaint();
+					frame.setIconImage(icon.getImage());
+					frame.add(image);
+					frame.setVisible(true);
 				}
 				// clientStream.writeObject(image);
 			}
@@ -120,6 +167,9 @@ public class Client
 		System.out.println("Done");
 		System.gc();
 	}
+		}).start();
+	}
+}
 	// public void pause()
 	// {
 	// // Method to pause the video
@@ -139,4 +189,4 @@ public class Client
 	// e.printStackTrace();
 	// }
 	// }
-}
+

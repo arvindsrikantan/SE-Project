@@ -18,6 +18,7 @@ public class ServerThread extends Thread {
 
 	public void run() {
 		Socket client = null;
+		
 		try {
 			System.out.println("Server waiting");
 			client = this.server.accept();

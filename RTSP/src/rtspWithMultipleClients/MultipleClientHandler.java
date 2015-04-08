@@ -44,7 +44,7 @@ public class MultipleClientHandler implements Runnable
 				for (int name = 0;; name++)
 				{
 					File imageFile = new File(
-							"D:/engineering/CSE 6th sem/SE Project/images/"
+							"E://TEMP//"
 									+ name + ".jpg");
 					if (imageFile.exists())
 					{

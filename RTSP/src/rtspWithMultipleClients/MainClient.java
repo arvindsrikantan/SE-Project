@@ -1,5 +1,7 @@
 package rtspWithMultipleClients;
 
+import java.io.IOException;
+
 public class MainClient
 {
 	public static void main(String[] args)
@@ -19,7 +21,15 @@ public class MainClient
 			public void run()
 			{
 //				startServer.acceptConnections();
-				Client startClient = new Client();
+				try {
+					Client startClient = new Client();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				try
 				{
 					Thread.sleep(3000);
