@@ -31,4 +31,5 @@
 <fullyQualifiedTypeName name="javax.swing.ImageIcon"/>
 <fullyQualifiedTypeName name="rtspWithMultipleClients.ServerConnectionAcceptor"/>
 <fullyQualifiedTypeName name="java.net.InetAddress"/>
+<fullyQualifiedTypeName name="com.findServer.DSender"/>
 </qualifiedTypeNameHistroy>
