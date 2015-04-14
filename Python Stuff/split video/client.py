@@ -1,19 +1,26 @@
-import wx,os,time,socket as soc,mediaplayer as mp
+import wx
+import os
+import time
+import socket as soc
 import subprocess
 import multiprocessing
 import MplayerCtrl as mpc
 import wx.lib.buttons as buttons
-import re,sys
+import re
+import sys
 
+# Setup the diectories and bitmap images.
 dirName = os.path.dirname(os.path.abspath(__file__))
 bitmapDir = os.path.join(dirName, 'bitmaps')
 
 class Frame(wx.Frame):
-
+    """
+    Main media player class.
+    """
     def __init__(self, parent, id, title, mplayer,filename,q):
         wx.Frame.__init__(self, parent, id, title)
         self.panel = wx.Panel(self)
-        
+
         sp = wx.StandardPaths.Get()
         self.currentFolder = sp.GetDocumentsDir()
         self.currentVolume = 50
@@ -60,20 +67,19 @@ class Frame(wx.Frame):
         self.Show()
         self.panel.Layout()
 
-    #----------------------------------------------------------------------
     def build_btn(self, btnDict, sizer):
-        """"""
+        """
+        Builds the buttons
+        """
         bmp = btnDict['bitmap']
         handler = btnDict['handler']
                 
         img = wx.Bitmap(os.path.join(bitmapDir, bmp))
-        btn = buttons.GenBitmapButton(self.panel, bitmap=img,
-                                      name=btnDict['name'])
+        btn = buttons.GenBitmapButton(self.panel, bitmap=img,name=btnDict['name'])
         btn.SetInitialSize()
         btn.Bind(wx.EVT_BUTTON, handler)
         sizer.Add(btn, 0, wx.LEFT, 3)
         
-    #----------------------------------------------------------------------
     def build_controls(self):
         """
         Builds the audio bar controls
@@ -89,12 +95,14 @@ class Frame(wx.Frame):
             
         return controlSizer
         
-    #----------------------------------------------------------------------
     def on_media_started(self, event):
+        """
+        Fired on media started event
+        """
         self.t_len = self.mplayer.GetTimeLength()
         self.playbackSlider.SetRange(0, self.t_len)
         self.playbackTimer.Start(100)
-        print 'Media started!'
+        print("Media started!")
         
         # self.videoRate = self.mplayer.GetVideoBitrate()
         # self.audioRate = self.mplayer.GetAudioBitrate()
@@ -109,14 +117,17 @@ class Frame(wx.Frame):
         # print "----------------------------------------------------"+str(self.headerLength)
         
         
-    #----------------------------------------------------------------------
     def on_media_finished(self, event):
+        """
+        Fired on media end event
+        """
         print 'Media finished!'
         self.playbackTimer.Stop()
         
-    #----------------------------------------------------------------------
     def on_pause(self, event):
-        """"""
+        """
+        Fired on pause event
+        """
         if(self.t_len==None):
             self.t_len = self.mplayer.GetTimeLength()
             self.playbackSlider.SetRange(0,self.t_len)
@@ -130,15 +141,18 @@ class Frame(wx.Frame):
             self.mplayer.Pause()
             self.playbackTimer.Start()
         
-    #----------------------------------------------------------------------
     def on_process_started(self, event):
-        print 'Process started!'
+        """
+        Fired on process started event
+        """
+        print("Process started!")
         
-    #----------------------------------------------------------------------
     def on_process_stopped(self, event):
-        print 'Process stopped!'
+        """
+        Fired on process stopped event 
+        """
+        print("Process stopped!")
         
-    #----------------------------------------------------------------------
     def on_set_volume(self, event):
         """
         Sets the volume of the music player
@@ -146,26 +160,25 @@ class Frame(wx.Frame):
         self.currentVolume = self.volumeCtrl.GetValue()
         self.mplayer.SetProperty("volume", self.currentVolume)
 
-    #----------------------------------------------------------------------
     def seek_setter(self, event):
         """
-        Sets the seek
+        Fired on seek event
         """
         currentSeek = self.playbackSlider.GetValue()
         print("change seek",currentSeek)
         q.put(currentSeek)
         self.mplayer.Seek(currentSeek,2)
                 
-    #----------------------------------------------------------------------
     def on_stop(self, event):
-        """"""
-        print "Stopping..."
+        """
+        Fired on stop event
+        """
+        print("Stopping...")
         self.mplayer.Stop()
         self.playbackTimer.Stop()
         ## Reload file
         self.mplayer.Loadfile("2.mp4")
 
-    #----------------------------------------------------------------------
     def on_update_playback(self, event):
         """
         Updates playback slider and track counter
@@ -183,10 +196,9 @@ class Frame(wx.Frame):
             secsPlayed = time.strftime('%M:%S', time.gmtime(offset))
             self.trackCounter.SetLabel(secsPlayed)        
 
-#----------------------------------------------------------------------            
     def find_header_length(self):
         """
-        self explanatory
+        Find header length of video
         """
         length = self.mpc.GetTimeLength()
         self.videoRate = self.mpc.GetVideoBitate()
@@ -195,11 +207,8 @@ class Frame(wx.Frame):
         audioSize = length * audioRate/8
         filesize = os.path.getsize("Hitman.avi")
         self.headerLength = filesize - videoSize - audioSize
-        print "----------------------------------------------------"+self.headerLength
         return self.headerLength
     
-    #----------------------------------------------------------------------
-
 def MediaHandler(q):
     """
     Handler to create a new process to play media file
@@ -221,15 +230,17 @@ def MediaHandler(q):
     frame = Frame(None, -1, 'Media Player', mplayerPath,"2.mp4",q)
     app.MainLoop() 
 
-############################################################################################################################
 
 class ClientHandler():
     """
     Handler class to set up client socket connection
     """
     def main(self,q):
+        """
+        Main method to create client process
+        """
         s = soc.socket(soc.AF_INET,soc.SOCK_STREAM)
-        s.connect(("localhost",1264))
+        s.connect(("192.168.0.105",2345))
         second=open('2.mp4','wb')
         count=0
         first = True
@@ -238,7 +249,7 @@ class ClientHandler():
                 s.send("\n")
             else:
                 s.send("GET:"+str(q.get()))
-            inp = s.recv(1024*1024)
+            inp = s.recv(10*1024*1024)
             count+=1
             if(inp==""):
                 print("Got video!")
@@ -252,8 +263,8 @@ class ClientHandler():
                     p2.start()                    
         second.close()    
 
-############################################################################################################3
 if __name__=="__main__":
+    # Start the main process
     q = multiprocessing.Queue()
     ch = ClientHandler()
     ch.main(q)
