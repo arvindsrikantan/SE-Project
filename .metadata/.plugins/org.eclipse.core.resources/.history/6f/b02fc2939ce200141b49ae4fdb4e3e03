@@ -9,8 +9,6 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
-import constants.Constants;
-
 import utils.Addressing;
 
 public class TrackerServer implements Runnable
@@ -20,7 +18,7 @@ public class TrackerServer implements Runnable
 		DatagramSocket drcv = null;
 		try
 		{
-			drcv = new DatagramSocket(Constants.daemonServerPort);
+			drcv = new DatagramSocket(3000);
 			System.out.println("Server started");
 		}
 		catch (SocketException e)
@@ -53,7 +51,7 @@ public class TrackerServer implements Runnable
 			}
 			String myIp = Addressing.getIpAddress();
 			dp = new DatagramPacket(myIp.getBytes(),
-					myIp.length(), dp.getAddress(), Constants.daemonClientPort);
+					myIp.length(), dp.getAddress(), 2000);
 			
 			try
 			{

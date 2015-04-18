@@ -32,9 +32,9 @@
 <fullyQualifiedTypeName name="com.findServer.DSender"/>
 <fullyQualifiedTypeName name="java.lang.Runnable"/>
 <fullyQualifiedTypeName name="java.net.SocketAddress"/>
-<fullyQualifiedTypeName name="java.lang.Thread"/>
 <fullyQualifiedTypeName name="com.findServer.TrackerClient"/>
-<fullyQualifiedTypeName name="constants.Constants"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="utils.Addressing"/>
+<fullyQualifiedTypeName name="constants.Constants"/>
+<fullyQualifiedTypeName name="java.lang.Thread"/>
 </qualifiedTypeNameHistroy>

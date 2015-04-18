@@ -227,7 +227,7 @@ def MediaHandler(q):
             
     
     app = wx.App(redirect=False)
-    frame = Frame(None, -1, 'Media Player', mplayerPath,"2.mp4",q)
+    frame = Frame(None, -1, 'Media Player', mplayerPath,sys.argv[3],q)
     app.MainLoop() 
 
 
@@ -240,8 +240,8 @@ class ClientHandler():
         Main method to create client process
         """
         s = soc.socket(soc.AF_INET,soc.SOCK_STREAM)
-        s.connect(("192.168.0.105",2345))
-        second=open('2.mp4','wb')
+        s.connect((sys.argv[1],int(sys.argv[2])))
+        second=open(sys.argv[3],'wb')
         count=0
         first = True
         while(True):#create thread

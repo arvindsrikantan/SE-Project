@@ -101,6 +101,16 @@ public class TrackerClient implements Runnable
 //			ds.close();
 		}
 		String str = new String(dp.getData(), 0, dp.getLength());
+		try
+		{
+			Thread.sleep(5000);
+		}
+		catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(str.trim().equals(""))
 			str = Addressing.getIpAddress();
 		System.out.println("final server ip:"+str+"sdf");
