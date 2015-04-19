@@ -1,5 +1,7 @@
 package com.findServer;
 
+import hooks.WatchDir;
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -105,7 +107,7 @@ public class TrackerClient implements Runnable
 		String str = new String(dp.getData(), 0, dp.getLength());
 		if(str.trim().equals(""))
 			str = Addressing.getIpAddress();
-		System.out.println("final server ip:"+str+"sdf");
+		System.out.println("Server ip:"+str);
 		Constants.serverIp = str;
 		
 		/**
@@ -113,6 +115,20 @@ public class TrackerClient implements Runnable
 		 */
 		// Set myIP
 		Constants.myIp = Addressing.getIpAddress();
+		
+		// Start hooks
+		try
+		{
+			WatchDir.startHooks();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		
 		// Start RTSP Server
 		RunRTSPServerPython rtspServer = new RunRTSPServerPython();

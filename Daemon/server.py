@@ -4,9 +4,15 @@ import socket as soc
 import sys
 
 # Create server socket and bind to local machine
-s=soc.socket(soc.AF_INET,soc.SOCK_STREAM)
-s.bind((sys.argv[1],int(sys.argv[2])))
-s.listen(5)
+try:
+	s=soc.socket(soc.AF_INET,soc.SOCK_STREAM)
+	s.bind((sys.argv[1],int(sys.argv[2])))
+	s.listen(5)
+	print("Started video streaming socket...")
+except Exception:
+	print("Socket already in use!")
+	s.close()
+	sys.exit()
 
 # def send_byte(secs):
 # 	"""
@@ -21,6 +27,7 @@ s.listen(5)
 
 # 
 client,add=s.accept()
+print("Got video stream request...")
 s1 = client.recv(15)
 if("GET" in s1):
 	filename = s1.strip("\n").split(":")[1].strip(" ")

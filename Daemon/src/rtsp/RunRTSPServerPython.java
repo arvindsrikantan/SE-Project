@@ -11,7 +11,6 @@ public class RunRTSPServerPython implements Runnable
 		{
 			StringBuffer output = new StringBuffer();
 			Runtime rt = Runtime.getRuntime();
-                        System.out.println(System.getProperty("user.dir"));
 			Process pr = rt.exec("python server.py "+ip+" "+port);
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(pr.getInputStream()));//for error use pr.getErrorStream();
