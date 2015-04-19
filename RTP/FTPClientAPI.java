@@ -31,13 +31,12 @@ class FTPClientAPI
     DataInputStream din;
     DataOutputStream dout;
     BufferedReader br;
-    transferfileClient(String serverip)
+    FTPClientAPI(String serverip)
     {
         try
         {
 //			String serverip="10.11.113.113";
-			Socket ClientSoc=new Socket(serverip,5217);
-			transferfileClient t=new transferfileClient(soc);
+			ClientSoc=new Socket(serverip,5217);
             din=new DataInputStream(ClientSoc.getInputStream());
             dout=new DataOutputStream(ClientSoc.getOutputStream());
             br=new BufferedReader(new InputStreamReader(System.in));
@@ -130,7 +129,7 @@ class FTPClientAPI
         
         System.out.println(din.readUTF());
         System.out.println("Please verify file integrity.");
-        filecheck(filename);
+        filecheck(filename,absp);
 //		HttpClientExample ht = new HttpClientExample();
 //		String serverip = "10.11.113.113" ;
 //		ht.sendPost(serverip , absp , f.length().toString(), newip);
@@ -155,10 +154,10 @@ class FTPClientAPI
     //Author:Keshav
     //Lang:JAVA
     //Date:25/02/15
-    static String filecheck(String filename) throws Exception
+     String filecheck(String filename , String absp) throws Exception
     {	
 		dout.writeUTF("CHECK");
-		dout.writeUTF(filename);
+		dout.writeUTF(absp);
         MessageDigest md = MessageDigest.getInstance("MD5");
         try (InputStream is = new FileInputStream(filename))
         {
@@ -231,13 +230,13 @@ class FTPClientAPI
             fout.close();
             System.out.println(din.readUTF());
             //Automatically generate MD5 checksum after file transfer complete  -- Keshav
-            filecheck(fileName);
+          //  filecheck(fileName);
         }
         
         
     }
     //Menu Handler
-    public void displayMenu() throws Exception
+ /*   public void displayMenu() throws Exception
     {
         while(true)
         {    
@@ -269,4 +268,5 @@ class FTPClientAPI
             }
         }
     }
+*/	
 }
