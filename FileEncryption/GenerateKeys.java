@@ -1,9 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/***************************************************************************
+*
+*   SOFTWARE ENGINEERING PROJECT - 12CS354 - VI SEM BE (PESIT)
+*
+*
+*       NETWORK STORAGE - SE PROJECT TEAM 1
+*
+*
+*       JOB     - SECURITY- ENCRYPTION USING AES AND RSA ALGORITHMS
+*				- GENERATING KEYS
+*
+*
+*       AUTHORS - ABHISHEK KULKARNI
+*               - ACHYUT HEGDE
+*
+*
+*       TASK    - To encrypt a file specified in the path using AES algorithm 
+*				  and encrypting the AES shared key using RSA algorithm and decrypting 
+*				  the encrypted files.
+*				  To hide and unhide encrypted and decrypted files.
+*
+*
+*       START   - February 13th
+*
+*
+*
+****************************************************************************/
+
 package se;
+
+/***************************************************************************
+*
+*   The following statements are used to import the various modules
+*   which are required for the project.
+*
+****************************************************************************/
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,9 +43,17 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
 public class GenerateKeys {
+
+
+	
+/***************************************************************************
+*
+*   Create public and private RSA keys and stores in public.der and private.der files
+*
+****************************************************************************/	
+
   public void createfiles() {
       try {
-          String password = "password";
           
           KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
           keyPairGenerator.initialize(2048);
