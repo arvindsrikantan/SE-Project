@@ -133,7 +133,7 @@ public class FileEncryption {
 		CipherOutputStream os = new CipherOutputStream(new FileOutputStream(out), aesCipher);
 		
 		copy(is, os);
-		
+		is.close();
 		os.close();
 	}
 	
