@@ -8,6 +8,8 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+import rtp.FTPServerAPI;
+import rtsp.RunRTSPServerPython;
 import utils.Addressing;
 import constants.Constants;
 
@@ -105,5 +107,24 @@ public class TrackerClient implements Runnable
 			str = Addressing.getIpAddress();
 		System.out.println("final server ip:"+str+"sdf");
 		Constants.serverIp = str;
+		
+		/**
+		 *  Starting all Server processes
+		 */
+		// Set myIP
+		Constants.myIp = Addressing.getIpAddress();
+		
+		// Start RTSP Server
+		RunRTSPServerPython rtspServer = new RunRTSPServerPython();
+		Thread startRtspServer = new Thread(rtspServer);
+		startRtspServer.start();
+		
+		// Start  FTP Server
+		FTPServerAPI ftpServer = new FTPServerAPI();
+		ftpServer.start();
+		
+		// Start Screen Share Server
+		
+		
 	}
 }
