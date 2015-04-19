@@ -1,17 +1,15 @@
 package rtsp;
 
 import java.io.*;
-
-import constants.Constants;
 public class RunRTSPClientPython 
 {
-	public static void runClient(String ip, String fileName)
+	public static void runClient(String ip, int port, String fileName)
 	{
 		try
 		{
 			StringBuffer output = new StringBuffer();
 			Runtime rt = Runtime.getRuntime();
-			Process pr = rt.exec("python client.py "+ip+" "+Constants.videoClientPort+" "+fileName);
+			Process pr = rt.exec("python client.py "+ip+" "+port+" "+fileName);
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(pr.getInputStream()));//for error use pr.getErrorStream();
 			String line = "";			

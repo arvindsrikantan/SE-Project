@@ -37,7 +37,7 @@
 <fullyQualifiedTypeName name="com.findServer.RunRTSPServerPython"/>
 <fullyQualifiedTypeName name="rtsp.RunRTSPServerPython"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
-<fullyQualifiedTypeName name="constants.Constants"/>
 <fullyQualifiedTypeName name="rtp.FTPServerAPI"/>
 <fullyQualifiedTypeName name="utils.Addressing"/>
+<fullyQualifiedTypeName name="constants.Constants"/>
 </qualifiedTypeNameHistroy>
