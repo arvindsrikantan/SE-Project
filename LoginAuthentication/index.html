@@ -15,20 +15,26 @@ $('#toggle-login').click(function(){
   $('#login').toggle();
 });
 
-
-
+/**
+* Function to get username and password
+* calls hash() function to calculate hash
+* for the password and calls sendTo() to 
+* send them to server 
+*/
 function init()
 {
 password=document.getElementById("pwd").value;
 username=document.getElementById("usr").value;
 
-//a=murmurhash2_32_gc(password, 128);
-//alert(a);
-b=hashcode2(password)
+
+b=hash(password)
 alert(b);
 sendTo(b,username);
 }
 
+/**
+* Function to send data to server
+*/
 function sendTo()
 {
 request=new XMLHttpRequest();
@@ -42,7 +48,7 @@ request.onreadystatechange=function(){
 	if(request.readyState==4)
 	{
 	t=request.responseText;
-	alert(t);
+	//alert(t);
 	if(t=="OK"){
 	alert("Login Successfull");
 	window.location="new.php";
@@ -54,7 +60,10 @@ request.onreadystatechange=function(){
 }
 }
 
-function hashcode2(str){
+/**
+* function to calculate hash value for password
+*/
+function hash(str){
     var hash = 0;
     if (str.length == 0) return hash;
     for (i = 0; i < str.length; i++) {
@@ -70,7 +79,7 @@ function hashcode2(str){
 
 <body>
 
-  <span href="#" class="button" id="toggle-login">Log in</span>
+  <span href="#" class="button" id="toggle-login">NETWORK STORAGE</span>
 
 <div id="login">
   <div id="triangle"></div>
