@@ -8,6 +8,7 @@ import static java.nio.file.StandardWatchEventKinds.*;
 import static java.nio.file.LinkOption.*;
 import java.nio.file.attribute.*;
 import java.io.*;
+import java.security.Timestamp;
 import java.util.*; 
 import java.io.File;
 
@@ -258,15 +259,38 @@ public class WatchDir {
             // if directory is created, and watching recursively, then
             // register it and its sub-directories
             
-               if (recursive && (kind == ENTRY_CREATE))//work left 
+               if (recursive && (kind == ENTRY_CREATE)) 
                {
             	   
                   try {
-                     if (Files.isDirectory(child, NOFOLLOW_LINKS)) {
+                     if (Files.isDirectory(child, NOFOLLOW_LINKS)) 
+                     {
                         registerAll(child);
+                        
                      }
+
+                     File file = new File(y);
+                     
+                     if (!file.exists() || !file.isFile())//? 
+                        System.out.println("File doesn\'t exist");
+                     else
+                     {
+
+                         String ipaddr=InetAddress.getLocalHost().getHostAddress();
+                         
+                         Path f1 =Paths.get(y);
+                         
+                         BasicFileAttributes attr = Files.readAttributes(f1, BasicFileAttributes.class);
+                         String ts=attr.creationTime().toString();
+                         
+                         String c="0,"+ts+","+ipaddr;
+                         
+                    	 postAbsolutePath(file.getAbsolutePath(),c,"insert");
+                     }
+                  	  
+                     
                   } 
-                  catch (IOException x) {
+                  catch (Exception x) {
                   // ignore to keep sample readable
                   }
                }
@@ -298,12 +322,21 @@ public static void postAbsolutePath(String ap,String s,String u) throws Exceptio
      List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
      
       String ipaddr=InetAddress.getLocalHost().getHostAddress();
-      //String fp=getTotalFreeAvailableSize();
       
-     		urlParameters.add(new BasicNameValuePair("ip",ipaddr));
-     		//urlParameters.add(new BasicNameValuePair("freesize",fp));
-     		urlParameters.add(new BasicNameValuePair("absolutepath",ap));
+      urlParameters.add(new BasicNameValuePair("ip",ipaddr));
+      urlParameters.add(new BasicNameValuePair("absolutepath",ap));
+      		if(u.equals("insert"))
+      		{
+      			String a[]=s.split(",");
+      			
+      			urlParameters.add(new BasicNameValuePair("size",a[0]));
+      			urlParameters.add(new BasicNameValuePair("timestamp",a[1]));
+      			urlParameters.add(new BasicNameValuePair("originip",a[2]));
+      		}
+      		else
+      		{
      		urlParameters.add(new BasicNameValuePair("size",s));
+      		}
      
      post.setEntity(new UrlEncodedFormEntity(urlParameters));
      
