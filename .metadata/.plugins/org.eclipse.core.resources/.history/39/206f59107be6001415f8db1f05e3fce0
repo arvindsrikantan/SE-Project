@@ -69,7 +69,7 @@ class transferfile extends Thread
         {
         }        
     }
-    //Method to send file --keshav
+/*    //Method to send file --keshav
     void SendFile() throws Exception
     {        
         String filename=din.readUTF();
@@ -99,7 +99,7 @@ class transferfile extends Thread
             filecheck(filename);                            
         }
     }
-    //MD5 Checksum Generator 
+*/    //MD5 Checksum Generator 
     //Author:Keshav
     //Lang:JAVA
     //Date:28/02/15
@@ -197,13 +197,13 @@ class transferfile extends Thread
 			//test = Integer.parseInt(Command);
 			//System.out.println("The value of test is : " + test);
 			System.out.println("The command is : "+ Command);
-            if(Command.compareTo("GET")==0)
+ /*           if(Command.compareTo("GET")==0)
             {
                 System.out.println("\tGET Command Received ...");
                 SendFile();
                 continue;
             }
-            else
+            else */
 			if(Command.compareTo("SEND")==0)
             {
                 System.out.println("\tSEND Command Receiced ...");                
