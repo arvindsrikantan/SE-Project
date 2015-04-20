@@ -8,7 +8,10 @@ try:
 	s=soc.socket(soc.AF_INET,soc.SOCK_STREAM)
 	s.bind((sys.argv[1],int(sys.argv[2])))
 	s.listen(5)
-	print("Started video streaming socket...")
+	msg = "Started video streaming socket..."
+	print(msg)
+
+
 except Exception:
 	print("Socket already in use!")
 	s.close()

@@ -1,9 +1,13 @@
 package rtspWithMultipleClients;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -20,10 +24,11 @@ public class MultipleClientHandler implements Runnable
 
 	public void run()
 	{
-		ObjectOutputStream clientStream = null;
+		DataOutputStream clientStream = null;
 		try
 		{
-			clientStream = new ObjectOutputStream(this.client.getOutputStream());
+			//clientStream = new ObjectOutputStream(this.client.getOutputStream());
+			clientStream = new DataOutputStream(this.client.getOutputStream());
 		}
 		catch (IOException e)
 		{
@@ -43,18 +48,24 @@ public class MultipleClientHandler implements Runnable
 				// Read from file and write to stream
 				for (int name = 0;; name++)
 				{
-					File imageFile = new File(
-							"E://TEMP//"
-									+ name + ".jpg");
-					if (imageFile.exists())
+//					File imageFile = new File(
+//							"E://TEMP//"
+//									+ name + ".jpg");
+					Path path = Paths.get("E:\\TEMP\\"
+							+ name + ".jpg");
+				    byte img[] = Files.readAllBytes(path);
+					String imagenew = img.toString();
+					System.out.println("Image:"+imagenew.getBytes());
+					if (path.toFile().exists())
 					{
-						image = new ImageIcon(ImageIO.read(imageFile));
+						//clientStream.writeUTF(imagenew);
+						clientStream.writeBytes(imagenew);
 					}
 					else
 					{
 						name--;
 					}
-					clientStream.writeObject(image);
+					
 				}
 			}
 		}

@@ -29,9 +29,8 @@ public class RunRTSPServerPython implements Runnable
 				output.append(line + "\n");
 			}
 			System.out.println(output.toString());
-			
-			
 			pr.waitFor();
+			
 		}
 		catch(Exception ex)
 		{
