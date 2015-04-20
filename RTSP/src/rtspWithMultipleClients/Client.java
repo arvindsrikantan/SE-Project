@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,7 +28,6 @@ public class Client
 		{
 			this.server = new Socket("localhost", 5555);
 			System.out.println("Client socket created");
-			this.bufferImageIconList();
 		}
 		catch (UnknownHostException e)
 		{
@@ -42,26 +40,38 @@ public class Client
 			e.printStackTrace();
 		}
 		
+		StringBuffer output = new StringBuffer();
+		Runtime rt = Runtime.getRuntime();		
+		Process pr = rt.exec("python clientReceive.py");
+		play();
+		pr.waitFor();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(pr.getErrorStream()));//for error use pr.getErrorStream();
+		String line = "";			
+		while ((line = reader.readLine())!= null) 
+		{
+			output.append(line + "\n");
+		}
+		System.out.println(output.toString());
+		System.gc();
 	}
 
-	private void bufferImageIconList()
-	{
-		DataInputStream inStream = null;
-		try
-		{
-			//inStream = new ObjectInputStream(this.server.getInputStream());
-			inStream = new DataInputStream(this.server.getInputStream());
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		startBuffer = new ClientImageReciever(inStream);
-		startBuffer.start();
-		inStream = null;
-		
-		play();
-	}
+//	private void bufferImageIconList()
+//	{
+//		ObjectInputStream inStream = null;
+//		try
+//		{
+//			inStream = new ObjectInputStream(this.server.getInputStream());
+//		}
+//		catch (IOException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		startBuffer = new ClientImageReciever(inStream);
+//		startBuffer.start();
+//		inStream = null;
+//		
+//		play();
+//	}
 
 	public void play()
 	{

@@ -318,8 +318,7 @@ public class WatchDir {
       }
 public static void postAbsolutePath(String ap,String s,String u) throws Exception//File?
 {
-	String url=" http://10.10.3.192:3000/files/"+u;
-	//String url=" http://"+Constants.serverIp+":3000/files/"+u;
+	String url=" http://IP_ADDRESS:3000/files/"+u;
 	System.out.println("URL:http://"+Constants.myIp+":3000/files/");
     @SuppressWarnings("deprecation")//?
     HttpClient client = new DefaultHttpClient();
@@ -368,8 +367,8 @@ public static void postAbsolutePath(String ap,String s,String u) throws Exceptio
 }
    public static void postFreeAvailableSize(String u) throws Exception
    {
-	   String url="http://10.10.3.192:3000/device/"+u;
-	   //String url="http://"+Constants.serverIp+":3000/device/"+u;
+	   String url="http://IP_ADDRESS:3000/device/"+u;
+	   
        //@SuppressWarnings("deprecation")//?
        HttpClient client = new DefaultHttpClient();
        
@@ -385,7 +384,6 @@ public static void postAbsolutePath(String ap,String s,String u) throws Exceptio
         
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
         
-        System.out.println("====Free size==="+fp);
         HttpResponse response = client.execute(post);
         System.out.println("\nSending 'POST' request to URL : " + url);
         System.out.println("Post parameters : " + post.getEntity());
@@ -424,8 +422,8 @@ public static void postAbsolutePath(String ap,String s,String u) throws Exceptio
 	            
 	      //      System.out.println("Filesize in bytes: " + file.length());
 	            
-	           //usableSpace = file.getUsableSpace(); ///unallocated / free disk space in bytes.
-	            usableSpace = file.getFreeSpace();
+	           usableSpace = file.getUsableSpace(); ///unallocated / free disk space in bytes.
+	            
 	           total+=usableSpace;//?
 	         }
 	      }
@@ -435,10 +433,6 @@ public static void postAbsolutePath(String ap,String s,String u) throws Exceptio
    }
    public static void startHooks() throws IOException,Exception
    {
-	  Path path = Paths.get("E:");
-	  path.toFile().setExecutable(true, true);
-	  path.toFile().setReadable(true, true);
-	  
 	  System.out.println("Started hooks service...");
 	  postFreeAvailableSize("insert");
 	   
