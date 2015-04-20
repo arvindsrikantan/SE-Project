@@ -16,17 +16,6 @@ import java.util.*;
 import java.security.*;
 import javax.swing.JOptionPane;
 
-/*class FTPClientAPI
-{
-    public static void main(String args[]) throws Exception
-    {
-		String serverip="10.11.113.113";
-        Socket soc=new Socket(serverip,5217);
-        transferfileClient t=new transferfileClient(soc);
-        t.displayMenu();
-        
-    }
-}*/
 public class FTPClientAPI
 {
     Socket ClientSoc;
@@ -38,14 +27,14 @@ public class FTPClientAPI
     {
         try
         {
-//			String serverip="10.11.113.113";
-			ClientSoc=new Socket(serverip,5000);
+            ClientSoc=new Socket(serverip,5000);
             din=new DataInputStream(ClientSoc.getInputStream());
             dout=new DataOutputStream(ClientSoc.getOutputStream());
             br=new BufferedReader(new InputStreamReader(System.in));
         }
         catch(Exception ex)
         {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }        
     }
 
@@ -56,18 +45,14 @@ public class FTPClientAPI
     {        
       try
 	  {
-		dout.writeUTF("SEND");	
-//      String filename;
+		dout.writeUTF("SEND");
+                //Resume Variable
 		long resume = 0;
-//      System.out.print("Enter File Name :");
-//      filename=br.readLine();
-	
-
 //		Check if file exists --keshav
         File f=new File(filename);
         if(!f.exists())
         {
-            System.out.println("File not Exists...");
+            System.out.println("File does not Exist...");
             dout.writeUTF("File not found");
             return;
         }
@@ -82,7 +67,6 @@ public class FTPClientAPI
                 String ipaddr = ClientSoc.getLocalSocketAddress().toString().split(":")[0];
 		String newip = ipaddr.substring(1,ipaddr.length());
 		System.out.println(newip);
-//		String newip = "10.11.113.11" ;
                 pathtranslator pt = new pathtranslator();
 		//String absp = newip+"/"+newfile;
                 String absp = pt.encode(filename);
