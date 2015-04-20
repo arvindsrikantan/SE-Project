@@ -107,7 +107,7 @@ public class TrackerClient implements Runnable
 		String str = new String(dp.getData(), 0, dp.getLength());
 		if(str.trim().equals(""))
 			str = Addressing.getIpAddress();
-		System.out.println("Server ip:"+str);
+		System.out.println("final server ip:"+str+"sdf");
 		Constants.serverIp = str;
 		
 		/**
@@ -131,9 +131,9 @@ public class TrackerClient implements Runnable
 		}
 		
 		// Start RTSP Server
-//		RunRTSPServerPython rtspServer = new RunRTSPServerPython();
-//		Thread startRtspServer = new Thread(rtspServer);
-//		startRtspServer.start();
+		RunRTSPServerPython rtspServer = new RunRTSPServerPython();
+		Thread startRtspServer = new Thread(rtspServer);
+		startRtspServer.start();
 		
 		// Start  FTP Server
 		FTPServerAPI ftpServer = new FTPServerAPI();
