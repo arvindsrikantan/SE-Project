@@ -4,7 +4,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -13,12 +15,12 @@ import javax.swing.ImageIcon;
 
 public class ClientImageReciever extends Thread
 {
-	ObjectInputStream	inStream;
+	DataInputStream	inStream;
 	int					i;
 
-	public ClientImageReciever(ObjectInputStream inStream)
+	public ClientImageReciever(DataInputStream inStream2)
 	{
-		this.inStream = inStream;
+		this.inStream = inStream2;
 	}
 
 	public void run()
@@ -41,26 +43,32 @@ public class ClientImageReciever extends Thread
 //					// TODO Auto-generated catch block
 //					e.printStackTrace();
 //				}
-				icon = (ImageIcon) this.inStream.readObject();
-				System.out.println("In client image receiver.");
+//				icon = (ImageIcon) this.inStream.readObject();
 
-				BufferedImage image = new BufferedImage(
-					    icon.getIconWidth(),
-					    icon.getIconHeight(),
-					    BufferedImage.TYPE_INT_RGB);
-					Graphics g = image.createGraphics();
-					// paint the Icon to the BufferedImage.
-					//icon.paintIcon(null, g, 0,0);
-					g.drawImage(icon.getImage(),0,0,null);
-					g.dispose();
-				RenderedImage img = image;
-				ImageIO.write(img, "jpg", new File("E:\\TEMP\\"
-						+ (i++) + ".jpg"));
+				String img = this.inStream.readUTF();
+				File f = new File("E:\\TEMP\\"+ (i++) + ".jpg");
+				FileWriter fw = new FileWriter(f);
+				fw.write(img);
+				fw.close();
+				System.out.println("In client image receiver.");
+//
+//				BufferedImage image = new BufferedImage(
+//					    icon.getIconWidth(),
+//					    icon.getIconHeight(),
+//					    BufferedImage.TYPE_INT_RGB);
+//					Graphics g = image.createGraphics();
+//					// paint the Icon to the BufferedImage.
+//					//icon.paintIcon(null, g, 0,0);
+//					g.drawImage(icon.getImage(),0,0,null);
+//					g.dispose();
+//				RenderedImage img = image;
+//				ImageIO.write(img, "jpg", new File("E:\\TEMP\\"
+//						+ (i++) + ".jpg"));
 			}
-			catch (ClassNotFoundException e)
-			{
-				e.printStackTrace();
-			}
+//			catch (ClassNotFoundException e)
+//			{
+//				e.printStackTrace();
+//			}
 			catch (IOException e)
 			{
 				e.printStackTrace();

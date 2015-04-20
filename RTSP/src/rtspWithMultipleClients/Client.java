@@ -28,6 +28,7 @@ public class Client
 		{
 			this.server = new Socket("localhost", 5555);
 			System.out.println("Client socket created");
+			this.bufferImageIconList();
 		}
 		catch (UnknownHostException e)
 		{
@@ -39,39 +40,25 @@ public class Client
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		StringBuffer output = new StringBuffer();
-		Runtime rt = Runtime.getRuntime();		
-		Process pr = rt.exec("python clientReceive.py");
-		play();
-		pr.waitFor();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(pr.getErrorStream()));//for error use pr.getErrorStream();
-		String line = "";			
-		while ((line = reader.readLine())!= null) 
-		{
-			output.append(line + "\n");
-		}
-		System.out.println(output.toString());
-		System.gc();
 	}
 
-//	private void bufferImageIconList()
-//	{
-//		ObjectInputStream inStream = null;
-//		try
-//		{
-//			inStream = new ObjectInputStream(this.server.getInputStream());
-//		}
-//		catch (IOException e)
-//		{
-//			e.printStackTrace();
-//		}
-//		startBuffer = new ClientImageReciever(inStream);
-//		startBuffer.start();
-//		inStream = null;
-//		
-//		play();
-//	}
+	private void bufferImageIconList()
+	{
+		ObjectInputStream inStream = null;
+		try
+		{
+			inStream = new ObjectInputStream(this.server.getInputStream());
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		startBuffer = new ClientImageReciever(inStream);
+		startBuffer.start();
+		inStream = null;
+		
+		play();
+	}
 
 	public void play()
 	{
