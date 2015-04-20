@@ -6,14 +6,12 @@
 
 package localnetworkdrive;
 
-import javax.swing.DefaultListModel;
+import RTP.FTPClientAPI;
+import java.awt.HeadlessException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import org.json.*;
-import RTP.FTPClientAPI;
-import RTP.FTPServerAPI;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -40,13 +38,17 @@ public JSONArray json;
 
         file = new javax.swing.JDialog();
         jLayeredPane2 = new javax.swing.JLayeredPane();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        Refbut = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        downloadbut = new javax.swing.JButton();
+        uploadbut = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        filelist = new javax.swing.JTable();
         back1 = new javax.swing.JLabel();
+        videostream = new javax.swing.JDialog();
+        helpmenu = new javax.swing.JDialog();
+        privacybut = new javax.swing.JButton();
+        privacybut1 = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
         opt1 = new javax.swing.JButton();
@@ -56,45 +58,59 @@ public JSONArray json;
         opt5 = new javax.swing.JButton();
         back = new javax.swing.JLabel();
 
+        file.setTitle("Remote File Transfer");
         file.setMinimumSize(new java.awt.Dimension(715, 470));
+        file.setName("RTPDialog"); // NOI18N
 
         jLayeredPane2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
-        jButton1.setText("Refresh");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Refbut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        Refbut.setText("Refresh");
+        Refbut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                RefbutActionPerformed(evt);
             }
         });
-        jLayeredPane2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 140, 30));
-
-        jList1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
-        jScrollPane1.setViewportView(jList1);
-
-        jLayeredPane2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 510, 370));
+        jLayeredPane2.add(Refbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 140, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Emoji", 3, 24)); // NOI18N
         jLabel3.setText("Remote File Transfer");
         jLayeredPane2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 250, -1));
 
-        jButton2.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
-        jButton2.setText("Download");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        downloadbut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        downloadbut.setText("Download");
+        downloadbut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                downloadbutActionPerformed(evt);
             }
         });
-        jLayeredPane2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 140, 30));
+        jLayeredPane2.add(downloadbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 140, 30));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
-        jButton3.setText("Upload");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        uploadbut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        uploadbut.setText("Upload");
+        uploadbut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                uploadbutActionPerformed(evt);
             }
         });
-        jLayeredPane2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, 140, 30));
+        jLayeredPane2.add(uploadbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, 140, 30));
+
+        jScrollPane2.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        jScrollPane2.setName(""); // NOI18N
+
+        filelist.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        filelist.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Icon", "File Name", "File Type"
+            }
+        ));
+        filelist.setRowHeight(150);
+        jScrollPane2.setViewportView(filelist);
+
+        jLayeredPane2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 500, 360));
 
         back1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/localnetworkdrive/back.jpg"))); // NOI18N
         jLayeredPane2.add(back1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 430));
@@ -108,6 +124,46 @@ public JSONArray json;
         fileLayout.setVerticalGroup(
             fileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLayeredPane2)
+        );
+
+        videostream.setTitle("Video Streaming");
+
+        javax.swing.GroupLayout videostreamLayout = new javax.swing.GroupLayout(videostream.getContentPane());
+        videostream.getContentPane().setLayout(videostreamLayout);
+        videostreamLayout.setHorizontalGroup(
+            videostreamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 569, Short.MAX_VALUE)
+        );
+        videostreamLayout.setVerticalGroup(
+            videostreamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 359, Short.MAX_VALUE)
+        );
+
+        privacybut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        privacybut.setText("Privacy Policy");
+
+        privacybut1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        privacybut1.setText("Owner Manual");
+
+        javax.swing.GroupLayout helpmenuLayout = new javax.swing.GroupLayout(helpmenu.getContentPane());
+        helpmenu.getContentPane().setLayout(helpmenuLayout);
+        helpmenuLayout.setHorizontalGroup(
+            helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpmenuLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(privacybut1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addComponent(privacybut, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
+        );
+        helpmenuLayout.setVerticalGroup(
+            helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpmenuLayout.createSequentialGroup()
+                .addContainerGap(279, Short.MAX_VALUE)
+                .addGroup(helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(privacybut, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(privacybut1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -131,6 +187,11 @@ public JSONArray json;
         opt1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         opt1.setName("op1"); // NOI18N
         opt1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        opt1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opt1ActionPerformed(evt);
+            }
+        });
         jLayeredPane1.add(opt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 170, 240));
 
         opt2.setBackground(new java.awt.Color(255, 255, 255));
@@ -224,41 +285,83 @@ public JSONArray json;
     private void opt5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt5ActionPerformed
         // TODO add your handling code here:
         file.setVisible(true);
+        
     }//GEN-LAST:event_opt5ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void RefbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefbutActionPerformed
         // TODO add your handling code here:
         fetchfiles f = new fetchfiles();
-        jsonresp = f.getHTML("http://192.168.0.17:3000/files/get/");
-        json = new JSONArray(jsonresp);
-        DefaultListModel model = new DefaultListModel();
-        for(int i=0;i<json.length();i++)
-        {
-            model.addElement(json.getJSONObject(i).getString("absolutepath"));
-        }
         ImageIcon jv = new ImageIcon(HomePage.class.getResource("java.png"));
         ImageIcon py = new ImageIcon(HomePage.class.getResource("python.png"));
         ImageIcon mp = new ImageIcon(HomePage.class.getResource("mp4.png"));
-        JSONObject rec;
-        //model.add(0,jv);
-        //model.add(1,py);
-        //model.add(2,mp);
-        jList1.setModel(model);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        ImageIcon def = new ImageIcon(HomePage.class.getResource("def.png"));
+        ImageIcon pdf = new ImageIcon(HomePage.class.getResource("pdf.png"));
+        try
+        {
+            jsonresp = f.getHTML("http://192.168.0.17:3000/files/get/");
+            if(jsonresp.equals(""))
+            {
+                JOptionPane.showMessageDialog(null,"Oops. Looks like the Server and I aren't connected.");
+                return;
+            }
+            json = new JSONArray(jsonresp);
+            DefaultTableModel model = new DefaultTableModel()
+             {
+                    @Override
+                    public Class getColumnClass(int column) 
+                    {
+                        return getValueAt(0, column).getClass();
+                    };
+             };
+            model.addColumn("Icon");
+            model.addColumn("FileName");
+            model.addColumn("Remote Location");
+            /*model.addRow(new Object[] {pdf,"PDF","yourmom"});
+            model.addRow(new Object[] {jv,"Java","yourmom"});
+            model.addRow(new Object[] {mp,"Mp4","yourmom"});
+            model.addRow(new Object[] {def,"def","yourmom"});*/
+            for(int i=0;i<json.length();i++)
+            {
+                switch (json.getJSONObject(i).getString("absolutepath").split(".")[1]) {
+                    case "py":
+                        model.addRow(new Object[]{py,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        break;
+                    case "java":
+                        model.addRow(new Object[]{jv,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        break;
+                    case "mp4":
+                        model.addRow(new Object[]{mp,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        break;
+                    case "pdf":
+                        model.addRow(new Object[]{pdf,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        break;
+                    default:
+                        model.addRow(new Object[]{def,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        break;
+                }
+            }
+            filelist.setModel(model);
+        }
+        catch(HeadlessException | JSONException e)
+        {
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+        
+    }//GEN-LAST:event_RefbutActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void downloadbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadbutActionPerformed
         // TODO add your handling code here:
-        String file = (String)jList1.getSelectedValue();
+        String file = (String)filelist.getValueAt(filelist.getSelectedRow(), 1);
         int i = 0;
         for(i=0;i<jsonresp.length()-1;i++)
         {
             if(file.equals(json.getJSONObject(i).getString("absolutepath")))
                 break;
         }
+        //Retrieve Variables
         String ip = json.getJSONObject(i).getString("ip");
         String srcip = json.getJSONObject(i).getString("originip");
         String filename = json.getJSONObject(i).getString("absolutepath");
-        //JOptionPane.showMessageDialog(null,"IP"+ip+"\noriginIP:"+srcip+"\npath:"+filename);
         //API CALL
         FTPClientAPI fc = new FTPClientAPI(ip);
     try {
@@ -274,21 +377,25 @@ public JSONArray json;
             }
         
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_downloadbutActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        FTPClientAPI fc = new FTPClientAPI("192.168.0.9");
+    private void uploadbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbutActionPerformed
+        //FTPClientAPI fc = new FTPClientAPI("192.168.0.9");
         
         try
         {
-            fc.SendFile("C:\\Users\\kesha\\Desktop\\t.java");
+            //fc.SendFile("C:\\Users\\kesha\\Desktop\\t.java");
         }
         catch(Exception e)
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_uploadbutActionPerformed
+
+    private void opt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt1ActionPerformed
+        // TODO add your handling code here:
+        videostream.setVisible(true);
+    }//GEN-LAST:event_opt1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,22 +433,26 @@ public JSONArray json;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Refbut;
     private javax.swing.JLabel back;
     private javax.swing.JLabel back1;
+    private javax.swing.JButton downloadbut;
     private javax.swing.JDialog file;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTable filelist;
+    private javax.swing.JDialog helpmenu;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
-    private javax.swing.JList jList1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton opt1;
     private javax.swing.JButton opt2;
     private javax.swing.JButton opt3;
     private javax.swing.JButton opt4;
     private javax.swing.JButton opt5;
+    private javax.swing.JButton privacybut;
+    private javax.swing.JButton privacybut1;
+    private javax.swing.JButton uploadbut;
+    private javax.swing.JDialog videostream;
     // End of variables declaration//GEN-END:variables
 }
