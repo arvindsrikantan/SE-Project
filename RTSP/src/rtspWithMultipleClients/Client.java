@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -44,10 +45,10 @@ public class Client
 
 	private void bufferImageIconList()
 	{
-		ObjectInputStream inStream = null;
+		DataInputStream inStream = null;
 		try
 		{
-			inStream = new ObjectInputStream(this.server.getInputStream());
+			inStream = new DataInputStream(this.server.getInputStream());
 		}
 		catch (IOException e)
 		{
