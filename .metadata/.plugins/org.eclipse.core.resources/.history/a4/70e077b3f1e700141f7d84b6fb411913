@@ -50,7 +50,7 @@ public class MultipleClientHandler implements Runnable
 					//File imageFile = new File(
 					//		"E:\\TEMP\\"
 					//				+ name + ".jpg");
-					Path path = Paths.get("E:\\TEMP\\"+ name + ".jpg");
+					Path path = Paths.get("D:\\TEMP\\"+ name + ".jpg");
 					byte img[] = null;
 					if (path.toFile().exists())
 					{
@@ -61,7 +61,7 @@ public class MultipleClientHandler implements Runnable
 					{
 						name--;
 					}
-					clientStream.writeUTF(new String(img));
+					clientStream.writeUTF(img.toString());
 				}
 			}
 		}

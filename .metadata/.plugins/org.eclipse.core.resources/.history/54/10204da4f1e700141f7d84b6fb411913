@@ -40,7 +40,8 @@ public class ClientImageReciever extends Thread
 //				icon = (ImageIcon) this.inStream.readObject();
 
 				String img = this.inStream.readUTF();
-				File f = new File("E:\\TEMP\\"+ (i++) + ".jpg");
+				System.out.println(img);
+				File f = new File("D:\\TEMP\\"+ (i++) + ".jpg");
 				FileWriter fw = new FileWriter(f);
 				fw.write(img);
 				fw.close();

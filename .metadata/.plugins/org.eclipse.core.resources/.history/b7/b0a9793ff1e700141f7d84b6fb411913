@@ -1,0 +1,63 @@
+package rtspWithMultipleClients;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class MainClient
+{
+	public static void main(String[] args) throws IOException
+	{
+//		final ServerConnectionAcceptor startServer = new ServerConnectionAcceptor();
+//		try
+//		{
+//			Thread.sleep(6000);
+//		}
+//		catch (InterruptedException e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		Path path = Paths.get("D:\\TEMP\\1.jpg");
+		byte img[] = null;
+		if (path.toFile().exists())
+		{
+			img = Files.readAllBytes(path);
+			//image = new ImageIcon(ImageIO.read(imageFile));
+		}
+		
+		System.out.println(img);
+		System.exit(1);
+		new Thread(new Runnable()
+		{
+			public void run()
+			{
+//				startServer.acceptConnections();
+				try {
+					Client startClient = new Client();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try
+				{
+					Thread.sleep(3000);
+				}
+				catch (InterruptedException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// startClient.play();
+			}
+		}).start();
+
+//		Client startClient2 = new Client();
+//
+//		startClient2.play();
+	}
+}

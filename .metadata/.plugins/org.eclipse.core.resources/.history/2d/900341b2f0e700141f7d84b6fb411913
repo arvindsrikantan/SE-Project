@@ -61,7 +61,7 @@ public class MultipleClientHandler implements Runnable
 					{
 						name--;
 					}
-					clientStream.writeUTF(new String(img));
+					clientStream.writeUTF(img.toString());
 				}
 			}
 		}
