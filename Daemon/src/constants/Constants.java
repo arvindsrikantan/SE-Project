@@ -1,5 +1,9 @@
 package constants;
 
+/*
+ *   Contains all globally used constants in the application 
+ */
+
 public class Constants
 {
 	public static String serverIp;

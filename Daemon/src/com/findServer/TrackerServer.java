@@ -12,7 +12,9 @@ import java.util.Enumeration;
 import constants.Constants;
 
 import utils.Addressing;
-
+/*
+ *   Start tracker server
+ */
 public class TrackerServer implements Runnable
 {
 	public void run()

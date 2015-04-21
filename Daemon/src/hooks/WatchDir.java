@@ -27,7 +27,7 @@ import org.apache.http.message.BasicNameValuePair;
 import constants.Constants;
 
 /**
- * Example to watch a directory (or tree) for changes to files.
+ *  To watch a directory (or tree) for changes to files.
  */
  
 public class WatchDir {

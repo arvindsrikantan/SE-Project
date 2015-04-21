@@ -3,6 +3,11 @@ package rtsp;
 import java.io.*;
 
 import constants.Constants;
+
+/*
+ *   Start the Video Streaming server on the host and wait for stream request
+ */
+
 public class RunRTSPServerPython implements Runnable
 {
 	public static void runServer(String ip, int port)

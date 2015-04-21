@@ -196,18 +196,6 @@ class Frame(wx.Frame):
             secsPlayed = time.strftime('%M:%S', time.gmtime(offset))
             self.trackCounter.SetLabel(secsPlayed)        
 
-    def find_header_length(self):
-        """
-        Find header length of video
-        """
-        length = self.mpc.GetTimeLength()
-        self.videoRate = self.mpc.GetVideoBitate()
-        self.audioRate = self.mpc.GetAudioBitrate()
-        videoSize = length * videoRate/8
-        audioSize = length * audioRate/8
-        filesize = os.path.getsize("Hitman.avi")
-        self.headerLength = filesize - videoSize - audioSize
-        return self.headerLength
     
 def MediaHandler(q):
     """
@@ -238,6 +226,10 @@ class ClientHandler():
     def main(self,q):
 		"""
 		Main method to create client process
+        Uses command line args :
+        argv[1] : Server IP
+        argv[2] : Port number
+        argv[3] : Filename 
 		"""
 		s = soc.socket(soc.AF_INET,soc.SOCK_STREAM)
 		s.connect((sys.argv[1],int(sys.argv[2])))

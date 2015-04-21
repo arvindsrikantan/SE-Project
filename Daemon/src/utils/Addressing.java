@@ -5,10 +5,17 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
+/*
+ *   Utilities to get IP Address,MAC address of a host
+ */
+
 public class Addressing
 {
 	public static String getIpAddress()
 	{
+		/*
+		 *   Get IP address of host
+		 */
 		String ip = "";
 		try
 		{
@@ -40,6 +47,9 @@ public class Addressing
 
 	public static String getMacAddress()
 	{
+		/*
+		 * Get MAC address of host
+		 */
 		try
 		{
 			InetAddress ip = InetAddress.getLocalHost();

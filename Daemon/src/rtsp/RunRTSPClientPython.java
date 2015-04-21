@@ -3,6 +3,11 @@ package rtsp;
 import java.io.*;
 
 import constants.Constants;
+
+/*
+ * Start the Video Streaming client to stream a video file from another host
+ */
+
 public class RunRTSPClientPython 
 {
 	public static void runClient(String ip, String fileName)

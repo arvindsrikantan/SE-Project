@@ -14,7 +14,13 @@ import rtp.FTPServerAPI;
 import rtsp.RunRTSPServerPython;
 import utils.Addressing;
 import constants.Constants;
-
+/*
+ *   Creates a UDP socket to receive a message from the tracker server.
+ *   If a message is not received in 7 tries,the current host becomes the tracker server.
+ *   Sets all required constants.
+ *   Get IP address of tracker server if already running.
+ *   Starts server processes for all services.
+ */
 public class TrackerClient implements Runnable
 {
 	DatagramPacket dp;
