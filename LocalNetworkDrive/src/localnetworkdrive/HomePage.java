@@ -6,6 +6,7 @@
 
 package localnetworkdrive;
 
+import RSTP.RunRTSPClientPython;
 import RTP.FTPClientAPI;
 import java.awt.HeadlessException;
 import javax.swing.ImageIcon;
@@ -46,6 +47,13 @@ public JSONArray json;
         filelist = new javax.swing.JTable();
         back1 = new javax.swing.JLabel();
         videostream = new javax.swing.JDialog();
+        jLayeredPane3 = new javax.swing.JLayeredPane();
+        Refbut1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        downloadbut1 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        filelist1 = new javax.swing.JTable();
+        back2 = new javax.swing.JLabel();
         helpmenu = new javax.swing.JDialog();
         privacybut = new javax.swing.JButton();
         privacybut1 = new javax.swing.JButton();
@@ -128,15 +136,59 @@ public JSONArray json;
 
         videostream.setTitle("Video Streaming");
 
+        jLayeredPane3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Refbut1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        Refbut1.setText("Refresh");
+        Refbut1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Refbut1ActionPerformed(evt);
+            }
+        });
+        jLayeredPane3.add(Refbut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 140, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI Emoji", 3, 24)); // NOI18N
+        jLabel4.setText("Video Streaming");
+        jLayeredPane3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 250, -1));
+
+        downloadbut1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        downloadbut1.setText("Stream");
+        downloadbut1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downloadbut1ActionPerformed(evt);
+            }
+        });
+        jLayeredPane3.add(downloadbut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 140, 30));
+
+        jScrollPane3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        jScrollPane3.setName(""); // NOI18N
+
+        filelist1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        filelist1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        filelist1.setRowHeight(150);
+        jScrollPane3.setViewportView(filelist1);
+
+        jLayeredPane3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 500, 360));
+
+        back2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/localnetworkdrive/back.jpg"))); // NOI18N
+        jLayeredPane3.add(back2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 430));
+
         javax.swing.GroupLayout videostreamLayout = new javax.swing.GroupLayout(videostream.getContentPane());
         videostream.getContentPane().setLayout(videostreamLayout);
         videostreamLayout.setHorizontalGroup(
             videostreamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 569, Short.MAX_VALUE)
+            .addComponent(jLayeredPane3)
         );
         videostreamLayout.setVerticalGroup(
             videostreamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 359, Short.MAX_VALUE)
+            .addComponent(jLayeredPane3)
         );
 
         privacybut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
@@ -397,6 +449,83 @@ public JSONArray json;
         videostream.setVisible(true);
     }//GEN-LAST:event_opt1ActionPerformed
 
+    private void Refbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refbut1ActionPerformed
+        fetchfiles f = new fetchfiles();
+        ImageIcon jv = new ImageIcon(HomePage.class.getResource("java.png"));
+        ImageIcon py = new ImageIcon(HomePage.class.getResource("python.png"));
+        ImageIcon mp = new ImageIcon(HomePage.class.getResource("mp4.png"));
+        ImageIcon def = new ImageIcon(HomePage.class.getResource("def.png"));
+        ImageIcon pdf = new ImageIcon(HomePage.class.getResource("pdf.png"));
+        try
+        {
+            jsonresp = f.getHTML("http://192.168.0.17:3000/files/get/");
+            if(jsonresp.equals(""))
+            {
+                JOptionPane.showMessageDialog(null,"Oops. Looks like the Server and I aren't connected.");
+                return;
+            }
+            json = new JSONArray(jsonresp);
+            DefaultTableModel model = new DefaultTableModel()
+             {
+                    @Override
+                    public Class getColumnClass(int column) 
+                    {
+                        return getValueAt(0, column).getClass();
+                    };
+             };
+            model.addColumn("Icon");
+            model.addColumn("FileName");
+            model.addColumn("Remote Location");
+            /*model.addRow(new Object[] {pdf,"PDF","yourmom"});
+            model.addRow(new Object[] {jv,"Java","yourmom"});
+            model.addRow(new Object[] {mp,"Mp4","yourmom"});
+            model.addRow(new Object[] {def,"def","yourmom"});*/
+            for(int i=0;i<json.length();i++)
+            {
+                switch (json.getJSONObject(i).getString("absolutepath").split(".")[1]) {
+                    case "mp4":
+                        model.addRow(new Object[]{mp,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        break;
+                    default:
+                        break;
+                }
+            }
+            filelist1.setModel(model);
+        }
+        catch(HeadlessException | JSONException e)
+        {
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+    }//GEN-LAST:event_Refbut1ActionPerformed
+
+    private void downloadbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadbut1ActionPerformed
+        String file = (String)filelist1.getValueAt(filelist1.getSelectedRow(), 1);
+        int i = 0;
+        for(i=0;i<jsonresp.length()-1;i++)
+        {
+            if(file.equals(json.getJSONObject(i).getString("absolutepath")))
+                break;
+        }
+        //Retrieve Variables
+        String ip = json.getJSONObject(i).getString("ip");
+        String srcip = json.getJSONObject(i).getString("originip");
+        String filename = json.getJSONObject(i).getString("absolutepath");
+        //API CALL
+    try
+    {
+        RunRTSPClientPython.runClient(ip, filename);
+    }
+    catch(Exception e)
+    {
+        JOptionPane.showMessageDialog(null,e.getMessage());
+    }
+    finally
+            {
+                System.out.println("Done Streaming");
+            }
+        
+    }//GEN-LAST:event_downloadbut1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -434,17 +563,24 @@ public JSONArray json;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Refbut;
+    private javax.swing.JButton Refbut1;
     private javax.swing.JLabel back;
     private javax.swing.JLabel back1;
+    private javax.swing.JLabel back2;
     private javax.swing.JButton downloadbut;
+    private javax.swing.JButton downloadbut1;
     private javax.swing.JDialog file;
     private javax.swing.JTable filelist;
+    private javax.swing.JTable filelist1;
     private javax.swing.JDialog helpmenu;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
+    private javax.swing.JLayeredPane jLayeredPane3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton opt1;
     private javax.swing.JButton opt2;
     private javax.swing.JButton opt3;
