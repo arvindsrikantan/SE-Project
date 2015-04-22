@@ -33,7 +33,7 @@ def main():
 	# Open video file and send it to the client in parts
 	if(filename != ""):
 		f = open(filename,'rb')
-		s.send("SENT")
+		client.send("SENT")
 		for i in range(0,os.path.getsize(filename),10*1024*1024):
 			first = f.read(10*1024*1024)
 			client.send(first)

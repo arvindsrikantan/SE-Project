@@ -31,20 +31,36 @@ public class ClientImageReciever extends Thread
 		{
 			try
 			{
-//				try {
-//					Thread.sleep(140);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+				try {
+					Thread.sleep(140);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 //				icon = (ImageIcon) this.inStream.readObject();
 
-				String img = this.inStream.readUTF();
-				File f = new File("E:\\TEMP\\"+ (i++) + ".jpg");
+//				String img = this.inStream.readUTF();
+				
+				int i=1;
+				File f = new File("E:\\OUT\\"+ (i++) + ".jpg");
 				FileWriter fw = new FileWriter(f);
-				fw.write(img);
+				String temp;
+				do
+				{
+					byte img[] = new byte[64999];
+					i = this.inStream.read(img);
+					fw.write(new String(img));
+					
+				}while(i!=0);
+				
+				//this.inStream.read(img);
+				
+//				String s = new String(img).trim();
+//				System.out.println(s.length());
+				
+//				fw.write(s);
 				fw.close();
-				System.out.println("In client image receiver.");
+//				System.out.println("In client image receiver.");
 //
 //				BufferedImage image = new BufferedImage(
 //					    icon.getIconWidth(),
