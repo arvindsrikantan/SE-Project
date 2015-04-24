@@ -13,3 +13,6 @@ hs_err_pid*
 
 #python
 *.pyc
+/Daemon/nbproject/private/
+/RTSP/nbproject/private/
+/RTSP/build/

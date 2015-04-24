@@ -272,6 +272,11 @@ public JSONArray json;
         opt3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         opt3.setName("op1"); // NOI18N
         opt3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        opt3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opt3ActionPerformed(evt);
+            }
+        });
         jLayeredPane1.add(opt3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, 170, 240));
 
         opt4.setBackground(new java.awt.Color(255, 255, 255));
@@ -525,6 +530,10 @@ public JSONArray json;
             }
         
     }//GEN-LAST:event_downloadbut1ActionPerformed
+
+    private void opt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_opt3ActionPerformed
 
     /**
      * @param args the command line arguments

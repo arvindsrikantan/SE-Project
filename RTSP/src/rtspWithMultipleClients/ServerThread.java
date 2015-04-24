@@ -20,6 +20,7 @@ public class ServerThread extends Thread {
 		Socket client = null;
 		
 		try {
+			
 			System.out.println("Server waiting");
 			client = this.server.accept();
 			System.out.println("Connection accepted from:"+client.getLocalAddress());

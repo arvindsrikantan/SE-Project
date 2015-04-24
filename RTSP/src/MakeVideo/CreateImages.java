@@ -62,7 +62,7 @@ public class CreateImages extends Thread
 
 //			screenShot = new ImageIcon(image);
 			//System.out.println(name);
-			File img = new File("E://TEMP//" + name + ".jpg");
+			File img = new File("E:\\TEMP\\" + name + ".jpg");
 			ImageIO.write(image, "jpg", img);
 		}
 		catch (AWTException e)

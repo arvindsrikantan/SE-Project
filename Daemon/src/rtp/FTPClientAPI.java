@@ -14,8 +14,7 @@ import java.io.*;
 import java.util.*;
 //File Integrity Library
 import java.security.*;
-
-import constants.Constants;
+import javax.swing.JOptionPane;
 
 /*class FTPClientAPI
 {
@@ -28,19 +27,19 @@ import constants.Constants;
         
     }
 }*/
-class FTPClientAPI
+public class FTPClientAPI
 {
     Socket ClientSoc;
 
     DataInputStream din;
     DataOutputStream dout;
     BufferedReader br;
-    FTPClientAPI(String serverip)
+    public FTPClientAPI(String serverip)
     {
         try
         {
 //			String serverip="10.11.113.113";
-			ClientSoc=new Socket(serverip,Constants.ftpPort);
+			ClientSoc=new Socket(serverip,5000);
             din=new DataInputStream(ClientSoc.getInputStream());
             dout=new DataOutputStream(ClientSoc.getOutputStream());
             br=new BufferedReader(new InputStreamReader(System.in));
@@ -80,20 +79,14 @@ class FTPClientAPI
 		String newfile = tempname[tempname.length-1];
 //		System.out.println(newfile);
 		System.out.println(ClientSoc.getLocalSocketAddress().toString());
-        String ipaddr = ClientSoc.getLocalSocketAddress().toString().split(":")[0];
+                String ipaddr = ClientSoc.getLocalSocketAddress().toString().split(":")[0];
 		String newip = ipaddr.substring(1,ipaddr.length());
-		
-		
-		
 		System.out.println(newip);
-		
 //		String newip = "10.11.113.11" ;
-		
-		
-		
-		
-		
-		String absp = newip+"/"+newfile;
+                pathtranslator pt = new pathtranslator();
+		//String absp = newip+"/"+newfile;
+                String absp = pt.encode(filename);
+                System.out.println(absp);
 		dout.writeUTF(absp);
 //		dout.writeUTF(newip+"/"+newfile);
         //Check if file exists --keshav
@@ -121,14 +114,14 @@ class FTPClientAPI
         FileInputStream fin=new FileInputStream(f);
 		fin.skip(resume);
         int ch;
-		char[] b = new char[1048576];
+		byte[] b = new byte[1048576];
 		
         do
         { 
-            ch=fin.read();
-            dout.writeUTF(String.valueOf(ch));
+            ch=fin.read(b);
+            dout.writeUTF(String.valueOf(b));
         }
-        while(ch!=-1);
+        while(ch>0);
         fin.close();
         
         System.out.println(din.readUTF());
@@ -189,7 +182,7 @@ class FTPClientAPI
       }
     }
     //Method to receive files --keshav
-    void ReceiveFile(String fileName) throws Exception
+    public void ReceiveFile(String fileName) throws Exception
     {
 		dout.writeUTF("GET");
  //     String fileName;
@@ -212,10 +205,13 @@ class FTPClientAPI
             {
                 String Option;
                 System.out.println("File Already Exists. Want to OverWrite (Y/N) ?");
-                Option=br.readLine();            
-                if(Option=="N")    
+                //Option=br.readLine();            
+                Option = JOptionPane.showInputDialog(null, "File Already Exists. Want to OverWrite (Y/N) ?");
+                System.out.println(Option);
+                if(Option.equalsIgnoreCase("N"))    
                 {
                     dout.flush();
+                    JOptionPane.showMessageDialog(null,"File Download was Stopped");
                     return;    
                 }                
             }
@@ -233,6 +229,7 @@ class FTPClientAPI
             }while(ch!=-1);
             fout.close();
             System.out.println(din.readUTF());
+            JOptionPane.showMessageDialog(null,"File Received Successfully");
             //Automatically generate MD5 checksum after file transfer complete  -- Keshav
           //  filecheck(fileName);
         }

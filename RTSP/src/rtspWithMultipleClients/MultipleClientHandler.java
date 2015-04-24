@@ -2,89 +2,81 @@ package rtspWithMultipleClients;
 
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class MultipleClientHandler implements Runnable
-{
+public class MultipleClientHandler implements Runnable {
 	Socket client;
 	int count = 0;
 
-	public MultipleClientHandler(Socket client)
-	{
+	public MultipleClientHandler(Socket client) {
 		this.client = client;
 	}
 
-	public void run()
-	{
+	public void run() {
 		DataOutputStream clientStream = null;
-		try
-		{
+		try {
 			clientStream = new DataOutputStream(this.client.getOutputStream());
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// change true to a condition variable
-		try
-		{
+		try {
 			// ImageIcon icon = null;
 			ImageIcon image = null;
-			while (true)
-			{
+			while (true) {
 				// icon = CreateImages.getScreenShot();
 				// clientStream.writeObject(icon);
 				// icon = null;
 				// Read from file and write to stream
-				for (int name = 0;; name++)
-				{
-					//File imageFile = new File(
-					//		"E:\\TEMP\\"
-					//				+ name + ".jpg");
-					Path path = Paths.get("E:\\TEMP\\"+ name + ".jpg");
-					byte img[] = null;
-					if (path.toFile().exists())
+				for (int name = 0;; name++) {
+					Thread.sleep(50);
+					File imageFile = new File("E:\\TEMP\\" + name + ".jpg");
+					FileInputStream fi = new FileInputStream(imageFile);
+					// Path path = Paths.get("E:\\TEMP\\"+ name + ".jpg");
+					System.out.println(imageFile.length());
+					if (imageFile.exists()) 
 					{
-						img = Files.readAllBytes(path);
-						//image = new ImageIcon(ImageIO.read(imageFile));
+//						int r;
+//						do
+//						{
+//							byte img[] = new byte[65000];
+//							r = fi.read(img);
+//							clientStream.write(img);
+//							System.out.println("R,i:"+r+","+name);
+//							
+//						}while(r==65000);
+						while (true)
+                        {
+                            byte buffer[] = new byte[160000];
+                            int read = fi.read(buffer);
+                            if (read < 0)
+                            {
+                                break;
+                            }
+                            clientStream.write(buffer,0,read);
+                        }
+						fi.close();
 					}
-					else
-					{
+
+					 else 
+					 {
 						name--;
 					}
-					String temp = new String(img);
-					for(int i=0;i<temp.length();i+=65000)
-					{
-						clientStream.writeChars(temp.substring(i,i+64999));
-//						clientStream.writeUTF(temp.substring(i,i+64999));
-					}
-//					clientStream.write(img);
-						
+					
 				}
 			}
-		}
-		catch (Exception ex)
-		{
+		} catch (Exception ex) {
 			ex.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
+		} finally {
+			try {
 				clientStream.close();
 				this.client.close();
-			}
-			catch (IOException e)
-			{
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
