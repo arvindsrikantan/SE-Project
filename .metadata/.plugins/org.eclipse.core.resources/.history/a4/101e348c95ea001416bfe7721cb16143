@@ -51,18 +51,18 @@ public class MultipleClientHandler implements Runnable
 					if (imageFile.exists())
 					{
 						int r = 0;
-						byte buffer[] = new byte[160000];
-						int read = fi.read(buffer);
-						for(int i=0;i<=read;i+=65000)
+						do
 						{
-							byte b[] = new byte[65000];
-							for(int j=0;j<65000 && i+65000<read;j++)
+							byte buffer[] = new byte[160000];
+							int read = fi.read(buffer);
+							if (read < 0)
 							{
-								b[j] = buffer[i+j];
+								break;
 							}
-							clientStream.write(b);
+							clientStream.write(buffer, 0, read);
 
 						}
+						while (r == 65000);
 						// while (true)
 						// {
 						// byte buffer[] = new byte[160000];

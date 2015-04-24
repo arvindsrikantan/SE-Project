@@ -68,7 +68,7 @@ public class ClientImageReciever extends Thread
 //                                    fout.write(buffer);
 //                                }
                                 
-				fw.close();
+				fout.close();
 				System.out.println("In client image receiver.");
 			}	
 

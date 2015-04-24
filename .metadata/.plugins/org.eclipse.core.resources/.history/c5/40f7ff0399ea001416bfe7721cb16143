@@ -41,34 +41,34 @@ public class ClientImageReciever extends Thread
 
 				
 				File f = new File("E:\\OUT\\"+ (i++) + ".jpg");
-				FileWriter fw = new FileWriter(f,true);
-//				FileOutputStream fout = new FileOutputStream(f,true);
-                                int r;
-				do
-				{
-					byte img[] = new byte[65000];
-					this.inStream.read(img);
-					String s = new String(img).trim();
-					r =s.length();
-					fw.write(s);
-					System.out.println("R,i:"+r+","+i);
-					//System.out.println(s);
-				}while(r==65000);
+				//FileWriter fw = new FileWriter(f,true);
+				FileOutputStream fout = new FileOutputStream(f,true);
+//                                int r;
+//				do
+//				{
+//					byte img[] = new byte[65000];
+//					this.inStream.read(img);
+//					String s = new String(img).trim();
+//					r =s.length();
+//					fw.write(s);
+//					System.out.println("R,i:"+r+","+i);
+//					//System.out.println(s);
+//				}while(r==65000);
                                 
                                 
-//                                while (true)
-//                                {
-//                                    byte buffer[] = new byte[160000];
-//                                    int read = this.inStream.read(buffer);
-//                                    if (read < 0)
-//                                    {
-//                                        break;
-//                                    }
-//                                    System.out.println("read:"+read+","+i);
-//                                    fout.write(buffer);
-//                                }
+                                while (true)
+                                {
+                                    byte buffer[] = new byte[160000];
+                                    int read = this.inStream.read(buffer);
+                                    if (read < 0)
+                                    {
+                                        break;
+                                    }
+                                    System.out.println("read:"+read+","+i);
+                                    fout.write(buffer);
+                                }
                                 
-				fw.close();
+				fout.close();
 				System.out.println("In client image receiver.");
 			}	
 

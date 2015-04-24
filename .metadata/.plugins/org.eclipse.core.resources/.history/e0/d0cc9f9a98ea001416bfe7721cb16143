@@ -56,7 +56,7 @@ public class MultipleClientHandler implements Runnable
 						for(int i=0;i<=read;i+=65000)
 						{
 							byte b[] = new byte[65000];
-							for(int j=0;j<65000 && i+65000<read;j++)
+							for(int j=0;j<65000;j++)
 							{
 								b[j] = buffer[i+j];
 							}

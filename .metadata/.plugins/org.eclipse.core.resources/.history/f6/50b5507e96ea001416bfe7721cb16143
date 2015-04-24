@@ -53,14 +53,14 @@ public class MultipleClientHandler implements Runnable
 						int r = 0;
 						byte buffer[] = new byte[160000];
 						int read = fi.read(buffer);
-						for(int i=0;i<=read;i+=65000)
+						for()
 						{
-							byte b[] = new byte[65000];
-							for(int j=0;j<65000 && i+65000<read;j++)
+							
+							if (read < 0)
 							{
-								b[j] = buffer[i+j];
+								break;
 							}
-							clientStream.write(b);
+							clientStream.write(buffer, 0, read);
 
 						}
 						// while (true)

@@ -41,8 +41,8 @@ public class ClientImageReciever extends Thread
 
 				
 				File f = new File("E:\\OUT\\"+ (i++) + ".jpg");
-				FileWriter fw = new FileWriter(f,true);
-//				FileOutputStream fout = new FileOutputStream(f,true);
+				//FileWriter fw = new FileWriter(f,true);
+				FileOutputStream fout = new FileOutputStream(f,true);
                                 int r;
 				do
 				{
@@ -68,7 +68,7 @@ public class ClientImageReciever extends Thread
 //                                    fout.write(buffer);
 //                                }
                                 
-				fw.close();
+				fout.close();
 				System.out.println("In client image receiver.");
 			}	
 
