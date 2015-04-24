@@ -55,8 +55,11 @@ public JSONArray json;
         filelist1 = new javax.swing.JTable();
         back2 = new javax.swing.JLabel();
         helpmenu = new javax.swing.JDialog();
+        jLabel5 = new javax.swing.JLabel();
         privacybut = new javax.swing.JButton();
         privacybut1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
         opt1 = new javax.swing.JButton();
@@ -194,30 +197,53 @@ public JSONArray json;
             .addComponent(jLayeredPane3)
         );
 
+        helpmenu.setMinimumSize(new java.awt.Dimension(670, 380));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI Emoji", 3, 24)); // NOI18N
+        jLabel5.setText("Local Storage Drive V 1 build 10077");
+
         privacybut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        privacybut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/localnetworkdrive/Keys-icon.png"))); // NOI18N
         privacybut.setText("Privacy Policy");
 
         privacybut1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        privacybut1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/localnetworkdrive/File-New-icon.png"))); // NOI18N
         privacybut1.setText("Owner Manual");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("TEXT ABOUT OUR AWESOME PROJECT");
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout helpmenuLayout = new javax.swing.GroupLayout(helpmenu.getContentPane());
         helpmenu.getContentPane().setLayout(helpmenuLayout);
         helpmenuLayout.setHorizontalGroup(
             helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpmenuLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(privacybut1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(privacybut, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpmenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(helpmenuLayout.createSequentialGroup()
+                        .addComponent(privacybut1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addComponent(privacybut)))
                 .addGap(34, 34, 34))
         );
         helpmenuLayout.setVerticalGroup(
             helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpmenuLayout.createSequentialGroup()
-                .addContainerGap(279, Short.MAX_VALUE)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(privacybut, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(privacybut1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(privacybut, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(privacybut1))
                 .addGap(24, 24, 24))
         );
 
@@ -594,11 +620,14 @@ public JSONArray json;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton opt1;
     private javax.swing.JButton opt2;
     private javax.swing.JButton opt3;
