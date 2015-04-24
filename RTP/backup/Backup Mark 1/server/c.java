@@ -1,7 +1,5 @@
 import java.io.*;
 import java.net.*;
-import java.sql.Time;
-import java.util.Date;
 
 public class c {
 
@@ -32,10 +30,10 @@ public class c {
    public static void main(String args[]) throws Exception
    {
       c C = new c();
-      //System.out.println(C.getHTML("http://10.11.113.53:3000/files/get/192.168.1.1"));
-      C.sendPost("","","");
+      System.out.println(C.getHTML("http://10.11.113.53:3000/files/get/192.168.1.1"));
+      //C.sendPost();
    }
-   private void sendPost(String absp,String oipp,String sizep) throws Exception {
+   private void sendPost() throws Exception {
  
       String url = "http://10.11.113.53:3000/files/insert";
       URL obj = new URL(url);
@@ -45,8 +43,8 @@ public class c {
       con.setRequestMethod("POST");
       //con.setRequestProperty("User-Agent", USER_AGENT);
       con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-      String ts = new Time(new Date().getTime()).toString();
-      String urlParameters = "absolutepath="+absp+"&timestamp="+ts+"&size="+sizep+"&originip="+oipp;
+ 
+      String urlParameters = "absolutepath=sam&ip=192.168.1.1&timestamp=lol&size=1000&originip=someip";
  
       // Send post request
       con.setDoOutput(true);
