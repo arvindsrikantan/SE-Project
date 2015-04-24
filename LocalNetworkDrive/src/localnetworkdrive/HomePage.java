@@ -87,6 +87,7 @@ public JSONArray json;
 
         downloadbut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
         downloadbut.setText("Download");
+        downloadbut.setEnabled(false);
         downloadbut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 downloadbutActionPerformed(evt);
@@ -135,6 +136,7 @@ public JSONArray json;
         );
 
         videostream.setTitle("Video Streaming");
+        videostream.setMinimumSize(new java.awt.Dimension(715, 470));
 
         jLayeredPane3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -153,6 +155,7 @@ public JSONArray json;
 
         downloadbut1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
         downloadbut1.setText("Stream");
+        downloadbut1.setEnabled(false);
         downloadbut1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 downloadbut1ActionPerformed(evt);
@@ -347,6 +350,7 @@ public JSONArray json;
 
     private void RefbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefbutActionPerformed
         // TODO add your handling code here:
+        
         fetchfiles f = new fetchfiles();
         ImageIcon jv = new ImageIcon(HomePage.class.getResource("java.png"));
         ImageIcon py = new ImageIcon(HomePage.class.getResource("python.png"));
@@ -377,6 +381,8 @@ public JSONArray json;
             model.addRow(new Object[] {jv,"Java","yourmom"});
             model.addRow(new Object[] {mp,"Mp4","yourmom"});
             model.addRow(new Object[] {def,"def","yourmom"});*/
+            if(json.length()>0)
+                downloadbut.setEnabled(true);
             for(int i=0;i<json.length();i++)
             {
                 switch (json.getJSONObject(i).getString("absolutepath").split(".")[1]) {
@@ -485,6 +491,8 @@ public JSONArray json;
             model.addRow(new Object[] {jv,"Java","yourmom"});
             model.addRow(new Object[] {mp,"Mp4","yourmom"});
             model.addRow(new Object[] {def,"def","yourmom"});*/
+            if(json.length()>0)
+                downloadbut1.setEnabled(true);
             for(int i=0;i<json.length();i++)
             {
                 switch (json.getJSONObject(i).getString("absolutepath").split(".")[1]) {
@@ -533,6 +541,7 @@ public JSONArray json;
 
     private void opt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt3ActionPerformed
         // TODO add your handling code here:
+        helpmenu.setVisible(true);
     }//GEN-LAST:event_opt3ActionPerformed
 
     /**

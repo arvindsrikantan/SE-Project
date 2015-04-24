@@ -65,6 +65,7 @@
                   <Font name="Segoe UI Emoji" size="18" style="3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Download"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="downloadbutActionPerformed"/>
@@ -145,6 +146,9 @@
     <Container class="javax.swing.JDialog" name="videostream">
       <Properties>
         <Property name="title" type="java.lang.String" value="Video Streaming"/>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[715, 470]"/>
+        </Property>
       </Properties>
 
       <Layout>
@@ -201,6 +205,7 @@
                   <Font name="Segoe UI Emoji" size="18" style="3"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Stream"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="downloadbut1ActionPerformed"/>
