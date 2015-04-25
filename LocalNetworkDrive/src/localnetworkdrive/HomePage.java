@@ -550,18 +550,18 @@ public JSONArray json;
         String srcip = json.getJSONObject(i).getString("originip");
         String filename = json.getJSONObject(i).getString("absolutepath");
         //API CALL
-    try
-    {
-        RunRTSPClientPython.runClient(ip, filename);
-    }
-    catch(Exception e)
-    {
-        JOptionPane.showMessageDialog(null,e.getMessage());
-    }
-    finally
-            {
-                System.out.println("Done Streaming");
-            }
+        try
+        {
+            RunRTSPClientPython.runClient(ip, filename);
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+        finally
+        {
+            System.out.println("Done Streaming");
+        }
         
     }//GEN-LAST:event_downloadbut1ActionPerformed
 
