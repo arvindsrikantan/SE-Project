@@ -43,37 +43,46 @@ public class MultipleClientHandler implements Runnable
 				// Read from file and write to stream
 				for (int name = 0;; name++)
 				{
-					Thread.sleep(50);
 					File imageFile = new File("E:\\TEMP\\" + name + ".jpg");
 					FileInputStream fi = new FileInputStream(imageFile);
 					// Path path = Paths.get("E:\\TEMP\\"+ name + ".jpg");
 					System.out.println(imageFile.length());
 					if (imageFile.exists())
 					{
-						int r = 0;
-						byte buffer[] = new byte[160000];
-						int read = fi.read(buffer);
-						for(int i=0;i<=read;i+=65000)
-						{
-							byte b[] = new byte[65000];
-							for(int j=0;j<65000 && i+65000<read;j++)
-							{
-								b[j] = buffer[i+j];
-							}
-							clientStream.write(b);
+						int ch;
+			            do
+			            {
+			                ch=fi.read();
+			                clientStream.writeUTF(String.valueOf(ch));			                
+			            }
+			            while(ch!=-1);
+						
 
-						}
-						// while (true)
-						// {
-						// byte buffer[] = new byte[160000];
-						// int read = fi.read(buffer);
-						// if (read < 0)
-						// {
-						// break;
-						// }
-						// clientStream.write(buffer,0,read);
-						// }
-						fi.close();
+			            fi.close();
+//						int r = 0;
+//						byte buffer[] = new byte[160000];
+//						int read = fi.read(buffer);
+//						for(int i=0;i<=read;i+=65000)
+//						{
+//							byte b[] = new byte[65000];
+//							for(int j=0;j<65000 && i+65000<read;j++)
+//							{
+//								b[j] = buffer[i+j];
+//							}
+//							clientStream.write(b);
+//
+//						}
+//						 while (true)
+//						 {
+//						 byte buffer[] = new byte[160000];
+//						 int read = fi.read(buffer);
+//						 if (read < 0)
+//						 {
+//						 break;
+//						 }
+//						 clientStream.write(buffer,0,read);
+//						 }
+//						fi.close();
 					}
 
 					else

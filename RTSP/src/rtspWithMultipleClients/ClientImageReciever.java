@@ -32,28 +32,42 @@ public class ClientImageReciever extends Thread
 		{
 			try
 			{
-				try {
-					Thread.sleep(140);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				try {
+//					Thread.sleep(140);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 
 				
 				File f = new File("E:\\OUT\\"+ (i++) + ".jpg");
-				FileWriter fw = new FileWriter(f,true);
-//				FileOutputStream fout = new FileOutputStream(f,true);
-                                int r;
-				do
-				{
-					byte img[] = new byte[65000];
-					this.inStream.read(img);
-					String s = new String(img).trim();
-					r =s.length();
-					fw.write(s);
-					System.out.println("R,i:"+r+","+i);
-					//System.out.println(s);
-				}while(r==65000);
+//				FileWriter fw = new FileWriter(f,true);
+				FileOutputStream fout = new FileOutputStream(f,true);
+                int r;
+                int ch;
+                String temp;
+                do
+                {
+                	
+                    temp=this.inStream.readUTF();
+                    ch=Integer.parseInt(temp);
+                    if(ch!=-1)
+                    {
+                        fout.write(ch);                    
+                    }
+                }while(ch!=-1);
+				fout.close();
+
+//				do
+//				{
+//					byte img[] = new byte[65000];
+//					this.inStream.read(img);
+//					String s = new String(img).trim();
+//					r =s.length();
+//					fw.write(s);
+//					System.out.println("R,i:"+r+","+i);
+//					//System.out.println(s);
+//				}while(r==65000);
                                 
                                 
 //                                while (true)
@@ -68,7 +82,6 @@ public class ClientImageReciever extends Thread
 //                                    fout.write(buffer);
 //                                }
                                 
-				fw.close();
 				System.out.println("In client image receiver.");
 			}	
 
