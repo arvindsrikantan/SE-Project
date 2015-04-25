@@ -32,7 +32,7 @@ public class CaptureImages {
 		return image;
 	}
 
-	public ImageIcon captureMultiple(int start, int number)throws InterruptedException {
+	public ImageIcon captureMultiple()throws InterruptedException {
 		ImageIcon image = new ImageIcon(this.capture());		
     		System.out.println("Capturing image.");			
 			Thread.sleep(180);

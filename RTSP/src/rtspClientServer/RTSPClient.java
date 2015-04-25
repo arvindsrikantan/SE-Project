@@ -28,11 +28,11 @@ public class RTSPClient extends Thread {
 	static Socket client;
 
 	public static void main(String args[]) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
-		client = new Socket("localhost", 8006);
+		client = new Socket("192.168.0.100", 8006);
 		System.out.println("Sent client request.");
 
 	    try {
-	     Thread.sleep(10000);
+	     Thread.sleep(50000);
 	     ShowImage s = new ShowImage();
 	     s.Display();
 	    } 
@@ -74,13 +74,14 @@ class ShowImage extends Thread
 		frame.add(image);
 		frame.setVisible(true);
 
-		for (int i = 1; i < 200; i++) {
-			try {
-				Thread.sleep(140);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		while(true) 
+		{
+//			try {
+//				Thread.sleep(140);
+//			} catch (InterruptedException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
 			try {
 				icon = (ImageIcon) inStream.readObject();
 			} catch (ClassNotFoundException e) {
@@ -95,6 +96,7 @@ class ShowImage extends Thread
 			frame.setIconImage(icon.getImage());
 			frame.add(image);
 			frame.setVisible(true);
+			icon = null;
 		}
 	}
 }

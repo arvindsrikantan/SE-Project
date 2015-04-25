@@ -22,12 +22,14 @@ public class RTSPServer extends Thread {
 				System.out.println("Connection established.");
 				try {					
 					ObjectOutputStream obStream = new ObjectOutputStream(socket.getOutputStream());
-					for (int i = 1; i < 200; i++) {
+					while(true)
+					{
 						CaptureImages img = new CaptureImages();
-						image = img.captureMultiple(0, 200);
+						image = img.captureMultiple();
 						Thread.sleep(140);
 						System.out.println("Sending image.");
-						obStream.writeObject(image);	
+						obStream.writeObject(image);
+						img = null;
 					}
 				}
 				catch (InterruptedException e) {}
