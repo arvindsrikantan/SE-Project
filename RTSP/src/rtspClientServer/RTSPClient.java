@@ -27,8 +27,8 @@ import java.awt.*;
 public class RTSPClient extends Thread {
 	static Socket client;
 
-	public static void main(String args[]) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
-		client = new Socket("192.168.0.100", 8006);
+	public static void startClient(String serverIP) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
+		client = new Socket(serverIP, 8000);
 		System.out.println("Sent client request.");
 
 	    try {

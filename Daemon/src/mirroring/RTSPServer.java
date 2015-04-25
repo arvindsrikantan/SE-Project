@@ -1,5 +1,6 @@
-package rtspClientServer;
+package mirroring;
 
+import constants.Constants;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -10,15 +11,13 @@ import javax.swing.ImageIcon;
 
 public class RTSPServer extends Thread {
 	static ImageIcon image;
-	static int port = 8006;
 	static ServerSocket server;
 	static Socket socket;
 	
 	public static void startServer() {
 		while (true) {
 			try {
-				server = new ServerSocket(port);
-                                System.out.println("Started mirroring server...");
+				server = new ServerSocket(Constants.mirrorPort);
 				socket = server.accept();
 				System.out.println("Connection established.");
 				try {					

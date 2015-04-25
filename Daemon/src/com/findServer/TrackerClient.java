@@ -14,6 +14,7 @@ import rtp.FTPServerAPI;
 import rtsp.RunRTSPServerPython;
 import utils.Addressing;
 import constants.Constants;
+import mirroring.RTSPServer;
 /*
  *   Creates a UDP socket to receive a message from the tracker server.
  *   If a message is not received in 7 tries,the current host becomes the tracker server.
@@ -146,7 +147,7 @@ public class TrackerClient implements Runnable
 		ftpServer.start();
 		
 		// Start Screen Share Server
-		
+		RTSPServer.startServer();
 		
 	}
 }
