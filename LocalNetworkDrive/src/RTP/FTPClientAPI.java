@@ -72,6 +72,7 @@ public class FTPClientAPI
                 String absp = pt.encode(filename);
                 System.out.println(absp);
 		dout.writeUTF(absp);
+		dout.writeUTF(String.valueOf(f.length()));
 //		dout.writeUTF(newip+"/"+newfile);
         //Check if file exists --keshav
         String msgFromServer=din.readUTF();
@@ -98,14 +99,21 @@ public class FTPClientAPI
         FileInputStream fin=new FileInputStream(f);
 		fin.skip(resume);
         int ch;
-		char[] b = new char[1048576];
-		
+/*		
         do
         { 
             ch=fin.read();
             dout.writeUTF(String.valueOf(ch));
         }
         while(ch!=-1);
+*/		
+		byte[] b = new byte[65536];
+		while ((ch = fin.read(b)) > 0)
+		{
+//			System.out.println(ch);
+			dout.write(b, 0, ch);
+		}
+		
         fin.close();
         
         System.out.println(din.readUTF());
@@ -166,58 +174,75 @@ public class FTPClientAPI
       }
     }
     //Method to receive files --keshav
-    public void ReceiveFile(String fileName) throws Exception
+    public void ReceiveFile(String fileName)
     {
-		dout.writeUTF("GET");
- //     String fileName;
- //     System.out.print("Enter File Name :");
- //     fileName=br.readLine();
-        dout.writeUTF(fileName);
-        String msgFromServer=din.readUTF();
-        //Check if file is present --keshav 
-        if(msgFromServer.compareTo("File Not Found")==0)
-        {
-            System.out.println("File not found on Server ...");
-            return;
-        }
-        else if(msgFromServer.compareTo("READY")==0)
-        {
-            System.out.println("Receiving File ...");
-            File f=new File(fileName);
-            //Check if file exists --keshav
-            if(f.exists())
-            {
-                String Option;
-                System.out.println("File Already Exists. Want to OverWrite (Y/N) ?");
-                //Option=br.readLine();            
-                Option = JOptionPane.showInputDialog(null, "File Already Exists. Want to OverWrite (Y/N) ?");
-                System.out.println(Option);
-                if(Option.equalsIgnoreCase("N"))    
-                {
-                    dout.flush();
-                    JOptionPane.showMessageDialog(null,"File Download was Stopped");
-                    return;    
-                }                
-            }
-            FileOutputStream fout=new FileOutputStream(f);
-            int ch;
-            String temp;
-            do
-            {
-                temp=din.readUTF();
-                ch=Integer.parseInt(temp);
-                if(ch!=-1)
-                {
-                    fout.write(ch);                    
-                }
-            }while(ch!=-1);
-            fout.close();
-            System.out.println(din.readUTF());
-            JOptionPane.showMessageDialog(null,"File Received Successfully");
-            //Automatically generate MD5 checksum after file transfer complete  -- Keshav
-          //  filecheck(fileName);
-        }
-        
+		try
+		{
+			dout.writeUTF("GET");
+			long fsize =0 ;
+			long resume = 0;
+	 //     String fileName;
+	 //     System.out.print("Enter File Name :");
+	 //     fileName=br.readLine();
+			dout.writeUTF(fileName);
+			String msgFromServer=din.readUTF();
+			//Check if file is present --keshav 
+			if(msgFromServer.compareTo("File Not Found")==0)
+			{
+				System.out.println("File not found on Server ...");
+				return;
+			}
+			else if(msgFromServer.compareTo("READY")==0)
+			{
+				fsize =Long.valueOf(din.readUTF());
+				System.out.println("Receiving File ...");
+				File f=new File(fileName);
+				//Check if file exists --keshav
+				if(f.exists())
+				{
+					String Option;
+					System.out.println("File Already Exists. Want to Resume (Y/N) ?");
+					//Option=br.readLine();            
+					Option = JOptionPane.showInputDialog(null, "File Already Exists. Want to OverWrite (Y/N) ?");
+					System.out.println(Option);
+					if(Option.equalsIgnoreCase("N"))    
+					{
+						dout.writeUTF("N");
+						JOptionPane.showMessageDialog(null,"File Download was Stopped");
+						return;    
+					}
+				}
+				
+				
+				dout.writeUTF("Y");
+				resume = f.length();
+				dout.writeUTF(String.valueOf(f.length()));
+			
+				
+				FileOutputStream fout=new FileOutputStream(f,true);
+				int ch;
+				long remaining = fsize - resume ; 
+				byte[] b = new byte[65536];
+				while (remaining > 0)
+				{	
+					ch = din.read(b);
+					remaining -= ch;
+					System.out.println(ch);
+					fout.write(b, 0, ch);
+				}
+				fout.close();
+				System.out.println(din.readUTF());
+				JOptionPane.showMessageDialog(null,"File Received Successfully");
+				//Automatically generate MD5 checksum after file transfer complete  -- Keshav
+			  //  filecheck(fileName);
+			}
+		}
+		catch(Exception exp)
+		{
+			System.out.println(exp);
+			System.out.println("Connection closed at Server... \nClosing client...");
+			System.exit(1);
+		}
         
     }
     //Menu Handler

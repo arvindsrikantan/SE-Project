@@ -78,7 +78,8 @@ class transferfile extends Thread
     }
     //Method to send file --keshav
     void SendFile() throws Exception
-    {        
+    {       
+		long resume = 0 ; 
         String filename=din.readUTF();
         File f=new File(filename);
         //Check is file exists --keshav
@@ -91,20 +92,32 @@ class transferfile extends Thread
         {
             //Send keyword to client --keshav
             dout.writeUTF("READY");
+			dout.writeUTF(String.valueOf(f.length()));
+			String option = din.readUTF();
+			if(option.equalsIgnoreCase("N"))
+			{
+				return;
+			}
+			else if(option.equalsIgnoreCase("Y"))
+			{
+				resume = Long.valueOf(din.readUTF());
+			}
             FileInputStream fin=new FileInputStream(f);
+			fin.skip(resume);
             int ch;
-            do
-            {
-                ch=fin.read();
-                dout.writeUTF(String.valueOf(ch));
-            }
-            while(ch!=-1);    
-            fin.close();    
+            byte[] b = new byte[65536];
+			while ((ch = fin.read(b)) > 0)
+			{
+				System.out.println(ch);
+				dout.write(b, 0, ch);
+			}   
+			fin.close();    
             dout.writeUTF("File Receive Successfully");
             //Show File integrity details -- keshav
             System.out.println("Please verify file integrity.");
             filecheck(filename);                            
         }
+    
     }
     //MD5 Checksum Generator 
     //Author:Keshav
@@ -143,6 +156,8 @@ class transferfile extends Thread
     void ReceiveFile() throws Exception
     {
         String filename=din.readUTF();
+		long fsize =Long.valueOf(din.readUTF());
+		long resume = 0;
         if(filename.compareTo("File not found")==0)
         {
             return;
@@ -154,6 +169,7 @@ class transferfile extends Thread
         {
             dout.writeUTF("File Already Exists");
             option=din.readUTF();
+			resume = f.length();
 			System.out.println(f.length());
 			String strsize = String.valueOf(f.length());
 			dout.writeUTF(strsize);
@@ -168,16 +184,27 @@ class transferfile extends Thread
             {
                 FileOutputStream fout=new FileOutputStream(f,true);
                 int ch;
-                String temp;
-                do
+/*               do
                 {
-                    temp=din.readUTF();
-                    ch=Integer.parseInt(temp);
+					byte[] b = new byte[65536];
+                    ch=din.read(b);
+					System.out.println(ch);
                     if(ch!=-1)
                     {
-                        fout.write(ch);                    
+                        fout.write(b,0,ch);                    
                     }
-                }while(ch!=-1);
+                }while(ch>-1);
+				
+*/				
+				long remaining = fsize - resume ; 
+				byte[] b = new byte[65536];
+				while (remaining > 0)
+				{	
+					ch = din.read(b);
+					remaining -= ch;
+//					System.out.println(ch);
+					fout.write(b, 0, ch);
+				}
                 fout.close();
                 dout.writeUTF("File Send Successfully");
                 //Automatically generate MD5 checksum after file transfer complete  -- Keshav
