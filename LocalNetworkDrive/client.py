@@ -262,6 +262,13 @@ class ClientHandler():
 		second.close()    
 		s.close()
 
+        while True:
+           try:
+                os.remove(sys.argv[3])
+                break
+            except WindowsError:
+                time.sleep(10)
+
 if __name__=="__main__":
     # Start the main process
     q = multiprocessing.Queue()
