@@ -27,16 +27,12 @@ import java.awt.*;
 public class RTSPClient extends Thread {
 	static Socket client;
 
-	public static void main(String[] args) throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException
-	{
-		startClient("192.168.0.129");
-	}
 	public static void startClient(String serverIP) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
 		client = new Socket(serverIP, 8000);
 		System.out.println("Sent client request.");
 
 	    try {
-	     Thread.sleep(5000);
+	     Thread.sleep(50000);
 	     ShowImage s = new ShowImage();
 	     s.Display();
 	    } 

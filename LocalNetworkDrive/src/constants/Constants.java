@@ -10,7 +10,8 @@ public class Constants
 	public static String myIp;
 	public static final int daemonServerPort = 3000;
 	public static final int daemonClientPort = 2000;
-	public static final int videoServerPort  = 4000;
-	public static final int videoClientPort  = 4000;
+	public static final int videoServerPort  = 6000;
+	public static final int videoClientPort  = 6000;
 	public static final int ftpPort  = 5000;
+        public static final int mirrorPort = 8000;
 }

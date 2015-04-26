@@ -1,2 +1,0 @@
-RTP.transferfile
-RTP.FTPServerAPI
