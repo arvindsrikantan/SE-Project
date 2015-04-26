@@ -558,9 +558,10 @@ public String trackerip="192.168.0.17:3000";
             //Iterate through data to populate the table display
             for(int i=0;i<json.length();i++)
             {
-                switch (json.getJSONObject(i).getString("absolutepath").split(".")[1]) {
+                String switcher = new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"));
+                switch (switcher.split(".")[1]) {
                     case "mp4":
-                        model.addRow(new Object[]{mp,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        model.addRow(new Object[]{mp,switcher,json.getJSONObject(i).getString("ip")});
                         break;
                     default:
                         break;
@@ -643,12 +644,11 @@ public String trackerip="192.168.0.17:3000";
             java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        Main.startDaemonProcess();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HomePage().setVisible(true);
-                Main.startdae();
             }
         });
     }
