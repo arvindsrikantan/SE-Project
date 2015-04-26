@@ -1,5 +1,0 @@
-create table authenticate(username text, password text);
-insert into authenticate values('kanoe123456','edb211287e4997ddbe5d3e38161bf518');
-create table projects(id integer primary key,title text, description text, participants text);
-create table events(id integer, title text, date text, place text, description text, remarks text);
-create table publications(id integer, author text, coauthors text, area text, date text, description text);
