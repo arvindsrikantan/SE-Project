@@ -53,7 +53,10 @@ public class FTPClientAPI
 
     //Method to send files --keshav
     public void SendFile(String filename)
-    {        
+    {  
+ //   	encrypting the file
+ 	 SE se=new SE();
+    	se.encr(filename);
       try
 	  {
 		dout.writeUTF("SEND");	
@@ -230,6 +233,9 @@ public class FTPClientAPI
             fout.close();
             System.out.println(din.readUTF());
             JOptionPane.showMessageDialog(null,"File Received Successfully");
+            //decrypting the file
+                SE se=new SE();
+    		se.decr(filename);
             //Automatically generate MD5 checksum after file transfer complete  -- Keshav
           //  filecheck(fileName);
         }
