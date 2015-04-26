@@ -1,4 +1,4 @@
-package rtsp;
+package rtspMirror;
 
 import constants.Constants;
 import java.awt.Dimension;

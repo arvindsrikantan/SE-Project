@@ -1,2 +1,0 @@
-rtsp.ShowImage
-rtsp.RTSPClient

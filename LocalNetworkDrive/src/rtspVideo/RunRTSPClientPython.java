@@ -1,4 +1,4 @@
-package RSTP;
+package rtspVideo;
 
 import java.io.*;
 

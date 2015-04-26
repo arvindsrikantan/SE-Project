@@ -18,14 +18,14 @@
 
 package localnetworkdrive;
 
-import RSTP.RunRTSPClientPython;
+import rtspVideo.RunRTSPClientPython;
 import RTP.FTPClientAPI;
 import java.awt.HeadlessException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.*;
-import rtsp.RTSPClient;
+import rtspMirror.RTSPClient;
 
 /**
  *
