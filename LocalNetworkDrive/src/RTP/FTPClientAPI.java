@@ -118,7 +118,16 @@ public class FTPClientAPI
         
         System.out.println(din.readUTF());
         System.out.println("Please verify file integrity.");
-        filecheck(filename,absp);
+        // Code for auto check
+        if(filecheck(filename,absp)==din.readUTF())
+        {
+            System.out.println("MD5 Checksums verified.");
+            f.delete();
+        }
+        else
+            System.out.println("MD5 checksums do not match.");
+        System.exit(1);
+        //filecheck(filename,absp);
 //		HttpClientExample ht = new HttpClientExample();
 //		String serverip = "10.11.113.113" ;
 //		ht.sendPost(serverip , absp , f.length().toString(), newip);
@@ -131,13 +140,6 @@ public class FTPClientAPI
 			System.out.println("Connection closed at Server... \nClosing client...");
 			System.exit(1);
 		}
-        /* Code for auto check
-        if(filecheck(filename)==din.readUTF())
-            System.out.println("MD5 Checksums verified.");
-        else
-            System.out.println("MD5 checksums donot match.");
-        */
-        System.exit(1);
     }
     //MD5 Checksum Generator 
     //Author:Keshav

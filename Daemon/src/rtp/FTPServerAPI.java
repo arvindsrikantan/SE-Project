@@ -113,9 +113,10 @@ class transferfile extends Thread
 			}   
 			fin.close();    
             dout.writeUTF("File Receive Successfully");
+            dout.writeUTF(filecheck(filename));
             //Show File integrity details -- keshav
             System.out.println("Please verify file integrity.");
-            filecheck(filename);                            
+                                      
         }
     
     }
