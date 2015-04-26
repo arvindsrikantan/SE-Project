@@ -7,14 +7,17 @@ package RTP;
 ///////////////////////////////
 
 //Networking Library
-import java.net.*;
 //Input/Output Library
 import java.io.*;
 //Utility Library
-import java.util.*;
+import java.net.*;
 //File Integrity Library
 import java.security.*;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import security.SE;
 
 public class FTPClientAPI
 {
@@ -25,6 +28,7 @@ public class FTPClientAPI
     BufferedReader br;
     public FTPClientAPI(String serverip)
     {
+         //   	encrypting the file
         try
         {
             ClientSoc=new Socket(serverip,5000);
@@ -41,8 +45,14 @@ public class FTPClientAPI
 	
 
     //Method to send files --keshav
-    public void SendFile(String filename)
-    {        
+    public void SendFile(String filename) throws IOException
+    {    
+         SE se=new SE();
+        try {
+            se.encr(filename);
+        } catch (GeneralSecurityException ex) {
+            JOptionPane.showMessageDialog(null, "Security Error");
+        }
       try
 	  {
 		dout.writeUTF("SEND");
@@ -230,7 +240,9 @@ public class FTPClientAPI
 				System.out.println(din.readUTF());
 				JOptionPane.showMessageDialog(null,"File Received Successfully");
 				//Automatically generate MD5 checksum after file transfer complete  -- Keshav
-			  //  filecheck(fileName);
+			    filecheck(fileName,"");
+                                SE se=new SE();
+                                se.decr(fileName);
 			}
 		}
 		catch(Exception exp)
