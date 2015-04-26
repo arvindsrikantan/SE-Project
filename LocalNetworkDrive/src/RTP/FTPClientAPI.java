@@ -99,15 +99,7 @@ public class FTPClientAPI
         System.out.println("Sending File ...");
         FileInputStream fin=new FileInputStream(f);
 		fin.skip(resume);
-        int ch;
-/*		
-        do
-        { 
-            ch=fin.read();
-            dout.writeUTF(String.valueOf(ch));
-        }
-        while(ch!=-1);
-*/		
+        int ch;		
 		byte[] b = new byte[65536];
 		while ((ch = fin.read(b)) > 0)
 		{
@@ -120,7 +112,7 @@ public class FTPClientAPI
         System.out.println(din.readUTF());
         System.out.println("File integrity verification.");
         // Code for auto check
-        if(filecheck(filename,absp)==din.readUTF())
+        if(filecheck(filename,absp).equals(din.readUTF()))
         {
             System.out.println("MD5 Checksums verified.");
             f.delete();
