@@ -1,5 +1,18 @@
-package com.findServer;
+/***************************************************************************
+*
+*   SOFTWARE ENGINEERING PROJECT - 12CS354 - VI SEM BE (PESIT)
+*
+*       NETWORK STORAGE - SE PROJECT TEAM 1
+*
+*       JOB     - DAEMON PROCESS
+*
+*       AUTHORS - ARVIND SRIKANTAN
+*               - ANISH NARANG
+*
+*       TASK    - To setup the daemon process
 
+****************************************************************************/
+package com.findServer;
 import hooks.WatchDir;
 
 import java.io.IOException;
@@ -15,7 +28,7 @@ import rtsp.RunRTSPServerPython;
 import utils.Addressing;
 import constants.Constants;
 import mirroring.RTSPServer;
-/*
+/**
  *   Creates a UDP socket to receive a message from the tracker server.
  *   If a message is not received in 7 tries,the current host becomes the tracker server.
  *   Sets all required constants.

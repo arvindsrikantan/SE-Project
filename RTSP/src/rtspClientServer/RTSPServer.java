@@ -1,5 +1,18 @@
 package rtspClientServer;
+/***************************************************************************
+*
+*   SOFTWARE ENGINEERING PROJECT - 12CS354 - VI SEM BE (PESIT)
+*
+*       NETWORK STORAGE - SE PROJECT TEAM 1
+*
+*       JOB     - DAEMON PROCESS
+*
+*       AUTHORS - ARVIND SRIKANTAN
+*               - ANISH NARANG
+*
+*       TASK    - To start screen share server
 
+****************************************************************************/
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -9,6 +22,9 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class RTSPServer extends Thread {
+	/**
+	 *  Starts the screen share server on each host to listen for a connection
+	 */
 	static ImageIcon image;
 	static int port = 8006;
 	static ServerSocket server;
