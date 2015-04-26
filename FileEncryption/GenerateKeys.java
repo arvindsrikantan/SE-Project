@@ -53,7 +53,11 @@ public class GenerateKeys {
 ****************************************************************************/	
 
   public void createfiles() {
-      try {
+      
+	  File publicFile= new File("public.der");
+	  if(!publicFile.exists())
+	  {
+	  try {
           
           KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
           keyPairGenerator.initialize(2048);
@@ -82,5 +86,6 @@ public class GenerateKeys {
       } catch (IOException ex) {
          System.out.println("Something went wrong");
       }
+	  }
   }
 }
