@@ -36,7 +36,7 @@ import rtspVideo.RunRTSPClientPython;
 public class HomePage extends javax.swing.JFrame {
 public String jsonresp;
 public JSONArray json;
-public String trackerip=constants.Constants.serverIp;
+public static String trackerip;
     /**
      * Creates new form HomePage
      */
@@ -397,7 +397,8 @@ public String trackerip=constants.Constants.serverIp;
 
     private void RefbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefbutActionPerformed
         // To fetch latest data on Remote files from tracker and populate the gui containers
-        
+        trackerip = constants.Constants.serverIp+":3000";
+        JOptionPane.showMessageDialog(null, trackerip);
         //Initialize tracker interface
         fetchfiles f = new fetchfiles();
         //Create image icons for display
@@ -518,7 +519,7 @@ public String trackerip=constants.Constants.serverIp;
 
     private void Refbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refbut1ActionPerformed
         // To fetch latest data on Remote files from tracker and populate the gui containers
-        
+        trackerip = constants.Constants.serverIp+":3000";
         //Initialize tracker interface
         fetchfiles f = new fetchfiles();
         //Create image icons for table display
