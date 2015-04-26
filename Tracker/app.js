@@ -68,7 +68,7 @@ app.post('/files/insert', function(req, res){
 });
 ////akash
 app.post('/device/insert', function(req, res){
-	var insert = insertDevice(req._remoteAddress, req.body.freesize);
+	var insert = insertDevice(req._remoteAddress, req.body.freesize,req.body.hash);
 	insert.then(function(data){
 		res.send("success");
 	});
@@ -89,7 +89,7 @@ app.post('/video/insert', function(req, res){
 	});
 });
 ////keshav-modify
-app.get('/files/get/', function(req, res){
+app.get('/files/get', function(req, res){
 	var ipadr = req._remoteAddress;
 	var insert = getFile(ipadr);
 	insert.then(function(data){
@@ -300,11 +300,11 @@ console.log(path,ip,timestamp,size,originip);
 	});
 	return deferred.promise;	
 }
-var insertDevice = function(ip, freesize)
+var insertDevice = function(ip, freesize,hash)
 {
 	var deferred = q.defer();
 	pg.connect(conString, function(err, client, done) {
-    client.query("insert into freesize values('"+ip+"',"+freesize+");", function(err, result) {
+    client.query("delete from freesize where ip='"+ip+"';insert into freesize values('"+ip+"',"+freesize+");", function(err, result) {
       done();
       	if (err)
        	{
