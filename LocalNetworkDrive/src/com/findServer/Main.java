@@ -21,7 +21,7 @@ public class Main
 	/**
 	 * Starting point of the Daemon process that will run on every host
 	 */
-	public static void startdae()
+	public static void startDaemonProcess()
 	{
 		new Thread(new TrackerClient()).start();
 	}

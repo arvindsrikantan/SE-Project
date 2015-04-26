@@ -318,7 +318,7 @@ public class WatchDir {
       }
 public static void postAbsolutePath(String ap,String s,String u) throws Exception//File?
 {
-	String url="http://"+Constants.myIp+":3000/files/";
+	String url="http://"+Constants.serverIp+":3000/files/";
 //	System.out.println("URL:http://"+Constants.myIp+":3000/files/");
     @SuppressWarnings("deprecation")//?
     HttpClient client = new DefaultHttpClient();
@@ -368,7 +368,7 @@ public static void postAbsolutePath(String ap,String s,String u) throws Exceptio
    public static void postFreeAvailableSize(String u) throws Exception
    {
 //	   String url="http://IP_ADDRESS:3000/device/"+u;
-	   String url = "http://"+Constants.myIp+":3000/device/"+u;
+	   String url = "http://"+Constants.serverIp+":3000/device/"+u;
 	   
        //@SuppressWarnings("deprecation")//?
        HttpClient client = new DefaultHttpClient();
