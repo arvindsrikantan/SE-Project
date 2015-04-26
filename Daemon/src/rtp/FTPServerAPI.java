@@ -38,7 +38,7 @@ public class FTPServerAPI extends Thread
 			e.printStackTrace();
 		}
         System.out.println("FTP Server Started");
-        //while(true)
+        while(true)
         {
             System.out.println("Waiting for Connection ...");
             try
