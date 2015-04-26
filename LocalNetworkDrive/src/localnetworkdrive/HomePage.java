@@ -1,8 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/**************************************************************************
+ SOFTWARE ENGINEERING PROJECT - 12CS354 - VI SEM BE (PESIT)
+*
+*       NETWORK STORAGE - SE PROJECT TEAM 1
+*
+*       JOB     - Graphics User Interface
+*
+*       AUTHORS - Keshav Pandey
+*
+*       TASK    - To provide an easy to use interface to provide
+*                   all the features available in our SE Project.
+*               - To integrate various modules and provide a single
+*                 access point
+*               - To update tracker on various operations performed
+* 
+
+****************************************************************************/
 
 package localnetworkdrive;
 
@@ -16,7 +28,7 @@ import org.json.*;
 
 /**
  *
- * @author kesha
+ * @author keshav pandey
  */
 public class HomePage extends javax.swing.JFrame {
 public String jsonresp;
@@ -364,25 +376,28 @@ public JSONArray json;
     }// </editor-fold>//GEN-END:initComponents
 
     private void opt4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt4ActionPerformed
-        // TODO add your handling code here:
+        // Exit the application
         System.exit(0);
     }//GEN-LAST:event_opt4ActionPerformed
 
     private void opt5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt5ActionPerformed
-        // TODO add your handling code here:
+        // To show the RTP GUI module
         file.setVisible(true);
         
     }//GEN-LAST:event_opt5ActionPerformed
 
     private void RefbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefbutActionPerformed
-        // TODO add your handling code here:
+        // To fetch latest data on Remote files from tracker and populate the gui containers
         
+        //Initialize tracker interface
         fetchfiles f = new fetchfiles();
+        //Create image icons for display
         ImageIcon jv = new ImageIcon(HomePage.class.getResource("java.png"));
         ImageIcon py = new ImageIcon(HomePage.class.getResource("python.png"));
         ImageIcon mp = new ImageIcon(HomePage.class.getResource("mp4.png"));
         ImageIcon def = new ImageIcon(HomePage.class.getResource("def.png"));
         ImageIcon pdf = new ImageIcon(HomePage.class.getResource("pdf.png"));
+        //Carry out the fetch operation
         try
         {
             jsonresp = f.getHTML("http://192.168.0.17:3000/files/get/");
@@ -391,7 +406,9 @@ public JSONArray json;
                 JOptionPane.showMessageDialog(null,"Oops. Looks like the Server and I aren't connected.");
                 return;
             }
+            //Convert data into a convenient file format
             json = new JSONArray(jsonresp);
+            //Create a data model for the table display
             DefaultTableModel model = new DefaultTableModel()
              {
                     @Override
@@ -400,15 +417,14 @@ public JSONArray json;
                         return getValueAt(0, column).getClass();
                     };
              };
+            //Add initial columns
             model.addColumn("Icon");
             model.addColumn("FileName");
             model.addColumn("Remote Location");
-            /*model.addRow(new Object[] {pdf,"PDF","yourmom"});
-            model.addRow(new Object[] {jv,"Java","yourmom"});
-            model.addRow(new Object[] {mp,"Mp4","yourmom"});
-            model.addRow(new Object[] {def,"def","yourmom"});*/
+            //Check if data isnt empty
             if(json.length()>0)
                 downloadbut.setEnabled(true);
+            //Iterate through the data fetched and populate the table display
             for(int i=0;i<json.length();i++)
             {
                 switch (json.getJSONObject(i).getString("absolutepath").split(".")[1]) {
@@ -429,6 +445,7 @@ public JSONArray json;
                         break;
                 }
             }
+            //Set the table display with updated data
             filelist.setModel(model);
         }
         catch(HeadlessException | JSONException e)
@@ -439,9 +456,12 @@ public JSONArray json;
     }//GEN-LAST:event_RefbutActionPerformed
 
     private void downloadbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadbutActionPerformed
-        // TODO add your handling code here:
+        // To fetch the selected file from remote server
+        
+        //Fetch selected file from gui component
         String file = (String)filelist.getValueAt(filelist.getSelectedRow(), 1);
         int i = 0;
+        //Match the selected file with local data index
         for(i=0;i<jsonresp.length()-1;i++)
         {
             if(file.equals(json.getJSONObject(i).getString("absolutepath")))
@@ -451,9 +471,10 @@ public JSONArray json;
         String ip = json.getJSONObject(i).getString("ip");
         String srcip = json.getJSONObject(i).getString("originip");
         String filename = json.getJSONObject(i).getString("absolutepath");
-        //API CALL
+        //Initialize variable for API call
         FTPClientAPI fc = new FTPClientAPI(ip);
     try {
+        //API call
         fc.ReceiveFile(filename);
     }
     catch(Exception e)
@@ -469,8 +490,7 @@ public JSONArray json;
     }//GEN-LAST:event_downloadbutActionPerformed
 
     private void uploadbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbutActionPerformed
-        //FTPClientAPI fc = new FTPClientAPI("192.168.0.9");
-        
+        //FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
         try
         {
             //fc.SendFile("C:\\Users\\kesha\\Desktop\\t.java");
@@ -482,17 +502,23 @@ public JSONArray json;
     }//GEN-LAST:event_uploadbutActionPerformed
 
     private void opt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt1ActionPerformed
-        // TODO add your handling code here:
+        // To show RTSP GUI Module
         videostream.setVisible(true);
     }//GEN-LAST:event_opt1ActionPerformed
 
     private void Refbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refbut1ActionPerformed
+        // To fetch latest data on Remote files from tracker and populate the gui containers
+        
+        //Initialize tracker interface
         fetchfiles f = new fetchfiles();
+        //Create image icons for table display
         ImageIcon jv = new ImageIcon(HomePage.class.getResource("java.png"));
         ImageIcon py = new ImageIcon(HomePage.class.getResource("python.png"));
         ImageIcon mp = new ImageIcon(HomePage.class.getResource("mp4.png"));
         ImageIcon def = new ImageIcon(HomePage.class.getResource("def.png"));
         ImageIcon pdf = new ImageIcon(HomePage.class.getResource("pdf.png"));
+        
+        //Fetch latest data on video files available for stream from tracker
         try
         {
             jsonresp = f.getHTML("http://192.168.0.17:3000/files/get/");
@@ -501,7 +527,9 @@ public JSONArray json;
                 JOptionPane.showMessageDialog(null,"Oops. Looks like the Server and I aren't connected.");
                 return;
             }
+            //Convert data into a convenient format
             json = new JSONArray(jsonresp);
+            //Create a data model for the table display
             DefaultTableModel model = new DefaultTableModel()
              {
                     @Override
@@ -510,15 +538,14 @@ public JSONArray json;
                         return getValueAt(0, column).getClass();
                     };
              };
+            //Populate initial columns on table display
             model.addColumn("Icon");
             model.addColumn("FileName");
             model.addColumn("Remote Location");
-            /*model.addRow(new Object[] {pdf,"PDF","yourmom"});
-            model.addRow(new Object[] {jv,"Java","yourmom"});
-            model.addRow(new Object[] {mp,"Mp4","yourmom"});
-            model.addRow(new Object[] {def,"def","yourmom"});*/
+            //Check if data isnt empty
             if(json.length()>0)
                 downloadbut1.setEnabled(true);
+            //Iterate through data to populate the table display
             for(int i=0;i<json.length();i++)
             {
                 switch (json.getJSONObject(i).getString("absolutepath").split(".")[1]) {
@@ -538,8 +565,10 @@ public JSONArray json;
     }//GEN-LAST:event_Refbut1ActionPerformed
 
     private void downloadbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadbut1ActionPerformed
+        //Get selected file from GUI component
         String file = (String)filelist1.getValueAt(filelist1.getSelectedRow(), 1);
         int i = 0;
+        //Find the index of the selected file from local data
         for(i=0;i<jsonresp.length()-1;i++)
         {
             if(file.equals(json.getJSONObject(i).getString("absolutepath")))
@@ -549,24 +578,25 @@ public JSONArray json;
         String ip = json.getJSONObject(i).getString("ip");
         String srcip = json.getJSONObject(i).getString("originip");
         String filename = json.getJSONObject(i).getString("absolutepath");
+        
+    try
+    {
         //API CALL
-        try
-        {
-            RunRTSPClientPython.runClient(ip, filename);
-        }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null,e.getMessage());
-        }
-        finally
-        {
-            System.out.println("Done Streaming");
-        }
+        RunRTSPClientPython.runClient(ip, filename);
+    }
+    catch(Exception e)
+    {
+        JOptionPane.showMessageDialog(null,e.getMessage());
+    }
+    finally
+            {
+                System.out.println("Done Streaming");
+            }
         
     }//GEN-LAST:event_downloadbut1ActionPerformed
 
     private void opt3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt3ActionPerformed
-        // TODO add your handling code here:
+        // To open the Help GUI module
         helpmenu.setVisible(true);
     }//GEN-LAST:event_opt3ActionPerformed
 
