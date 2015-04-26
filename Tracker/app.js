@@ -21,7 +21,7 @@ var express = require('express'),//exprss js framewrk
     fs   = require('fs-extra'),
     qt   = require('quickthumb');
 
-var conString = "postgres://bhargav:password@localhost:5432/mydb"
+var conString = "postgres://abhinav:password@localhost:5432/mydb"
 
 var app = module.exports = express();
 app.use(bodyParser.urlencoded({
@@ -59,62 +59,157 @@ if (env === 'development') {
 if (env === 'production') {
   // TODO
 }
+////keshav
 app.post('/files/insert', function(req, res){
-	var insert = insertFile(req.body.absolutepath,req.body.ip,req.body.timestamp,req.body.size);
+	var insert = insertFile(req.body.absolutepath,req._remoteAddress,req.body.timestamp,req.body.size,req.body.originip);
 	insert.then(function(data){
 		res.send("success");
 	});
 });
+////akash
 app.post('/device/insert', function(req, res){
-	var insert = insertDevice(req.body.ip, req.body.freesize);
+	var insert = insertDevice(req._remoteAddress, req.body.freesize);
 	insert.then(function(data){
 		res.send("success");
 	});
 });
+////akash
+app.post('/device/update', function(req, res){
+	var insert = insertDevice(req._remoteAddress, req.body.freesize);
+	insert.then(function(data){
+		res.send("success");
+	});
+});
+////   donno
 app.post('/video/insert', function(req, res){
-	var insert = insertVideo(req.body.absolutepath, req.body.ip, req.body.audiobitrate, req.body.videobitrate, req.body.server);
+	var ip = req._remoteAddress;
+	var insert = insertVideo(req.body.absolutepath, ip, req.body.audiobitrate, req.body.videobitrate, req.body.server,req.body.originip);
 	insert.then(function(data){
 		res.send("success");
 	});
 });
-app.get('/files/get', function(req, res){
-	var insert = getFile();
+////keshav-modify
+app.get('/files/get/', function(req, res){
+	var ipadr = req._remoteAddress;
+	var insert = getFile(ipadr);
 	insert.then(function(data){
 		res.send(data.rows);
 	});
 });
+//// donno
 app.get('/device/get', function(req, res){
 	var insert = getDevice();
 	insert.then(function(data){
 		res.send(data.rows);
 	});
 });
-app.get('/video/get', function(req, res){
-	var insert = getVideo();
+//// donno
+app.get('/video/get/:ip', function(req, res){
+	var insert = getVideo(req.params.ip);
 	insert.then(function(data){
 		res.send(data.rows);
 	});
 });
+//// akash
 app.post('/files/delete', function(req, res){
 	var absolutepath = req.body.absolutepath;
-	var ip = req.body.ip;
+	var ip = req._remoteAddress;
 	var deletefile = deleteFile(absolutepath, ip);
 	deletefile.then(function(data){
-		var seekip = seekIp(ip);
-		seekip.then(function(data1){
-			console.log("data1:"+JSON.stringify(data1));
-			if(data1.rows.length==0)
-			{
-				cosole.log('yayayay!!!')
-				var deleteip = deleteIp(ip);
-				deleteip.then(function(data){
-					res.send('success2');
-				});
-			}
-			//res.send('success1')
-		});
+		res.send('success')
 	});
 });
+//// akash
+app.post('/files/rename', function(req, res){
+	var oldpath = req.body.oldpath;
+	var newpath = req.body.newpath;
+	var ip = req._remoteAddress;
+	var renamefile = renameFile(ip, oldpath, newpath);
+	renamefile.then(function(data){
+		res.send('success');
+	});
+});
+//// akash
+app.post('/files/updatesize', function(req, res){
+	var absolutepath = req.body.absolutepath;
+	var ip = req._remoteAddress;
+	var newsize = req.body.size;
+	var updatesize = updateSize(ip, absolutepath, newsize); 
+});
+//// donno
+app.post('/video/delete', function(req, res){
+	var absolutepath = req.body.absolutepath;
+	var ip = req.body.ip;
+	var deletevideo = deleteVideo(absolutepath, ip);
+	deletevideo.then(function(req, res){
+		var deletefile = deleteFile(absolutepath, ip);
+		deletefile.then(function(data){
+			res.send('success');
+		});
+		res.send("deleted video")
+	});
+});
+//// keshav
+app.get('/getfreesize/:size', function(req, res){
+	var size = req.params.size;
+	var getip = getIp(size);
+	getip.then(function(data){
+		res.send(data.rows[0].ip);
+	});
+});
+//// abhishek
+app.get('/auth/:hash', function(req, res){
+	var ip = req._remoteAddress;
+	var gethash = getHash(ip);
+	gethash.then(function(data){
+		if(data == req.params.hash)
+		{
+			res.send('true');
+		}
+		else
+		{
+			res.send('false');
+		}
+	});
+});
+var getHash = function(ip)
+{
+	var deferred = q.defer();
+	pg.connect(conString, function(err, client, done) {
+    client.query("select hash from freesize where ip='"+ip+"'", function(err, result) 
+    {
+      done();
+      	if (err)
+       	{
+       	 	deferred.reject(err);
+       	}
+      	else
+       	{
+       	 	deferred.resolve(result);
+       	}
+       	});
+	});
+	return deferred.promise;
+}
+var getIp = function(size)
+{
+	var deferred = q.defer();
+	pg.connect(conString, function(err, client, done) {
+    client.query("select ip from freesize where freesize>"+size+";", function(err, result) 
+    {
+      done();
+      	if (err)
+       	{
+       	 	deferred.reject(err);
+       	}
+      	else
+       	{
+       	 	deferred.resolve(result);
+       	}
+       	});
+	});
+	return deferred.promise;
+}
 var deleteFile = function(path, ip)
 {
 	var deferred = q.defer();
@@ -136,14 +231,14 @@ var deleteFile = function(path, ip)
 	});
 	return deferred.promise;	
 }
-var seekIp = function(ip)
+var deleteVideo = function(path, ip)
 {
 	var deferred = q.defer();
 	pg.connect(conString, function(err, client, done) {
-    client.query("select * from hooks where ip='"+ip+"';", function(err, result) 
+    client.query("delete from video where ip='"+ip+"' and absolutepath='"+path+"';", function(err, result) 
     {
       done();
-      console.log((String)(err));
+      console.log("fffff"+(String)(err));
       	if (err)
        	{
        		console.log("comes here");
@@ -151,7 +246,7 @@ var seekIp = function(ip)
        	}
       	else
        	{
-       	 	deferred.resolve(result);
+       	 	deferred.resolve('success');
        	}
        	});
 	});
@@ -183,12 +278,12 @@ var deleteIp = function(ip)
 
 
 
-var insertFile = function(path, ip, timestamp, size)
+var insertFile = function(path, ip, timestamp, size, originip)
 {
 	var deferred = q.defer();//wait until query is completed
-console.log(path,ip,timestamp,size);
+console.log(path,ip,timestamp,size,originip);
 	pg.connect(conString, function(err, client, done) {
-    client.query("insert into hooks values('"+path+"','"+ip+"','"+timestamp+"',"+size+");", function(err, result) 
+    client.query("insert into hooks values('"+path+"','"+ip+"','"+timestamp+"',"+size+",'"+originip+"');", function(err, result) 
     {
       done();
       console.log((String)(err));
@@ -223,16 +318,34 @@ var insertDevice = function(ip, freesize)
 	});
 	return deferred.promise;	
 }
+var updateDevice = function(ip, freesize)
+{
+	var deferred = q.defer();
+	pg.connect(conString, function(err, client, done) {
+    client.query("update freesize set freesize="+freesize+" where ip='"+ip+"';", function(err, result) {
+      done();
+      	if (err)
+       	{
+       	 	deferred.reject(err);
+       	}
+      	else
+       	{
+       	 	deferred.resolve('success');
+       	}
+       	});
+	});
+	return deferred.promise;	
+}
  http.createServer(app).listen(app.get('port'), function () {
    console.log('Express server listening on port ' + app.get('port'));
  });
 
-var insertVideo = function(absolutepath, ip, audiobitrate, videobitrate, server)
+var insertVideo = function(absolutepath, ip, audiobitrate, videobitrate, server, originip)
 {
 	var deferred = q.defer();
 	console.log("abhinav")
 	pg.connect(conString, function(err, client, done) {
-    client.query("insert into video values('"+absolutepath+"','"+ip+"',"+audiobitrate+","+videobitrate+",'"+server+"');", function(err, result) {
+    client.query("insert into video values('"+absolutepath+"','"+ip+"',"+audiobitrate+","+videobitrate+",'"+server+"','"+originip+"');", function(err, result) {
       done();
       	if (err)
        	{
@@ -249,11 +362,11 @@ var insertVideo = function(absolutepath, ip, audiobitrate, videobitrate, server)
 	console.log("before return");
 	return deferred.promise;	
 }
-var getVideo = function()
+var getVideo = function(ip)
 {
 	var deferred = q.defer();
 	pg.connect(conString, function(err, client, done) {
-    client.query("select * from video;", function(err, result) {
+    client.query("select * from video where originip='"+ip+"';", function(err, result) {
       done();
       	if (err)
        	{
@@ -287,11 +400,11 @@ var getDevice = function()
 	});
 	return deferred.promise;	
 }
-var getFile = function()
+var getFile = function(ip)
 {
 	var deferred = q.defer();
 	pg.connect(conString, function(err, client, done) {
-    client.query("select * from hooks;", function(err, result) {
+    client.query("select * from hooks where originip='"+ip+"';", function(err, result) {
       done();
       	if (err)
        	{
@@ -305,4 +418,43 @@ var getFile = function()
        	});
 	});
 	return deferred.promise;	
+}
+var renameFile = function(ip, oldpath, newpath)
+{
+	var deferred = q.defer();
+	pg.connect(conString, function(err, client, done) {
+    client.query("update hooks set absolutepath='"+newpath+"' where absolutepath='"+oldpath+"' and ip='"+ip+"';", function(err, result) 
+    {
+      done();
+      	if (err)
+       	{
+       	 	deferred.reject(err);
+       	}
+      	else
+       	{
+       	 	deferred.resolve(result);
+       	}
+       	});
+	});
+	return deferred.promise;
+}
+
+var updateSize = function(ip, absolutepath, newsize)
+{
+	var deferred = q.defer();
+	pg.connect(conString, function(err, client, done) {
+    client.query("update hooks set size='"+newsize+"' where absolutepath='"+absolutepath+"' and ip='"+ip+"';", function(err, result) 
+    {
+      done();
+      	if (err)
+       	{
+       	 	deferred.reject(err);
+       	}
+      	else
+       	{
+       	 	deferred.resolve(result);
+       	}
+       	});
+	});
+	return deferred.promise;
 }
