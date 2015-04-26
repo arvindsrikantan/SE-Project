@@ -36,7 +36,7 @@ import rtspVideo.RunRTSPClientPython;
 public class HomePage extends javax.swing.JFrame {
 public String jsonresp;
 public JSONArray json;
-public String trackerip="192.168.0.17:3000";
+public String trackerip=constants.Constants.serverIp;
     /**
      * Creates new form HomePage
      */
@@ -437,7 +437,7 @@ public String trackerip="192.168.0.17:3000";
             for(int i=0;i<json.length();i++)
             {JOptionPane.showMessageDialog(null,json.getJSONObject(i).getString("absolutepath"));
                 String switcher = new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"));
-                switch (switcher.split(".")[1]) {
+                switch (switcher.split("[.]")[1]) {
                     case "py":
                         model.addRow(new Object[]{py,switcher,json.getJSONObject(i).getString("ip")});
                         break;
@@ -503,7 +503,7 @@ public String trackerip="192.168.0.17:3000";
         FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
         try
         {
-            fc.SendFile("C:\\Users\\kesha\\Desktop\\h.java");
+            fc.SendFile("C:\\Users\\kesha\\Desktop\\z.java");
         }
         catch(Exception e)
         {
@@ -559,7 +559,7 @@ public String trackerip="192.168.0.17:3000";
             for(int i=0;i<json.length();i++)
             {
                 String switcher = new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"));
-                switch (switcher.split(".")[1]) {
+                switch (switcher.split("[.]")[1]) {
                     case "mp4":
                         model.addRow(new Object[]{mp,switcher,json.getJSONObject(i).getString("ip")});
                         break;

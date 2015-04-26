@@ -468,7 +468,7 @@ public static void postAbsolutePath(String ap,String s,String u) throws Exceptio
                            catch (InterruptedException e1) 
                            {
                            // TODO Auto-generated catch block
-                              e1.printStackTrace();
+                              //e1.printStackTrace();
                            }
                            Path dir = Paths.get(x);
                            try 
@@ -478,13 +478,13 @@ public static void postAbsolutePath(String ap,String s,String u) throws Exceptio
                            catch (IOException e1) 
                            {
                            // TODO Auto-generated catch block
-                              e1.printStackTrace();
+                              //e1.printStackTrace();
                            }//?
                         }
                         catch (Exception e) 
                         {
-                           e.printStackTrace();
-                           System.out.println(e.getMessage());
+                           //e.printStackTrace();
+                           //System.out.println(e.getMessage());
                         }
                      }
              }).start();

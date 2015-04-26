@@ -69,7 +69,7 @@ public class FTPClientAPI
 		System.out.println(newip);
                 pathtranslator pt = new pathtranslator();
 		//String absp = newip+"/"+newfile;
-                String absp = ClientSoc.getLocalAddress()+ pt.encode(filename);
+                String absp = ClientSoc.getLocalAddress().toString().split("/")[1].split(":")[0]+"/"+pt.encode(filename);
                 System.out.println(absp);
 		dout.writeUTF(absp);
 		dout.writeUTF(String.valueOf(f.length()));
