@@ -407,7 +407,7 @@ public String trackerip="192.168.0.17";
         //Carry out the fetch operation
         try
         {
-            jsonresp = f.getHTML("trackerip/files/get/");
+            jsonresp = f.getHTML(trackerip+"/files/get/");
             if(jsonresp.equals(""))
             {
                 JOptionPane.showMessageDialog(null,"Oops. Looks like the Server and I aren't connected.");
@@ -528,7 +528,7 @@ public String trackerip="192.168.0.17";
         //Fetch latest data on video files available for stream from tracker
         try
         {
-            jsonresp = f.getHTML("trackerip/files/get/");
+            jsonresp = f.getHTML(trackerip+"/files/get/");
             if(jsonresp.equals(""))
             {
                 JOptionPane.showMessageDialog(null,"Oops. Looks like the Server and I aren't connected.");

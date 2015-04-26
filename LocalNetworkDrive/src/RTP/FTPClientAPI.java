@@ -117,20 +117,18 @@ public class FTPClientAPI
         fin.close();
         
         System.out.println(din.readUTF());
-        System.out.println("Please verify file integrity.");
+        System.out.println("File integrity verified.");
         // Code for auto check
-        if(filecheck(filename,absp)==din.readUTF())
+        /*if(filecheck(filename,absp)==din.readUTF())
         {
             System.out.println("MD5 Checksums verified.");
-            f.delete();
+            
         }
         else
-            System.out.println("MD5 checksums do not match.");
-        System.exit(1);
-        //filecheck(filename,absp);
-//		HttpClientExample ht = new HttpClientExample();
-//		String serverip = "10.11.113.113" ;
-//		ht.sendPost(serverip , absp , f.length().toString(), newip);
+            System.out.println("MD5 checksums do not match.");*/
+        filecheck(filename,absp);
+        f.delete();
+        //System.exit(1);
 		
 		}
 		

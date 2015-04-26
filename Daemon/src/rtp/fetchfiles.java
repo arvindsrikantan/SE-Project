@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package localnetworkdrive;
+package rtp;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -20,7 +20,7 @@ import java.util.Date;
  * @author kesha
  */
 public class fetchfiles {
-public String trackerip;
+public String trackerip="192.168.0.17";
 
     public void sendPost(String absp,String oipp,String sizep) throws Exception {
  
