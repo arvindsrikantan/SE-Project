@@ -114,7 +114,10 @@ public class FTPClientAPI
         // Code for auto check
         if(filecheck(filename,absp).equals(din.readUTF()))
         {
+            JOptionPane.showMessageDialog(null,"MD5 Checksums verified. The file has been safetly saved in remote server.\nThe Local file will be deleted now.");
             System.out.println("MD5 Checksums verified.");
+            System.out.println("Deleting File.");
+            //Del the file
             f.delete();
         }
         else

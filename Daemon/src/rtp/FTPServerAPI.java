@@ -248,7 +248,7 @@ class transferfile extends Thread
             catch(Exception ex)
             {
 				System.out.println(ex);
-				System.out.println("Connection closed at Client....\n Closing the server...");
+				System.out.println("Connection closed at Client....");
 //				System.exit(1);
             }
         }

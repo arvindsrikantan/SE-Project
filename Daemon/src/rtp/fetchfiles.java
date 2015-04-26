@@ -20,7 +20,7 @@ import java.util.Date;
  * @author kesha
  */
 public class fetchfiles {
-public String trackerip="192.168.0.17";
+public String trackerip="192.168.0.17:3000";
 
     public void sendPost(String absp,String oipp,String sizep) throws Exception {
  
