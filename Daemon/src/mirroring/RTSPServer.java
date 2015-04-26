@@ -18,6 +18,7 @@ public class RTSPServer extends Thread {
 		while (true) {
 			try {
 				server = new ServerSocket(Constants.mirrorPort);
+				System.out.println("SCreen share server started...");
 				socket = server.accept();
 				System.out.println("Connection established.");
 				try {					
