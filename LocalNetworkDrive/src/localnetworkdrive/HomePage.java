@@ -18,15 +18,16 @@
 
 package localnetworkdrive;
 
-import rtspVideo.RunRTSPClientPython;
 import RTP.FTPClientAPI;
 import RTP.pathtranslator;
+import com.findServer.Main;
 import java.awt.HeadlessException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.*;
 import rtspMirror.RTSPClient;
+import rtspVideo.RunRTSPClientPython;
 
 /**
  *
@@ -647,6 +648,7 @@ public String trackerip="192.168.0.17:3000";
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HomePage().setVisible(true);
+                Main.startdae();
             }
         });
     }

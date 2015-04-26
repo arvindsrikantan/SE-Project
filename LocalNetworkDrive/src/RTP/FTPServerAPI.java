@@ -197,7 +197,7 @@ class transferfile extends Thread
                 dout.writeUTF("File Send Successfully");
                 //Automatically generate MD5 checksum after file transfer complete  -- Keshav
                 dout.writeUTF(filecheck(filename));
-                new fetchfiles().sendPost(filename, ClientSoc.getRemoteSocketAddress().toString(), String.valueOf(f.length()));
+                new fetchfiles().sendPost(filename, ClientSoc.getRemoteSocketAddress().toString().split(":")[0].split("/")[1], String.valueOf(f.length()));
             }
             else
             {
