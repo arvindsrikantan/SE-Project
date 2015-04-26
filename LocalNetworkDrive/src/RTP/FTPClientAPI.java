@@ -47,12 +47,12 @@ public class FTPClientAPI
     //Method to send files --keshav
     public void SendFile(String filename) throws IOException
     {    
-         SE se=new SE();
-        try {
-            se.encr(filename);
-        } catch (GeneralSecurityException ex) {
-            JOptionPane.showMessageDialog(null, "Security Error");
-        }
+//         SE se=new SE();
+//        try {
+//            se.encr(filename);
+//        } catch (GeneralSecurityException ex) {
+//            JOptionPane.showMessageDialog(null, "Security Error");
+//        }
       try
 	  {
 		dout.writeUTF("SEND");
@@ -241,8 +241,8 @@ public class FTPClientAPI
 				JOptionPane.showMessageDialog(null,"File Received Successfully");
 				//Automatically generate MD5 checksum after file transfer complete  -- Keshav
 			    filecheck(fileName,"");
-                                SE se=new SE();
-                                se.decr(fileName);
+//                                SE se=new SE();
+//                                se.decr(fileName);
 			}
 		}
 		catch(Exception exp)

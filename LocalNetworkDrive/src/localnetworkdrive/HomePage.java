@@ -118,7 +118,7 @@ public static String trackerip;
         jLayeredPane2.add(downloadbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 140, 30));
 
         uploadbut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
-        uploadbut.setText("Upload");
+        uploadbut.setText("Browse");
         uploadbut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uploadbutActionPerformed(evt);
@@ -151,7 +151,7 @@ public static String trackerip;
         jLayeredPane2.add(uploadfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 500, 360));
 
         uploadbut1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
-        uploadbut1.setText("Select File");
+        uploadbut1.setText("Upload");
         uploadbut1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uploadbut1ActionPerformed(evt);
@@ -416,7 +416,11 @@ public static String trackerip;
 
     private void RefbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefbutActionPerformed
         // To fetch latest data on Remote files from tracker and populate the gui containers
+        
         trackerip = constants.Constants.serverIp+":3000";
+        jScrollPane2.setVisible(true);
+        filelist.setVisible(true);
+        uploadfile.setVisible(false);
         //Initialize tracker interface
         fetchfiles f = new fetchfiles();
         //Create image icons for display
@@ -643,7 +647,7 @@ public static String trackerip;
         File f = uploadfile.getSelectedFile();
         JOptionPane.showMessageDialog(null, "Uploading "+ uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
         //Initialize FTPClientAPI
-        FTPClientAPI fc = new FTPClientAPI("192.168.0.130");        
+        FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
         try
         {
             //API CALL

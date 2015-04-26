@@ -81,7 +81,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI Emoji" size="18" style="3"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Upload"/>
+                <Property name="text" type="java.lang.String" value="Browse"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uploadbutActionPerformed"/>
@@ -142,7 +142,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI Emoji" size="18" style="3"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Select File"/>
+                <Property name="text" type="java.lang.String" value="Upload"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uploadbut1ActionPerformed"/>
