@@ -13,17 +13,13 @@ package com.findServer;
 *       TASK    - To start tracker server
 
 ****************************************************************************/
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.Enumeration;
-
 import constants.Constants;
-
 import utils.Addressing;
 /**
  *   Start tracker server
@@ -32,6 +28,69 @@ public class TrackerServer implements Runnable
 {
 	public void run()
 	{
+		/**
+		 * Start tracker server
+		 */
+
+//		StringBuffer output = new StringBuffer();
+//		Runtime rt = Runtime.getRuntime();
+//		Process pr = null;
+//		try
+//		{
+//			pr = rt.exec("python server.py");
+//		}
+//		catch (IOException e1)
+//		{
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+//		BufferedReader reader = new BufferedReader(new InputStreamReader(pr.getInputStream()));//for error use pr.getErrorStream();
+//		String line = "";			
+//		try
+//		{
+//			while ((line = reader.readLine())!= null) 
+//			{
+//				output.append(line + "\n");
+//			}
+//		}
+//		catch (IOException e1)
+//		{
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		System.out.println(output.toString());
+//		
+//		reader = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
+//		line = "";			
+//		output = new StringBuffer();
+//		try
+//		{
+//			while ((line = reader.readLine())!= null) 
+//			{
+//				output.append(line + "\n");
+//			}
+//		}
+//		catch (IOException e1)
+//		{
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		System.out.println(output.toString());
+//		
+//		
+//		try
+//		{
+//			pr.waitFor();
+//		}
+//		catch (InterruptedException e1)
+//		{
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+//		
+		/******************************************************************************************/
 		DatagramSocket drcv = null;
 		try
 		{
