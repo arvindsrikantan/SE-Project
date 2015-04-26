@@ -1,5 +1,6 @@
-package rtspClientServer;
+package rtsp;
 
+import constants.Constants;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,12 +28,12 @@ import java.awt.*;
 public class RTSPClient extends Thread {
 	static Socket client;
 
-	public static void main(String[] args) throws UnknownHostException, ClassNotFoundException, IOException, InterruptedException
-	{
-		startClient("192.168.0.129");
-	}
-	public static void startClient(String serverIP) throws UnknownHostException, IOException, ClassNotFoundException, InterruptedException {
-		client = new Socket(serverIP, 8000);
+	public static void startClient(String serverIP) {
+            try {
+                client = new Socket(serverIP, Constants.mirrorPort);
+            } catch (IOException ex) {
+                Logger.getLogger(RTSPClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		System.out.println("Sent client request.");
 
 	    try {

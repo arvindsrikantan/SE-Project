@@ -25,6 +25,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.json.*;
+import rtsp.RTSPClient;
 
 /**
  *
@@ -299,6 +300,11 @@ public JSONArray json;
         opt2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         opt2.setName("op1"); // NOI18N
         opt2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        opt2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opt2ActionPerformed(evt);
+            }
+        });
         jLayeredPane1.add(opt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 170, 240));
 
         opt3.setBackground(new java.awt.Color(255, 255, 255));
@@ -599,6 +605,13 @@ public JSONArray json;
         // To open the Help GUI module
         helpmenu.setVisible(true);
     }//GEN-LAST:event_opt3ActionPerformed
+
+    private void opt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt2ActionPerformed
+        // TODO add your handling code here:
+        new Thread(new Runnable(){public void run(){
+        RTSPClient.startClient("192.168.0.129");
+        }}).start();
+    }//GEN-LAST:event_opt2ActionPerformed
 
     /**
      * @param args the command line arguments

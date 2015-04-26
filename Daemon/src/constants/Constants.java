@@ -27,5 +27,5 @@ public class Constants
 	public static final int videoServerPort  = 6000;
 	public static final int videoClientPort  = 6000;
 	public static final int ftpPort  = 5000;
-        public static final int mirrorPort = 8000;
+    public static final int mirrorPort = 8000;
 }

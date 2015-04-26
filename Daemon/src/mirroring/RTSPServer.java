@@ -1,13 +1,12 @@
 package mirroring;
 
-import constants.Constants;
-import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
+
+import constants.Constants;
 
 public class RTSPServer extends Thread {
 	static ImageIcon image;
@@ -18,6 +17,7 @@ public class RTSPServer extends Thread {
 		while (true) {
 			try {
 				server = new ServerSocket(Constants.mirrorPort);
+				System.out.println("SCreen share server started...");
 				socket = server.accept();
 				System.out.println("Connection established.");
 				try {					
