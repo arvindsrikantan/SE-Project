@@ -22,6 +22,7 @@ import RTP.FTPClientAPI;
 import RTP.pathtranslator;
 import com.findServer.Main;
 import java.awt.HeadlessException;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -61,6 +62,8 @@ public static String trackerip;
         uploadbut = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         filelist = new javax.swing.JTable();
+        uploadfile = new javax.swing.JFileChooser();
+        uploadbut1 = new javax.swing.JButton();
         back1 = new javax.swing.JLabel();
         videostream = new javax.swing.JDialog();
         jLayeredPane3 = new javax.swing.JLayeredPane();
@@ -139,6 +142,22 @@ public static String trackerip;
         jScrollPane2.setViewportView(filelist);
 
         jLayeredPane2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 500, 360));
+
+        uploadfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadfileActionPerformed(evt);
+            }
+        });
+        jLayeredPane2.add(uploadfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 500, 360));
+
+        uploadbut1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        uploadbut1.setText("Select File");
+        uploadbut1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadbut1ActionPerformed(evt);
+            }
+        });
+        jLayeredPane2.add(uploadbut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 200, 140, 30));
 
         back1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/localnetworkdrive/back.jpg"))); // NOI18N
         jLayeredPane2.add(back1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 430));
@@ -392,13 +411,12 @@ public static String trackerip;
     private void opt5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt5ActionPerformed
         // To show the RTP GUI module
         file.setVisible(true);
-        
+        uploadfile.setVisible(false);
     }//GEN-LAST:event_opt5ActionPerformed
 
     private void RefbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefbutActionPerformed
         // To fetch latest data on Remote files from tracker and populate the gui containers
         trackerip = constants.Constants.serverIp+":3000";
-        JOptionPane.showMessageDialog(null, trackerip);
         //Initialize tracker interface
         fetchfiles f = new fetchfiles();
         //Create image icons for display
@@ -436,9 +454,9 @@ public static String trackerip;
                 downloadbut.setEnabled(true);
             //Iterate through the data fetched and populate the table display
             for(int i=0;i<json.length();i++)
-            {JOptionPane.showMessageDialog(null,json.getJSONObject(i).getString("absolutepath"));
+            {
                 String switcher = new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"));
-                switch (switcher.split("[.]")[1]) {
+                switch (switcher.split("[.]")[switcher.split("[.]").length-1]) {
                     case "py":
                         model.addRow(new Object[]{py,switcher,json.getJSONObject(i).getString("ip")});
                         break;
@@ -470,12 +488,12 @@ public static String trackerip;
         // To fetch the selected file from remote server
         
         //Fetch selected file from gui component
-        String file = (String)filelist.getValueAt(filelist.getSelectedRow(), 1);
+        String file = filelist.getValueAt(filelist.getSelectedRow(), 1).toString();
         int i = 0;
         //Match the selected file with local data index
         for(i=0;i<jsonresp.length()-1;i++)
         {
-            if(file.equals(json.getJSONObject(i).getString("absolutepath")))
+            if(file.equals(new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"))))
                 break;
         }
         //Retrieve Variables
@@ -501,15 +519,10 @@ public static String trackerip;
     }//GEN-LAST:event_downloadbutActionPerformed
 
     private void uploadbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbutActionPerformed
-        FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
-        try
-        {
-            fc.SendFile("C:\\Users\\kesha\\Desktop\\z.java");
-        }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        filelist.setVisible(false);
+        jScrollPane2.setVisible(false);
+        uploadfile.setVisible(true);
+        
     }//GEN-LAST:event_uploadbutActionPerformed
 
     private void opt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt1ActionPerformed
@@ -560,7 +573,7 @@ public static String trackerip;
             for(int i=0;i<json.length();i++)
             {
                 String switcher = new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"));
-                switch (switcher.split("[.]")[1]) {
+                switch (switcher.split("[.]")[4]) {
                     case "mp4":
                         model.addRow(new Object[]{mp,switcher,json.getJSONObject(i).getString("ip")});
                         break;
@@ -583,7 +596,7 @@ public static String trackerip;
         //Find the index of the selected file from local data
         for(i=0;i<jsonresp.length()-1;i++)
         {
-            if(file.equals(json.getJSONObject(i).getString("absolutepath")))
+            if(file.equals(new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"))))
                 break;
         }
         //Retrieve Variables
@@ -618,6 +631,33 @@ public static String trackerip;
         RTSPClient.startClient("192.168.0.129");
         }}).start();
     }//GEN-LAST:event_opt2ActionPerformed
+
+    private void uploadfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadfileActionPerformed
+        // TODO add your handling code here:
+        File f = uploadfile.getSelectedFile();
+        JOptionPane.showMessageDialog(null, "You have selected "+ uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
+    }//GEN-LAST:event_uploadfileActionPerformed
+
+    private void uploadbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbut1ActionPerformed
+        // Perform Upload operation
+        File f = uploadfile.getSelectedFile();
+        JOptionPane.showMessageDialog(null, "Uploading "+ uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
+        //Initialize FTPClientAPI
+        FTPClientAPI fc = new FTPClientAPI("192.168.0.130");        
+        try
+        {
+            //API CALL
+            fc.SendFile(uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
+            jScrollPane2.setVisible(true);
+            filelist.setVisible(true);
+            uploadfile.setVisible(false);
+            RefbutActionPerformed(evt);
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_uploadbut1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -685,6 +725,8 @@ public static String trackerip;
     private javax.swing.JButton privacybut;
     private javax.swing.JButton privacybut1;
     private javax.swing.JButton uploadbut;
+    private javax.swing.JButton uploadbut1;
+    private javax.swing.JFileChooser uploadfile;
     private javax.swing.JDialog videostream;
     // End of variables declaration//GEN-END:variables
 }
