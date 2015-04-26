@@ -20,6 +20,7 @@ package localnetworkdrive;
 
 import rtspVideo.RunRTSPClientPython;
 import RTP.FTPClientAPI;
+import RTP.pathtranslator;
 import java.awt.HeadlessException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -433,22 +434,23 @@ public String trackerip="192.168.0.17:3000";
                 downloadbut.setEnabled(true);
             //Iterate through the data fetched and populate the table display
             for(int i=0;i<json.length();i++)
-            {
-                switch (json.getJSONObject(i).getString("absolutepath").split(".")[1]) {
+            {JOptionPane.showMessageDialog(null,json.getJSONObject(i).getString("absolutepath"));
+                String switcher = new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"));
+                switch (switcher.split(".")[1]) {
                     case "py":
-                        model.addRow(new Object[]{py,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        model.addRow(new Object[]{py,switcher,json.getJSONObject(i).getString("ip")});
                         break;
                     case "java":
-                        model.addRow(new Object[]{jv,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        model.addRow(new Object[]{jv,switcher,json.getJSONObject(i).getString("ip")});
                         break;
                     case "mp4":
-                        model.addRow(new Object[]{mp,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        model.addRow(new Object[]{mp,switcher,json.getJSONObject(i).getString("ip")});
                         break;
                     case "pdf":
-                        model.addRow(new Object[]{pdf,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        model.addRow(new Object[]{pdf,switcher,json.getJSONObject(i).getString("ip")});
                         break;
                     default:
-                        model.addRow(new Object[]{def,json.getJSONObject(i).getString("absolutepath"),json.getJSONObject(i).getString("ip")});
+                        model.addRow(new Object[]{def,switcher,json.getJSONObject(i).getString("ip")});
                         break;
                 }
             }
