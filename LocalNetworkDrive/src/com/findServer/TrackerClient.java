@@ -138,11 +138,7 @@ public class TrackerClient implements Runnable
 		// Start hooks
 		try
 		{
-			WatchDir.startHooks();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
+			//WatchDir.startHooks();
 		}
 		catch (Exception e)
 		{
