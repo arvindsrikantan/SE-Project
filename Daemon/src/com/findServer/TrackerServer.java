@@ -1,5 +1,18 @@
 package com.findServer;
+/***************************************************************************
+*
+*   SOFTWARE ENGINEERING PROJECT - 12CS354 - VI SEM BE (PESIT)
+*
+*       NETWORK STORAGE - SE PROJECT TEAM 1
+*
+*       JOB     - DAEMON PROCESS
+*
+*       AUTHORS - ARVIND SRIKANTAN
+*               - ANISH NARANG
+*
+*       TASK    - To start tracker server
 
+****************************************************************************/
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -12,7 +25,7 @@ import java.util.Enumeration;
 import constants.Constants;
 
 import utils.Addressing;
-/*
+/**
  *   Start tracker server
  */
 public class TrackerServer implements Runnable

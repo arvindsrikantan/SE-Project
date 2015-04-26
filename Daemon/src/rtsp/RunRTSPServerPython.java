@@ -1,10 +1,23 @@
 package rtsp;
+/***************************************************************************
+*
+*   SOFTWARE ENGINEERING PROJECT - 12CS354 - VI SEM BE (PESIT)
+*
+*       NETWORK STORAGE - SE PROJECT TEAM 1
+*
+*       JOB     - DAEMON PROCESS
+*
+*       AUTHORS - ARVIND SRIKANTAN
+*               - ANISH NARANG
+*
+*       TASK    - To start video streaming server
 
+****************************************************************************/
 import java.io.*;
 
 import constants.Constants;
 
-/*
+/**
  *   Start the Video Streaming server on the host and wait for stream request
  */
 

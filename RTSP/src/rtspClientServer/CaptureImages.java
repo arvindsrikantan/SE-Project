@@ -35,7 +35,7 @@ public class CaptureImages {
 	public ImageIcon captureMultiple()throws InterruptedException {
 		ImageIcon image = new ImageIcon(this.capture());		
     		System.out.println("Capturing image.");			
-			Thread.sleep(180);
+//			Thread.sleep(180);
 		
 		return image;
 	}

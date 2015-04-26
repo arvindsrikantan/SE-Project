@@ -1,6 +1,18 @@
-
 package mirroring; 
+/***************************************************************************
+*
+*   SOFTWARE ENGINEERING PROJECT - 12CS354 - VI SEM BE (PESIT)
+*
+*       NETWORK STORAGE - SE PROJECT TEAM 1
+*
+*       JOB     - DAEMON PROCESS
+*
+*       AUTHORS - ARVIND SRIKANTAN
+*               - ANISH NARANG
+*
+*       TASK    - Take screenshots 
 
+****************************************************************************/
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Rectangle;
@@ -11,6 +23,9 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 public class CaptureImages {
+	/**
+	 *  Capture screenshot and return the image to the caller
+	 */
 	Robot robo;
 	public static ArrayList<ImageIcon> imagesList;
 	private BufferedImage capture() {
