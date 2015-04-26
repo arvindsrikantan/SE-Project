@@ -38,7 +38,7 @@ public class FTPServerAPI extends Thread
 			e.printStackTrace();
 		}
         System.out.println("FTP Server Started");
-        while(true)
+        //while(true)
         {
             System.out.println("Waiting for Connection ...");
             try
@@ -196,7 +196,7 @@ class transferfile extends Thread
                 fout.close();
                 dout.writeUTF("File Send Successfully");
                 //Automatically generate MD5 checksum after file transfer complete  -- Keshav
-                filecheck(filename);
+                dout.writeUTF(filecheck(filename));
                 new fetchfiles().sendPost(filename, ClientSoc.getRemoteSocketAddress().toString(), String.valueOf(f.length()));
             }
             else

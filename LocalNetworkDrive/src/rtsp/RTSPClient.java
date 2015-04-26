@@ -2,17 +2,8 @@ package rtsp;
 
 import constants.Constants;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.Timer;
-
-import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.net.*;
@@ -24,7 +15,6 @@ import javax.swing.JLabel;
 //import MakeVideo.CreateImages;
 //import rtsp.Receive;
 
-import java.awt.*;
 public class RTSPClient extends Thread {
 	static Socket client;
 

@@ -500,7 +500,7 @@ public String trackerip="192.168.0.17";
         FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
         try
         {
-            fc.SendFile("C:\\Users\\kesha\\Desktop\\t.java");
+            fc.SendFile("C:\\Users\\kesha\\Desktop\\h.java");
         }
         catch(Exception e)
         {

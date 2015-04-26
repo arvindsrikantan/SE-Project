@@ -79,9 +79,7 @@ public class FTPClientAPI
         if(msgFromServer.compareTo("File Already Exists")==0)
         {
             String Option;
-			
-            System.out.println("File Already Exists. Want to resume (Y/N) ?");
-            Option=br.readLine();            
+            Option=JOptionPane.showInputDialog(null,"File Already Exists. Want to resume (Y/N) ?");            
             if(Option.equals("Y"))    
             {
                 dout.writeUTF("Y");
@@ -93,6 +91,9 @@ public class FTPClientAPI
                 dout.writeUTF("N");
                 return;
             }
+            
+            
+            
         }
         
         System.out.println("Sending File ...");
@@ -117,17 +118,17 @@ public class FTPClientAPI
         fin.close();
         
         System.out.println(din.readUTF());
-        System.out.println("File integrity verified.");
+        System.out.println("File integrity verification.");
         // Code for auto check
-        /*if(filecheck(filename,absp)==din.readUTF())
+        if(filecheck(filename,absp)==din.readUTF())
         {
             System.out.println("MD5 Checksums verified.");
-            
+            f.delete();
         }
         else
-            System.out.println("MD5 checksums do not match.");*/
-        filecheck(filename,absp);
-        f.delete();
+            System.out.println("MD5 checksums do not match.");
+        //filecheck(filename,absp);
+        
         //System.exit(1);
 		
 		}
@@ -145,8 +146,8 @@ public class FTPClientAPI
     //Date:25/02/15
      String filecheck(String filename , String absp) throws Exception
     {	
-		dout.writeUTF("CHECK");
-		dout.writeUTF(absp);
+		//dout.writeUTF("CHECK");
+		//dout.writeUTF(absp);
         MessageDigest md = MessageDigest.getInstance("MD5");
         try (InputStream is = new FileInputStream(filename))
         {
