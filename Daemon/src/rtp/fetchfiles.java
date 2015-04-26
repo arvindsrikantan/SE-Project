@@ -24,7 +24,7 @@ public String trackerip="192.168.0.17";
 
     public void sendPost(String absp,String oipp,String sizep) throws Exception {
  
-      String url = trackerip+"/files/insert";
+      String url = "http://"+trackerip+"/files/insert";
       URL obj = new URL(url);
       HttpURLConnection con = (HttpURLConnection) obj.openConnection();
  

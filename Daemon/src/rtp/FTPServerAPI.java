@@ -211,7 +211,7 @@ class transferfile extends Thread
     {
 		//int test = 0;
         //Handle user requests
-        while(true)
+        //while(true)
         {
             try
             {
@@ -224,14 +224,14 @@ class transferfile extends Thread
             {
                 System.out.println("\tGET Command Received ...");
                 SendFile();
-                continue;
+                //continue;
             }
             else
 			if(Command.compareTo("SEND")==0)
             {
                 System.out.println("\tSEND Command Receiced ...");                
                 ReceiveFile();
-                continue;
+                //continue;
             }
             else if(Command.compareTo("DISCONNECT")==0)
             {
