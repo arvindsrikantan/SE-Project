@@ -5,7 +5,7 @@ package utils;
 *
 *       NETWORK STORAGE - SE PROJECT TEAM 1
 *
-*       JOB     - DAEMON PROCESS
+*       JOB     - ADDRESSING
 *
 *       AUTHORS - ARVIND SRIKANTAN
 *               - ANISH NARANG

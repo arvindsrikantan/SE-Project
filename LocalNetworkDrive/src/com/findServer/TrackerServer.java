@@ -13,9 +13,7 @@ package com.findServer;
 *       TASK    - To start tracker server
 
 ****************************************************************************/
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
@@ -118,6 +116,7 @@ public class TrackerServer implements Runnable
 		{
 			try
 			{
+                            // Wait for client request
 				drcv.receive(dp);
 				System.out.println("received");
 			}
@@ -125,10 +124,10 @@ public class TrackerServer implements Runnable
 			{
 				e.printStackTrace();
 			}
+                        // Reply to the client with tracker server IP if the request is got
 			String myIp = Addressing.getIpAddress();
 			dp = new DatagramPacket(myIp.getBytes(),
 					myIp.length(), dp.getAddress(), Constants.daemonClientPort);
-			
 			try
 			{
 				System.out.println("sending");

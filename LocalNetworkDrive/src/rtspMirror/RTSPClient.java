@@ -1,5 +1,17 @@
 package rtspMirror;
-
+/***************************************************************************
+*
+*   SOFTWARE ENGINEERING PROJECT - 12CS354 - VI SEM BE (PESIT)
+*
+*       NETWORK STORAGE - SE PROJECT TEAM 1
+*
+*       JOB     - SCREEN SHARE
+*
+*       AUTHORS - ARVIND SRIKANTAN
+*               - ANISH NARANG
+*
+*       TASK    - To run the screen share client
+****************************************************************************/
 import constants.Constants;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -12,12 +24,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-//import MakeVideo.CreateImages;
-//import rtsp.Receive;
-
 public class RTSPClient extends Thread {
+    /**
+     *  To start the screen share client and send request 
+     */
 	static Socket client;
-
 	public static void startClient(String serverIP) {
             try {
                 client = new Socket(serverIP, Constants.mirrorPort);
@@ -27,7 +38,7 @@ public class RTSPClient extends Thread {
 		System.out.println("Sent client request.");
 
 	    try {
-	     Thread.sleep(5000);
+	     Thread.sleep(1000);
 	     ShowImage s = new ShowImage();
 	     s.Display();
 	    } 

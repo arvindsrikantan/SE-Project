@@ -5,7 +5,7 @@ package rtspVideo;
 *
 *       NETWORK STORAGE - SE PROJECT TEAM 1
 *
-*       JOB     - DAEMON PROCESS
+*       JOB     - VIDEO STREAMING
 *
 *       AUTHORS - ARVIND SRIKANTAN
 *               - ANISH NARANG
@@ -25,12 +25,17 @@ public class RunRTSPServerPython implements Runnable
 {
 	public static void runServer(String ip, int port)
 	{
+            /**
+             * Start python server using a new Java process
+             */
 		try
 		{
+                    // Start the python server using a new process
 			StringBuffer output = new StringBuffer();
 			Runtime rt = Runtime.getRuntime();
 			Process pr = rt.exec("python server.py "+ip+" "+port);
 			
+                    // Get the input stream of the process
 			BufferedReader reader = new BufferedReader(new InputStreamReader(pr.getInputStream()));//for error use pr.getErrorStream();
 			String line = "";			
 			while ((line = reader.readLine())!= null) 
@@ -38,7 +43,7 @@ public class RunRTSPServerPython implements Runnable
 				output.append(line + "\n");
 			}
 			System.out.println(output.toString());
-			
+                    // Get the error stream of the process
 			reader = new BufferedReader(new InputStreamReader(pr.getErrorStream()));
 			line = "";			
 			output = new StringBuffer();
@@ -48,7 +53,7 @@ public class RunRTSPServerPython implements Runnable
 			}
 			System.out.println(output.toString());
 			
-			
+			//Wait for the process to complete
 			pr.waitFor();
 		}
 		catch(Exception ex)
@@ -60,6 +65,9 @@ public class RunRTSPServerPython implements Runnable
 	@Override
 	public void run()
 	{
+            /**
+             * Start server in a new thread
+             */
 		runServer(Constants.myIp,Constants.videoServerPort);
 		new Thread(new RunRTSPServerPython()).start();
 	}
