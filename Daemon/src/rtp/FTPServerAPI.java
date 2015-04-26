@@ -113,9 +113,10 @@ class transferfile extends Thread
 			}   
 			fin.close();    
             dout.writeUTF("File Receive Successfully");
+            dout.writeUTF(filecheck(filename));
             //Show File integrity details -- keshav
             System.out.println("Please verify file integrity.");
-            filecheck(filename);                            
+                                      
         }
     
     }
@@ -183,32 +184,20 @@ class transferfile extends Thread
             if(option.compareTo("Y")==0)
             {
                 FileOutputStream fout=new FileOutputStream(f,true);
-                int ch;
-/*               do
-                {
-					byte[] b = new byte[65536];
-                    ch=din.read(b);
-					System.out.println(ch);
-                    if(ch!=-1)
-                    {
-                        fout.write(b,0,ch);                    
-                    }
-                }while(ch>-1);
-				
-*/				
+                int ch;				
 				long remaining = fsize - resume ; 
 				byte[] b = new byte[65536];
 				while (remaining > 0)
 				{	
 					ch = din.read(b);
 					remaining -= ch;
-//					System.out.println(ch);
 					fout.write(b, 0, ch);
 				}
                 fout.close();
                 dout.writeUTF("File Send Successfully");
                 //Automatically generate MD5 checksum after file transfer complete  -- Keshav
                 filecheck(filename);
+                new fetchfiles().sendPost(filename, ClientSoc.getRemoteSocketAddress().toString(), String.valueOf(f.length()));
             }
             else
             {

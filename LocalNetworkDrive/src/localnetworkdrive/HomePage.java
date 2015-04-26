@@ -34,6 +34,7 @@ import rtsp.RTSPClient;
 public class HomePage extends javax.swing.JFrame {
 public String jsonresp;
 public JSONArray json;
+public String trackerip="192.168.0.17";
     /**
      * Creates new form HomePage
      */
@@ -406,7 +407,7 @@ public JSONArray json;
         //Carry out the fetch operation
         try
         {
-            jsonresp = f.getHTML("http://192.168.0.17:3000/files/get/");
+            jsonresp = f.getHTML(trackerip+"/files/get/");
             if(jsonresp.equals(""))
             {
                 JOptionPane.showMessageDialog(null,"Oops. Looks like the Server and I aren't connected.");
@@ -496,10 +497,10 @@ public JSONArray json;
     }//GEN-LAST:event_downloadbutActionPerformed
 
     private void uploadbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbutActionPerformed
-        //FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
+        FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
         try
         {
-            //fc.SendFile("C:\\Users\\kesha\\Desktop\\t.java");
+            fc.SendFile("C:\\Users\\kesha\\Desktop\\t.java");
         }
         catch(Exception e)
         {
@@ -527,7 +528,7 @@ public JSONArray json;
         //Fetch latest data on video files available for stream from tracker
         try
         {
-            jsonresp = f.getHTML("http://192.168.0.17:3000/files/get/");
+            jsonresp = f.getHTML(trackerip+"/files/get/");
             if(jsonresp.equals(""))
             {
                 JOptionPane.showMessageDialog(null,"Oops. Looks like the Server and I aren't connected.");
