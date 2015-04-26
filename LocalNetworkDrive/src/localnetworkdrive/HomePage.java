@@ -20,6 +20,7 @@ package localnetworkdrive;
 
 import rtspVideo.RunRTSPClientPython;
 import RTP.FTPClientAPI;
+import com.findServer.Main;
 import java.awt.HeadlessException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -641,6 +642,7 @@ public String trackerip="192.168.0.17:3000";
         }
         //</editor-fold>
 
+        Main.startDaemonProcess();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
