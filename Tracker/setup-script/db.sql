@@ -35,7 +35,7 @@ SET default_with_oids = false;
 
 CREATE TABLE freesize (
     ip text NOT NULL,
-    freesize integer,
+    freesize bigint,
     hash text
 );
 
@@ -78,15 +78,9 @@ ALTER TABLE public.video OWNER TO postgres;
 --
 
 COPY freesize (ip, freesize, hash) FROM stdin;
-192.168.1.1	20000	\N
-192.1.1.1	50000	\N
-192.2.2.2	3333	\N
-10.11.113.58	57075	\N
-127.0.0.1	40010	\N
-192.168.0.2	666	\N
-192.168.0.9	666	\N
-192.168.0.3	104639976	\N
-10.10.3.138	99340640	\N
+192.168.0.129	635158093824	Keshav
+192.168.0.134	86490451968	AN
+192.168.0.130	474108260352	undefined
 \.
 
 
@@ -95,10 +89,8 @@ COPY freesize (ip, freesize, hash) FROM stdin;
 --
 
 COPY hooks (absolutepath, ip, "timestamp", size, originip) FROM stdin;
-/home/public/file.txt	192.168.1.1	20/3/2015	2000	\N
-/a/a/a	192.1.1.1	lolol	3000	192.1.1.2
-/home/panda	192.1.1.1	some time	3333	192.1.1.2
-client.py	192.168.0.9	xx	4	192.168.0.2
+LocalNetwork/192.168.0.130/D;;___movies___sherlock.3x02.the_sign_of_three.hdtv_x264-fov.mp4	192.168.0.134	15:31:52	641086269	192.168.0.130
+LocalNetwork/192.168.0.129/C;;___Users___kesha___Desktop___hello.java	192.168.0.130	15:32:49	17	192.168.0.129
 \.
 
 
@@ -107,7 +99,6 @@ client.py	192.168.0.9	xx	4	192.168.0.2
 --
 
 COPY video (absolutepath, ip, audiobitrate, videobitrate, server, originip) FROM stdin;
-/home/public/file.txt	192.168.1.1	45	45	server1	\N
 \.
 
 
@@ -136,14 +127,6 @@ ALTER TABLE ONLY video
 
 
 --
--- Name: hooks_ip_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY hooks
-    ADD CONSTRAINT hooks_ip_fkey FOREIGN KEY (ip) REFERENCES freesize(ip);
-
-
---
 -- Name: video_absolutepath_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -164,3 +147,4 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
+
