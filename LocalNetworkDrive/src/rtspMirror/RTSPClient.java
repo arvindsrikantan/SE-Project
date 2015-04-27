@@ -80,7 +80,7 @@ class ShowImage extends Thread
 		JLabel image = new JLabel(icon);
 		frame.add(image);
 		frame.setVisible(true);
-
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		while(true) 
 		{
 //			try {
@@ -99,12 +99,12 @@ class ShowImage extends Thread
 				e.printStackTrace();
 			}
                         Image img = icon.getImage();
-                        Image newimg = img.getScaledInstance((int)dm.getHeight(), (int)dm.getWidth(), Image.SCALE_FAST);
-			image.setIcon(new ImageIcon(newimg));
+//                        Image newimg = img.getScaledInstance();
+//			image.setIcon(new ImageIcon(newimg));
 			frame.repaint();
 			frame.setIconImage(icon.getImage());
 			frame.add(image);
-			frame.setVisible(true);
+//			frame.setVisible(true);
 			icon = null;
 		}
 	}

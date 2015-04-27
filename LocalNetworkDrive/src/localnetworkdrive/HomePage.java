@@ -713,7 +713,7 @@ public static String trackerip;
          // Perform Upload operation
         trackerip = constants.Constants.serverIp+":3000";
         File f = uploadfile.getSelectedFile();
-        String ip = new fetchfiles().getHTML("http://"+trackerip+"/getfreesize/"+String.valueOf(f.length()));JOptionPane.showMessageDialog(null, ip);
+        String ip = new fetchfiles().getHTML("http://"+trackerip+"/getfreesize/"+String.valueOf(f.length()));
         if(ip.equals("none"))
             JOptionPane.showMessageDialog(null,"Unfortunately there is not enough space available on remote drives.");
         else
