@@ -417,8 +417,10 @@ public static String trackerip;
 
     private void RefbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefbutActionPerformed
         // To fetch latest data on Remote files from tracker and populate the gui containers
+        
+        //Fetch tracker ip
         trackerip = constants.Constants.serverIp+":3000";
-        JOptionPane.showMessageDialog(null, trackerip);
+        uploadfile.setVisible(false);
         //Initialize tracker interface
         fetchfiles f = new fetchfiles();
         //Create image icons for display
@@ -653,6 +655,7 @@ public static String trackerip;
         {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        uploadbut1.setVisible(false);
     }//GEN-LAST:event_uploadbut1ActionPerformed
 
     private void uploadfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadfileActionPerformed

@@ -24,3 +24,5 @@ hs_err_pid*
 /RTSP/build/
 /Daemon/build/
 /UDPImageTransfer/nbproject/private/
+LocalNetworkDrive/nbproject/private/private.properties
+LocalNetworkDrive/nbproject/private/private.xml
