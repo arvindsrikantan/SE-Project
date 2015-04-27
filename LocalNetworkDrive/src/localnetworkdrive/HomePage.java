@@ -497,7 +497,7 @@ public static String trackerip;
         //Match the selected file with local data index
         for(i=0;i<jsonresp.length()-1;i++)
         {
-            if(file.equals(json.getJSONObject(i).getString("absolutepath")))
+            if(file.equals(new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"))))
                 break;
         }
         //Retrieve Variables
@@ -600,7 +600,7 @@ public static String trackerip;
         //Find the index of the selected file from local data
         for(i=0;i<jsonresp.length()-1;i++)
         {
-            if(file.equals(json.getJSONObject(i).getString("absolutepath")))
+            if(file.equals(new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"))))
                 break;
         }
         //Retrieve Variables
