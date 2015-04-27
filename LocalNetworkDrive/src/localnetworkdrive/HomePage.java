@@ -5,7 +5,7 @@
 *
 *       JOB     - Graphics User Interface
 *
-*       AUTHORS - Keshav Pandey
+*       AUTHOR - Keshav Pandey
 *
 *       TASK    - To provide an easy to use interface to provide
 *                   all the features available in our SE Project.
@@ -711,9 +711,10 @@ public static String trackerip;
 
     private void uploadbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbut1ActionPerformed
          // Perform Upload operation
+        trackerip = constants.Constants.serverIp+":3000";
         File f = uploadfile.getSelectedFile();
-        String ip = new fetchfiles().getHTML("http://"+trackerip+"/getfreesize/"+String.valueOf(f.length()));
-        if(!ip.equals("none"))
+        String ip = new fetchfiles().getHTML("http://"+trackerip+"/getfreesize/"+String.valueOf(f.length()));JOptionPane.showMessageDialog(null, ip);
+        if(ip.equals("none"))
             JOptionPane.showMessageDialog(null,"Unfortunately there is not enough space available on remote drives.");
         else
         {
