@@ -15,9 +15,9 @@
 *
 *       TASK    - To recursively register a "watch" on certain directories 
 *                 as a whole ,present on any given system, connected onto the 
-*                 same common network as others,looking for any kind of 
-*                 changes in the file systems,and POST(reflect) the same back
-*                 to the tracker server for the corresponding updations
+*                 same common network as the Tracker Server,looking for any kind of 
+*                 changes in the file systems & POST(reflect) the same back
+*                 to the tracker for the corresponding updations
 *                 required in it,for any future references.
 *                 
 *                
@@ -369,7 +369,8 @@ public class WatchDir
          
       urlParameters.add(new BasicNameValuePair("ip",ipaddr));
       urlParameters.add(new BasicNameValuePair("freesize",fp));
-        
+      urlParameters.add(new BasicNameValuePair("hash",constants.Constants.myName));
+       
       post.setEntity(new UrlEncodedFormEntity(urlParameters));
         
       HttpResponse response = client.execute(post);
