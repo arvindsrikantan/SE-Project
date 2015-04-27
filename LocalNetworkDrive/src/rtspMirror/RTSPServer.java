@@ -19,6 +19,9 @@ import java.net.Socket;
 import javax.swing.ImageIcon;
 
 import constants.Constants;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RTSPServer extends Thread {
     /**
@@ -29,28 +32,35 @@ public class RTSPServer extends Thread {
 	static Socket socket;
 	
 	public static void startServer() {
-		while (true) {
-			try {
-				server = new ServerSocket(Constants.mirrorPort);
-				System.out.println("Screen share server started...");
-				socket = server.accept();
-				System.out.println("Connection established.");
-				try {					
-					ObjectOutputStream obStream = new ObjectOutputStream(socket.getOutputStream());
-					while(true)
-					{
-						CaptureImages img = new CaptureImages();
-						image = img.captureMultiple();
+            try {
+                server = new ServerSocket(Constants.mirrorPort);
+                System.out.println("Screen share server started...");
+                while (true) {
+                    try {
+                        
+                        socket = server.accept();
+                        System.out.println("Connection established.");
+                        try {
+                            ObjectOutputStream obStream = new ObjectOutputStream(socket.getOutputStream());
+                            while(true)
+                            {
+                                CaptureImages img = new CaptureImages();
+                                image = img.captureMultiple();
 //						Thread.sleep(140);
-						System.out.println("In server...");
-						obStream.writeObject(image);
-						img = null;
-					}
-				}
-				catch (InterruptedException e) {}
-				}
-			catch (Exception e) {}
-		}
+                                System.out.println("In server...");
+                                obStream.writeObject(image);
+                                img = null;
+                            }
+                        }
+                        catch (InterruptedException e) {}
+                    }
+                    catch (Exception e) {
+                    socket.close();
+                    }
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(RTSPServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		
 }
 }
