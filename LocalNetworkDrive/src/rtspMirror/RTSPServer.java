@@ -42,7 +42,7 @@ public class RTSPServer extends Thread {
 						CaptureImages img = new CaptureImages();
 						image = img.captureMultiple();
 //						Thread.sleep(140);
-						System.out.println("Sending image.");
+						System.out.println("In server...");
 						obStream.writeObject(image);
 						img = null;
 					}

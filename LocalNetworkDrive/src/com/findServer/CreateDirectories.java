@@ -20,16 +20,16 @@ public class CreateDirectories
         File dir = new File("LocalNetwork");
         if(!dir.exists())
         {
-            System.out.println("Dir creation:LocalNetwork,Creation success"+dir.mkdir());
+           dir.mkdir();
         }
         for(int i=1;i<255;i++)
         {
             dirName+=i;
-            System.out.println(dirName);
+//            System.out.println(dirName);
             dir = new File(dirName);
             if(!dir.exists())
             {
-                System.out.println("Dir creation:"+dirName+",Creation success"+dir.mkdir());
+                dir.mkdir();
             }
             dirName="LocalNetwork/"+Constants.subnetId+".";
         }
