@@ -690,8 +690,8 @@ public static String trackerip;
             java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        Main.startDaemonProcess();
         constants.Constants.myName = JOptionPane.showInputDialog(null,"Please enter a name to identify your computer");
+        Main.startDaemonProcess();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
