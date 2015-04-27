@@ -29,7 +29,7 @@ def main():
 
 		# Wait for client to send filename
 		if("GET" in s1):
-			filename = s1.strip("\n").split("{")[1].strip(" ")
+			filename = s1.strip("\n").split(":")[1].strip(" ")
 
 		# Open video file and send it to the client in parts
 		if(filename != ""):

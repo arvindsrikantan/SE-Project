@@ -16,7 +16,6 @@ public class RunRTSPClientPython
 		{
 			StringBuffer output = new StringBuffer();
 			Runtime rt = Runtime.getRuntime();
-                        System.out.println(System.getProperty("user.dir"));
 			Process pr = rt.exec("python client.py "+ip+" "+Constants.videoClientPort+" "+fileName);
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(pr.getInputStream()));//for error use pr.getErrorStream();

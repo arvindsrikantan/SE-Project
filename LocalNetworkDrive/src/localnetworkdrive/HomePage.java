@@ -501,10 +501,10 @@ public static String trackerip;
     }//GEN-LAST:event_downloadbutActionPerformed
 
     private void uploadbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbutActionPerformed
-        FTPClientAPI fc = new FTPClientAPI("192.168.0.14");        
+        FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
         try
         {
-            fc.SendFile("D:\\movies\\1.mp4");
+            fc.SendFile("C:\\Users\\kesha\\Desktop\\z.java");
         }
         catch(Exception e)
         {
@@ -560,9 +560,7 @@ public static String trackerip;
             for(int i=0;i<json.length();i++)
             {
                 String switcher = new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"));
-                System.out.println(switcher);
-                switch (switcher.split("[.]")[switcher.split("[.]").length-1]) {
-                    
+                switch (switcher.split("[.]")[1]) {
                     case "mp4":
                         model.addRow(new Object[]{mp,switcher,json.getJSONObject(i).getString("ip")});
                         break;
@@ -590,10 +588,8 @@ public static String trackerip;
         }
         //Retrieve Variables
         String ip = json.getJSONObject(i).getString("ip");
-        System.out.println(ip);
         String srcip = json.getJSONObject(i).getString("originip");
         String filename = json.getJSONObject(i).getString("absolutepath");
-        System.out.println(filename);
         
     try
     {

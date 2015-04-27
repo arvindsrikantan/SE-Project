@@ -236,39 +236,32 @@ class ClientHandler():
     Handler class to set up client socket connection
     """
     def main(self,q):
-		"""
-		Main method to create client process
-		"""
-		s = soc.socket(soc.AF_INET,soc.SOCK_STREAM)
-		s.connect((sys.argv[1],int(sys.argv[2])))
-		
-		s.send("GET;;;;"+sys.argv[3])	# Get filename
-		cmd = s.recv(512)
-		if(cmd == "SENT"):
-			second=open(sys.argv[3],'wb')
-			count=0
-			first = True
-			while(True):#create thread
-				if(q.empty() == True):
-					s.send("\n")
-				else:
-					s.send("GET:"+str(q.get()))
-				inp = s.recv(10*1024*1024)
-				count+=1
-				if(inp==""):
-					print("Got video!")
-					break    
-				else:
-					second.write(inp)
-					#Start mediaplayer only 1st time
-					if(first and count>3):#change condition to count>header_length
-						first = False
-						p2 = multiprocessing.Process(target=MediaHandler,args=(q,))
-						p2.start()     
-		else:
-			raise Exception("Server didnt respond!")
-		second.close()    
-		s.close()
+        """
+        Main method to create client process
+        """
+        s = soc.socket(soc.AF_INET,soc.SOCK_STREAM)
+        s.connect((sys.argv[1],int(sys.argv[2])))
+        second=open(sys.argv[3],'wb')
+        count=0
+        first = True
+        while(True):#create thread
+            if(q.empty() == True):
+                s.send("\n")
+            else:
+                s.send("GET:"+str(q.get()))
+            inp = s.recv(10*1024*1024)
+            count+=1
+            if(inp==""):
+                print("Got video!")
+                break    
+            else:
+                second.write(inp)
+                #Start mediaplayer only 1st time
+                if(first and count>3):#change condition to count>header_length
+                    first = False
+                    p2 = multiprocessing.Process(target=MediaHandler,args=(q,))
+                    p2.start()                    
+        second.close()    
 
 if __name__=="__main__":
     # Start the main process
