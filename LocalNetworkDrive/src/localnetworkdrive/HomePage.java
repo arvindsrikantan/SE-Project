@@ -79,6 +79,14 @@ public static String trackerip;
         privacybut1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        screenmirror = new javax.swing.JDialog();
+        jLayeredPane4 = new javax.swing.JLayeredPane();
+        Refbut2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        startstream = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        mirrorlist = new javax.swing.JTable();
+        back3 = new javax.swing.JLabel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel2 = new javax.swing.JLabel();
         opt1 = new javax.swing.JButton();
@@ -91,6 +99,7 @@ public static String trackerip;
         file.setTitle("Remote File Transfer");
         file.setMinimumSize(new java.awt.Dimension(715, 470));
         file.setName("RTPDialog"); // NOI18N
+        file.setResizable(false);
 
         jLayeredPane2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -176,6 +185,7 @@ public static String trackerip;
 
         videostream.setTitle("Video Streaming");
         videostream.setMinimumSize(new java.awt.Dimension(715, 470));
+        videostream.setResizable(false);
 
         jLayeredPane3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -186,21 +196,21 @@ public static String trackerip;
                 Refbut1ActionPerformed(evt);
             }
         });
-        jLayeredPane3.add(Refbut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 140, 30));
+        jLayeredPane3.add(Refbut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 150, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Emoji", 3, 24)); // NOI18N
         jLabel4.setText("Video Streaming");
         jLayeredPane3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 250, -1));
 
         downloadbut1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
-        downloadbut1.setText("Stream");
+        downloadbut1.setText("Start Stream");
         downloadbut1.setEnabled(false);
         downloadbut1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 downloadbut1ActionPerformed(evt);
             }
         });
-        jLayeredPane3.add(downloadbut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 140, 30));
+        jLayeredPane3.add(downloadbut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 150, 30));
 
         jScrollPane3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         jScrollPane3.setName(""); // NOI18N
@@ -234,9 +244,10 @@ public static String trackerip;
         );
 
         helpmenu.setMinimumSize(new java.awt.Dimension(670, 380));
+        helpmenu.setResizable(false);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Emoji", 3, 24)); // NOI18N
-        jLabel5.setText("Local Storage Drive V 1 build 10077");
+        jLabel5.setText("Local Network Drive V 1 build 10077");
 
         privacybut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
         privacybut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/localnetworkdrive/Keys-icon.png"))); // NOI18N
@@ -276,20 +287,81 @@ public static String trackerip;
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(privacybut, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(privacybut1))
                 .addGap(24, 24, 24))
         );
 
+        screenmirror.setTitle("Video Streaming");
+        screenmirror.setMinimumSize(new java.awt.Dimension(715, 470));
+        screenmirror.setResizable(false);
+
+        jLayeredPane4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Refbut2.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        Refbut2.setText("Refresh");
+        Refbut2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Refbut2ActionPerformed(evt);
+            }
+        });
+        jLayeredPane4.add(Refbut2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 150, 30));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Emoji", 3, 24)); // NOI18N
+        jLabel6.setText("Screen Mirroring");
+        jLayeredPane4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 250, -1));
+
+        startstream.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        startstream.setText("Start Session");
+        startstream.setEnabled(false);
+        startstream.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startstreamActionPerformed(evt);
+            }
+        });
+        jLayeredPane4.add(startstream, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, -1, 30));
+
+        jScrollPane4.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
+        jScrollPane4.setName(""); // NOI18N
+
+        mirrorlist.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        mirrorlist.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        mirrorlist.setRowHeight(150);
+        jScrollPane4.setViewportView(mirrorlist);
+
+        jLayeredPane4.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 500, 360));
+
+        back3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/localnetworkdrive/back.jpg"))); // NOI18N
+        jLayeredPane4.add(back3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 430));
+
+        javax.swing.GroupLayout screenmirrorLayout = new javax.swing.GroupLayout(screenmirror.getContentPane());
+        screenmirror.getContentPane().setLayout(screenmirrorLayout);
+        screenmirrorLayout.setHorizontalGroup(
+            screenmirrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane4)
+        );
+        screenmirrorLayout.setVerticalGroup(
+            screenmirrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLayeredPane4)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Local Storage Drive");
+        setResizable(false);
 
         jLayeredPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Emoji", 3, 24)); // NOI18N
-        jLabel2.setText("Local Storage Drive");
+        jLabel2.setText("Local Network Drive");
         jLayeredPane1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 240, -1));
 
         opt1.setBackground(new java.awt.Color(255, 255, 255));
@@ -412,7 +484,9 @@ public static String trackerip;
     private void opt5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt5ActionPerformed
         // To show the RTP GUI module
         file.setVisible(true);
-        
+        uploadfile.setVisible(false);
+        jScrollPane2.setVisible(true);
+        filelist.setVisible(true);
     }//GEN-LAST:event_opt5ActionPerformed
 
     private void RefbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefbutActionPerformed
@@ -421,6 +495,8 @@ public static String trackerip;
         //Fetch tracker ip
         trackerip = constants.Constants.serverIp+":3000";
         uploadfile.setVisible(false);
+        jScrollPane2.setVisible(true);
+        filelist.setVisible(true);
         //Initialize tracker interface
         fetchfiles f = new fetchfiles();
         //Create image icons for display
@@ -458,7 +534,7 @@ public static String trackerip;
                 downloadbut.setEnabled(true);
             //Iterate through the data fetched and populate the table display
             for(int i=0;i<json.length();i++)
-            {JOptionPane.showMessageDialog(null,json.getJSONObject(i).getString("absolutepath"));
+            {
                 String switcher = new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"));
                 switch (switcher.split("[.]")[switcher.split("[.]").length-1]) {
                     case "py":
@@ -535,18 +611,18 @@ public static String trackerip;
     }//GEN-LAST:event_opt1ActionPerformed
 
     private void Refbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refbut1ActionPerformed
-        // To fetch latest data on Remote files from tracker and populate the gui containers
+        // To fetch latest data on Videos from tracker and populate the gui containers
+        
+        //Fetch tracker ip
         trackerip = constants.Constants.serverIp+":3000";
+        uploadfile.setVisible(false);
+        jScrollPane2.setVisible(true);
+        filelist.setVisible(true);
         //Initialize tracker interface
         fetchfiles f = new fetchfiles();
-        //Create image icons for table display
-        ImageIcon jv = new ImageIcon(HomePage.class.getResource("java.png"));
-        ImageIcon py = new ImageIcon(HomePage.class.getResource("python.png"));
+        //Create image icons for display
         ImageIcon mp = new ImageIcon(HomePage.class.getResource("mp4.png"));
-        ImageIcon def = new ImageIcon(HomePage.class.getResource("def.png"));
-        ImageIcon pdf = new ImageIcon(HomePage.class.getResource("pdf.png"));
-        
-        //Fetch latest data on video files available for stream from tracker
+        //Carry out the fetch operation
         try
         {
             jsonresp = f.getHTML("http://"+trackerip+"/files/get/");
@@ -555,7 +631,7 @@ public static String trackerip;
                 JOptionPane.showMessageDialog(null,"Oops. Looks like the Server and I aren't connected.");
                 return;
             }
-            //Convert data into a convenient format
+            //Convert data into a convenient file format
             json = new JSONArray(jsonresp);
             //Create a data model for the table display
             DefaultTableModel model = new DefaultTableModel()
@@ -566,14 +642,14 @@ public static String trackerip;
                         return getValueAt(0, column).getClass();
                     };
              };
-            //Populate initial columns on table display
+            //Add initial columns
             model.addColumn("Icon");
             model.addColumn("FileName");
             model.addColumn("Remote Location");
             //Check if data isnt empty
             if(json.length()>0)
-                downloadbut1.setEnabled(true);
-            //Iterate through data to populate the table display
+                downloadbut.setEnabled(true);
+            //Iterate through the data fetched and populate the table display
             for(int i=0;i<json.length();i++)
             {
                 String switcher = new pathtranslator().decode(json.getJSONObject(i).getString("absolutepath"));
@@ -581,10 +657,9 @@ public static String trackerip;
                     case "mp4":
                         model.addRow(new Object[]{mp,switcher,json.getJSONObject(i).getString("ip")});
                         break;
-                    default:
-                        break;
                 }
             }
+            //Set the table display with updated data
             filelist1.setModel(model);
         }
         catch(HeadlessException | JSONException e)
@@ -631,31 +706,35 @@ public static String trackerip;
 
     private void opt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt2ActionPerformed
         // TODO add your handling code here:
-        new Thread(new Runnable(){public void run(){
-        RTSPClient.startClient("192.168.0.129");
-        }}).start();
+        screenmirror.setVisible(true);
     }//GEN-LAST:event_opt2ActionPerformed
 
     private void uploadbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbut1ActionPerformed
          // Perform Upload operation
         File f = uploadfile.getSelectedFile();
-        JOptionPane.showMessageDialog(null, "Uploading "+ uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
-        //Initialize FTPClientAPI
-        FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
-        try
+        String ip = new fetchfiles().getHTML("http://"+trackerip+"/getfreesize/"+String.valueOf(f.length()));
+        if(!ip.equals("none"))
+            JOptionPane.showMessageDialog(null,"Unfortunately there is not enough space available on remote drives.");
+        else
         {
-            //API CALL
-            fc.SendFile(uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
-            jScrollPane2.setVisible(true);
-            filelist.setVisible(true);
-            uploadfile.setVisible(false);
-            RefbutActionPerformed(evt);
+            JOptionPane.showMessageDialog(null, "Uploading "+ uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
+            //Initialize FTPClientAPI
+            FTPClientAPI fc = new FTPClientAPI(ip);        
+            try
+            {
+                //API CALL
+                fc.SendFile(uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
+                jScrollPane2.setVisible(true);
+                filelist.setVisible(true);
+                uploadfile.setVisible(false);
+                RefbutActionPerformed(evt);
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            }
+            uploadbut1.setVisible(false);
         }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-        uploadbut1.setVisible(false);
     }//GEN-LAST:event_uploadbut1ActionPerformed
 
     private void uploadfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadfileActionPerformed
@@ -663,6 +742,84 @@ public static String trackerip;
         File f = uploadfile.getSelectedFile();
         JOptionPane.showMessageDialog(null, "You have selected "+ uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
     }//GEN-LAST:event_uploadfileActionPerformed
+
+    private void Refbut2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Refbut2ActionPerformed
+        // To fetch latest data on Screen Mirroring from tracker and populate the gui containers
+        trackerip = constants.Constants.serverIp+":3000";
+        //Initialize tracker interface
+        fetchfiles f = new fetchfiles();
+        
+        //Fetch latest data available for stream from tracker
+        try
+        {
+            jsonresp = f.getHTML("http://"+trackerip+"/device/get");
+            if(jsonresp.equals(""))
+            {
+                JOptionPane.showMessageDialog(null,"Oops. Looks like the Server and I aren't connected.");
+                return;
+            }
+            else
+                startstream.setEnabled(true);
+            //Convert data into a convenient format
+            json = new JSONArray(jsonresp);
+            //Create a data model for the table display
+            DefaultTableModel model = new DefaultTableModel()
+             {
+                    @Override
+                    public Class getColumnClass(int column) 
+                    {
+                        return getValueAt(0, column).getClass();
+                    };
+             };
+            //Populate initial columns on table display
+            model.addColumn("IP Address");
+            model.addColumn("Computer ID");
+            //Check if data isnt empty
+            if(json.length()>0)
+                downloadbut1.setEnabled(true);
+            //Iterate through data to populate the table display
+            for(int i=0;i<json.length();i++)
+            {
+                 model.addRow(new Object[]{json.getJSONObject(i).getString("ip"),json.getJSONObject(i).getString("hash")});
+            }
+            mirrorlist.setModel(model);
+        }
+        catch(HeadlessException | JSONException e)
+        {
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+    }//GEN-LAST:event_Refbut2ActionPerformed
+
+    private void startstreamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startstreamActionPerformed
+        // Begin Streaming session
+
+        //Fetch selected file from gui component
+        String file = (String)mirrorlist.getValueAt(mirrorlist.getSelectedRow(), 0);
+        int i = 0;
+        //Match the selected file with local data index
+        for(i=0;i<jsonresp.length()-1;i++)
+        {
+            if(file.equals(json.getJSONObject(i).getString("ip")))
+                break;
+        }
+        //Retrieve Variables
+        String ip = json.getJSONObject(i).getString("ip");
+        try
+        {
+            //API call
+            new Thread(new Runnable(){public void run(){
+            RTSPClient.startClient(ip);
+            }}).start();
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+        finally
+        {
+                System.out.println("Done Screen Mirror");
+        }
+    }//GEN-LAST:event_startstreamActionPerformed
 
     /**
      * @param args the command line arguments
@@ -703,9 +860,11 @@ public static String trackerip;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Refbut;
     private javax.swing.JButton Refbut1;
+    private javax.swing.JButton Refbut2;
     private javax.swing.JLabel back;
     private javax.swing.JLabel back1;
     private javax.swing.JLabel back2;
+    private javax.swing.JLabel back3;
     private javax.swing.JButton downloadbut;
     private javax.swing.JButton downloadbut1;
     private javax.swing.JDialog file;
@@ -716,13 +875,17 @@ public static String trackerip;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane3;
+    private javax.swing.JLayeredPane jLayeredPane4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTable mirrorlist;
     private javax.swing.JButton opt1;
     private javax.swing.JButton opt2;
     private javax.swing.JButton opt3;
@@ -730,6 +893,8 @@ public static String trackerip;
     private javax.swing.JButton opt5;
     private javax.swing.JButton privacybut;
     private javax.swing.JButton privacybut1;
+    private javax.swing.JDialog screenmirror;
+    private javax.swing.JButton startstream;
     private javax.swing.JButton uploadbut;
     private javax.swing.JButton uploadbut1;
     private javax.swing.JFileChooser uploadfile;

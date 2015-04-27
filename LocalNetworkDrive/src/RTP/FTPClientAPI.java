@@ -7,19 +7,19 @@ package RTP;
 ///////////////////////////////
 
 //Networking Library
-import java.net.*;
 //Input/Output Library
 import java.io.*;
 //Utility Library
-import java.util.*;
+import java.net.*;
 //File Integrity Library
 import java.security.*;
+import java.util.*;
 import javax.swing.JOptionPane;
+import security.SE;
 
 public class FTPClientAPI
 {
     Socket ClientSoc;
-
     DataInputStream din;
     DataOutputStream dout;
     BufferedReader br;
@@ -38,11 +38,9 @@ public class FTPClientAPI
         }        
     }
 
-	
-
     //Method to send files --keshav
     public void SendFile(String filename)
-    {        
+    {  
       try
 	  {
 		dout.writeUTF("SEND");
@@ -69,7 +67,7 @@ public class FTPClientAPI
 		System.out.println(newip);
                 pathtranslator pt = new pathtranslator();
 		//String absp = newip+"/"+newfile;
-                String absp = ClientSoc.getLocalAddress().toString().split("/")[1].split(":")[0]+"/"+pt.encode(filename);
+                String absp = "LocalNetwork/"+ClientSoc.getLocalAddress().toString().split("/")[1].split(":")[0]+"/"+pt.encode(filename);
                 System.out.println(absp);
 		dout.writeUTF(absp);
 		dout.writeUTF(String.valueOf(f.length()));
@@ -132,7 +130,7 @@ public class FTPClientAPI
 		{
 			System.out.println(exp);
 			System.out.println("Connection closed at Server... \nClosing client...");
-			System.exit(1);
+			//System.exit(1);
 		}
     }
     //MD5 Checksum Generator 
@@ -192,6 +190,8 @@ public class FTPClientAPI
 			{
 				fsize =Long.valueOf(din.readUTF());
 				System.out.println("Receiving File ...");
+                                fileName = fileName.split("/")[2];
+                                fileName=new pathtranslator().decode(fileName);
 				File f=new File(fileName);
 				//Check if file exists --keshav
 				if(f.exists())
@@ -237,7 +237,7 @@ public class FTPClientAPI
 		{
 			System.out.println(exp);
 			System.out.println("Connection closed at Server... \nClosing client...");
-			System.exit(1);
+			//System.exit(1);
 		}
         
     }

@@ -46,16 +46,16 @@ import java.util.logging.Logger;
 public class SE {
 
   
-    public static void main(String[] args) throws GeneralSecurityException, IOException {
-       
-        Scanner in =new Scanner(System.in);
-        System.out.println("Enter The file name including path of the file");
-        String path=in.nextLine();
-       SE se=new SE();
-       se.encr(path);
-      //se.decr(path);
-        
-}
+//    public static void main(String[] args) throws GeneralSecurityException, IOException {
+//       
+//        Scanner in =new Scanner(System.in);
+//        System.out.println("Enter The file name including path of the file");
+//        String path=in.nextLine();
+//       SE se=new SE();
+//       se.encr(path);
+//      se.decr(path);
+//        
+//}
 
 
     

@@ -7,6 +7,7 @@ package RTP;
 ///////////////////////////////
 
 //Networking Library
+import constants.Constants;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -18,8 +19,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
-
-import constants.Constants;
+import security.SE;
 //Input/Output Library
 //Utility Library
 //File Integrity Library
@@ -81,6 +81,7 @@ class transferfile extends Thread
     {       
 		long resume = 0 ; 
         String filename=din.readUTF();
+        new SE().decr(filename);
         File f=new File(filename);
         //Check is file exists --keshav
         if(!f.exists())
@@ -198,6 +199,7 @@ class transferfile extends Thread
                 //Automatically generate MD5 checksum after file transfer complete  -- Keshav
                 dout.writeUTF(filecheck(filename));
                 new fetchfiles().sendPost(filename, ClientSoc.getRemoteSocketAddress().toString().split(":")[0].split("/")[1], String.valueOf(f.length()));
+                new SE().encr(filename);
             }
             else
             {
@@ -236,7 +238,7 @@ class transferfile extends Thread
             else if(Command.compareTo("DISCONNECT")==0)
             {
                 System.out.println("\tDisconnect Command Received ...");
-                System.exit(1);
+                //System.exit(1);
             }
             else if(Command.compareTo("CHECK")==0)
             {
