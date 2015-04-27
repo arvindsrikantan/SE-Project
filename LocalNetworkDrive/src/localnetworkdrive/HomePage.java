@@ -646,6 +646,7 @@ public static String trackerip;
         }
         //</editor-fold>
         Main.startDaemonProcess();
+        constants.Constants.myName = JOptionPane.showInputDialog(null,"Please enter a name to identify your computer");
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
