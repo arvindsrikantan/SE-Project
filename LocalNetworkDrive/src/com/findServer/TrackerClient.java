@@ -71,9 +71,9 @@ public class TrackerClient implements Runnable
 			String serverIP = ipad;
 			System.out.println(ipad);
 			String ipParts[] = ipad.split("[.]");
-			String inetName = ipParts[0] + "." + ipParts[1] + "." + ipParts[2]
-					+ ".255";
-
+			Constants.subnetId = ipParts[0] + "." + ipParts[1] + "." + ipParts[2];
+			String inetName = Constants.subnetId + ".255";
+                        
 			InetAddress ip = null;
 			try
 			{
@@ -148,9 +148,9 @@ public class TrackerClient implements Runnable
 		}
 		
 		// Start RTSP Server
-		RunRTSPServerPython rtspServer = new RunRTSPServerPython();
-		Thread startRtspServer = new Thread(rtspServer);
-		startRtspServer.start();
+//		RunRTSPServerPython rtspServer = new RunRTSPServerPython();
+//		Thread startRtspServer = new Thread(rtspServer);
+//		startRtspServer.start();
 		
 		// Start  FTP Server
 		FTPServerAPI ftpServer = new FTPServerAPI();

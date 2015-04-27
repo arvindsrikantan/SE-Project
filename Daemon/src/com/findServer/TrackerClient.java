@@ -69,8 +69,8 @@ public class TrackerClient implements Runnable
 			String serverIP = ipad;
 			System.out.println(ipad);
 			String ipParts[] = ipad.split("[.]");
-			String inetName = ipParts[0] + "." + ipParts[1] + "." + ipParts[2]
-					+ ".255";
+			Constants.subnetId = ipParts[0] + "." + ipParts[1] + "." + ipParts[2];
+			String inetName = Constants.subnetId + ".255";
 
 			InetAddress ip = null;
 			try
@@ -108,10 +108,7 @@ public class TrackerClient implements Runnable
 			{
 				if(tries == 6)
 				{
-					//Start tracker server
-					//new Tracker();
-					//run abhinavs script
-					//start ip provider server
+					//Start tracker server since no reply was got 
 					new Thread(new TrackerServer()).start();
 					
 				}
@@ -127,7 +124,7 @@ public class TrackerClient implements Runnable
 		String str = new String(dp.getData(), 0, dp.getLength());
 		if(str.trim().equals(""))
 			str = Addressing.getIpAddress();
-		System.out.println("final server ip:"+str+"sdf");
+		System.out.println("final server ip:"+str);
 		Constants.serverIp = str;
 		
 		/**
