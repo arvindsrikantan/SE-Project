@@ -16,7 +16,7 @@ public class CreateDirectories
 {
     public static void createDirectories()
     {
-        String dirName = Constants.subnetId;
+        String dirName = Constants.subnetId+".";
         for(int i=0;i<255;i++)
         {
             dirName+=i;
@@ -24,8 +24,9 @@ public class CreateDirectories
             File dir = new File(dirName);
             if(!dir.exists())
             {
-                System.out.println("Dir creation:"+dirName+",Creation success"+dir.mkdirs());
+                System.out.println("Dir creation:"+dirName+",Creation success"+dir.mkdir());
             }
+            dirName=Constants.subnetId+".";
         }
     }
 }
