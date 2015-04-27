@@ -16,17 +16,22 @@ public class CreateDirectories
 {
     public static void createDirectories()
     {
-        String dirName = Constants.subnetId+".";
-        for(int i=0;i<255;i++)
+        String dirName = "LocalNetwork/"+Constants.subnetId+".";
+        File dir = new File("LocalNetwork");
+        if(!dir.exists())
+        {
+            System.out.println("Dir creation:LocalNetwork,Creation success"+dir.mkdir());
+        }
+        for(int i=1;i<255;i++)
         {
             dirName+=i;
             System.out.println(dirName);
-            File dir = new File(dirName);
+            dir = new File(dirName);
             if(!dir.exists())
             {
                 System.out.println("Dir creation:"+dirName+",Creation success"+dir.mkdir());
             }
-            dirName=Constants.subnetId+".";
+            dirName="LocalNetwork/"+Constants.subnetId+".";
         }
     }
 }
