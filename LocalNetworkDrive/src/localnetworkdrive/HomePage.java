@@ -22,6 +22,7 @@ import RTP.FTPClientAPI;
 import RTP.pathtranslator;
 import com.findServer.Main;
 import java.awt.HeadlessException;
+import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -61,6 +62,8 @@ public static String trackerip;
         uploadbut = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         filelist = new javax.swing.JTable();
+        uploadbut1 = new javax.swing.JButton();
+        uploadfile = new javax.swing.JFileChooser();
         back1 = new javax.swing.JLabel();
         videostream = new javax.swing.JDialog();
         jLayeredPane3 = new javax.swing.JLayeredPane();
@@ -115,13 +118,13 @@ public static String trackerip;
         jLayeredPane2.add(downloadbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 140, 30));
 
         uploadbut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
-        uploadbut.setText("Upload");
+        uploadbut.setText("Select File");
         uploadbut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 uploadbutActionPerformed(evt);
             }
         });
-        jLayeredPane2.add(uploadbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, 140, 30));
+        jLayeredPane2.add(uploadbut, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 160, 140, 30));
 
         jScrollPane2.setFont(new java.awt.Font("Segoe UI Emoji", 0, 18)); // NOI18N
         jScrollPane2.setName(""); // NOI18N
@@ -139,6 +142,23 @@ public static String trackerip;
         jScrollPane2.setViewportView(filelist);
 
         jLayeredPane2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 500, 360));
+
+        uploadbut1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
+        uploadbut1.setText("Upload");
+        uploadbut1.setEnabled(false);
+        uploadbut1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadbut1ActionPerformed(evt);
+            }
+        });
+        jLayeredPane2.add(uploadbut1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 140, 30));
+
+        uploadfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadfileActionPerformed(evt);
+            }
+        });
+        jLayeredPane2.add(uploadfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 500, 360));
 
         back1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/localnetworkdrive/back.jpg"))); // NOI18N
         jLayeredPane2.add(back1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 430));
@@ -501,15 +521,10 @@ public static String trackerip;
     }//GEN-LAST:event_downloadbutActionPerformed
 
     private void uploadbutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbutActionPerformed
-        FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
-        try
-        {
-            fc.SendFile("C:\\Users\\kesha\\Desktop\\z.java");
-        }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+       filelist.setVisible(false);
+       jScrollPane2.setVisible(false);
+       uploadfile.setVisible(true);
+       uploadbut1.setEnabled(true);
     }//GEN-LAST:event_uploadbutActionPerformed
 
     private void opt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opt1ActionPerformed
@@ -619,6 +634,33 @@ public static String trackerip;
         }}).start();
     }//GEN-LAST:event_opt2ActionPerformed
 
+    private void uploadbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbut1ActionPerformed
+         // Perform Upload operation
+        File f = uploadfile.getSelectedFile();
+        JOptionPane.showMessageDialog(null, "Uploading "+ uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
+        //Initialize FTPClientAPI
+        FTPClientAPI fc = new FTPClientAPI("192.168.0.9");        
+        try
+        {
+            //API CALL
+            fc.SendFile(uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
+            jScrollPane2.setVisible(true);
+            filelist.setVisible(true);
+            uploadfile.setVisible(false);
+            RefbutActionPerformed(evt);
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }//GEN-LAST:event_uploadbut1ActionPerformed
+
+    private void uploadfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadfileActionPerformed
+         // Provide file selection 
+        File f = uploadfile.getSelectedFile();
+        JOptionPane.showMessageDialog(null, "You have selected "+ uploadfile.getCurrentDirectory().getAbsolutePath()+"\\"+uploadfile.getName(f));
+    }//GEN-LAST:event_uploadfileActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -686,6 +728,8 @@ public static String trackerip;
     private javax.swing.JButton privacybut;
     private javax.swing.JButton privacybut1;
     private javax.swing.JButton uploadbut;
+    private javax.swing.JButton uploadbut1;
+    private javax.swing.JFileChooser uploadfile;
     private javax.swing.JDialog videostream;
     // End of variables declaration//GEN-END:variables
 }
