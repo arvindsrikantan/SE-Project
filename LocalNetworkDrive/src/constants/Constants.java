@@ -25,8 +25,8 @@ public class Constants
         public static String myName;
 	public static final int daemonServerPort = 3000;
 	public static final int daemonClientPort = 2000;
-	public static final int videoServerPort  = 20000;
-	public static final int videoClientPort  = 20000;
+	public static final int videoServerPort  = 41570;
+	public static final int videoClientPort  = 41570;
 	public static final int ftpPort  = 5000;
         public static final int mirrorPort = 8000;
         public static String subnetId;

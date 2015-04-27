@@ -27,6 +27,7 @@ public class RunRTSPClientPython
 		try
 		{
                         //Start a new process
+                    System.out.println(fileName);
 			StringBuffer output = new StringBuffer();
 			Runtime rt = Runtime.getRuntime();
 			Process pr = rt.exec("python client.py "+ip+" "+Constants.videoClientPort+" "+fileName);

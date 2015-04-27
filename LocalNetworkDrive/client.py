@@ -17,7 +17,7 @@ class Frame(wx.Frame):
     """
     Main media player class.
     """
-    def __init__(self, parent, id, title, mplayer,filename,q):
+    def __init__(self, parent, id, title, mplayer,filename):
         wx.Frame.__init__(self, parent, id, title)
         self.panel = wx.Panel(self)
 
@@ -252,6 +252,13 @@ class ClientHandler():
             raise Exception("Server didnt respond!")
         second.close()    
         s.close()
+		
+        while True:
+            try:		
+                os.remove(sys.argv[3])
+                break
+            except:
+                time.sleep(10)			
 
 if __name__=="__main__":
     # Start the main process

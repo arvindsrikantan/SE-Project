@@ -648,7 +648,7 @@ public static String trackerip;
             model.addColumn("Remote Location");
             //Check if data isnt empty
             if(json.length()>0)
-                downloadbut.setEnabled(true);
+                downloadbut1.setEnabled(true);
             //Iterate through the data fetched and populate the table display
             for(int i=0;i<json.length();i++)
             {
@@ -682,17 +682,25 @@ public static String trackerip;
         String ip = json.getJSONObject(i).getString("ip");
         String srcip = json.getJSONObject(i).getString("originip");
         String filename = json.getJSONObject(i).getString("absolutepath");
-        
-    try
-    {
-        //API CALL
-        RunRTSPClientPython.runClient(ip, filename);
-    }
-    catch(Exception e)
-    {
-        JOptionPane.showMessageDialog(null,e.getMessage());
-    }
-    finally
+       
+        String spl[] = filename.split("/");
+        filename = spl[0]+"/"+spl[1];
+        for(int k=2;k<spl.length-1;k++)
+        {
+            filename+="/"+spl[k];
+        }
+        filename+="/"+new pathtranslator().encode(spl[spl.length-1]);
+        System.out.println(filename);
+        try
+        {
+            //API CALL
+            RunRTSPClientPython.runClient(ip, filename);
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+        finally
             {
                 System.out.println("Done Streaming");
             }

@@ -13,12 +13,12 @@
 *               - AKASH AGARWAL(1PI12CS017)
 *
 *
-*       TASK    - To recursively register a "watch" on certain File Systems 
-*                 as a whole,present on any given desktop client, connected 
-*                 onto the same common network as the Tracker Server itself,
-*                 looking for any kind of changes in the file systems & then
-*                 POST(reflect)the same back to the tracker for the corresponding 
-*                 updations required in it,for any future references.
+*       TASK    - To recursively register a "watch" on certain directories 
+*                 as a whole ,present on any given system, connected onto the 
+*                 same common network as the Tracker Server,looking for any kind of 
+*                 changes in the file systems & POST(reflect) the same back
+*                 to the tracker for the corresponding updations
+*                 required in it,for any future references.
 *                 
 *                
 *       START   - February 13th,2015
@@ -141,7 +141,7 @@ public class WatchDir
       
       else 
          register(dir);
-   
+
       // enable trace after initial registration
       this.trace = true;
    }
@@ -227,7 +227,7 @@ public class WatchDir
                }
             }
             
-            //on ENTRY_DELETE, post the Absolute path of the file which got deleted alongwith the IP Address,& the total free size now available
+ //on ENTRY_DELETE, post the Absolute path of the file which got deleted alongwith the IP Address,& the total free size now available
                
             else if(kind==ENTRY_DELETE)
             {
@@ -261,7 +261,7 @@ public class WatchDir
                {
                   if (Files.isDirectory(child, NOFOLLOW_LINKS)) 
                      registerAll(child);
-               
+   
                   File file = new File(y);
                      
                   if (!file.exists() || !file.isFile())
