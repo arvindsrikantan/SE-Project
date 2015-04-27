@@ -14,6 +14,7 @@ package rtspMirror;
 ****************************************************************************/
 import constants.Constants;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.*;
 import java.util.logging.Level;
@@ -97,7 +98,9 @@ class ShowImage extends Thread
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			image.setIcon(icon);
+                        Image img = icon.getImage();
+                        Image newimg = img.getScaledInstance((int)dm.getHeight(), (int)dm.getWidth(), Image.SCALE_FAST);
+			image.setIcon(new ImageIcon(newimg));
 			frame.repaint();
 			frame.setIconImage(icon.getImage());
 			frame.add(image);
