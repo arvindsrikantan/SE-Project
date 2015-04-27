@@ -148,9 +148,9 @@ public class TrackerClient implements Runnable
 		}
 		
 		// Start RTSP Server
-//		RunRTSPServerPython rtspServer = new RunRTSPServerPython();
-//		Thread startRtspServer = new Thread(rtspServer);
-//		startRtspServer.start();
+		RunRTSPServerPython rtspServer = new RunRTSPServerPython();
+		Thread startRtspServer = new Thread(rtspServer);
+		startRtspServer.start();
 		
 		// Start  FTP Server
 		FTPServerAPI ftpServer = new FTPServerAPI();
