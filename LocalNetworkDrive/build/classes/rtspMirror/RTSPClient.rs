@@ -1,2 +1,0 @@
-rtspMirror.RTSPClient
-rtspMirror.ShowImage

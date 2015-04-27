@@ -166,7 +166,6 @@ class Frame(wx.Frame):
         """
         currentSeek = self.playbackSlider.GetValue()
         print("change seek",currentSeek)
-        q.put(currentSeek)
         self.mplayer.Seek(currentSeek,2)
                 
     def on_stop(self, event):
@@ -197,7 +196,7 @@ class Frame(wx.Frame):
             self.trackCounter.SetLabel(secsPlayed)        
 
     
-def MediaHandler(q):
+def MediaHandler():
     """
     Handler to create a new process to play media file
     param : q, is the Queue object shared between client process and media player process that will contain the seek request.
@@ -215,7 +214,7 @@ def MediaHandler(q):
             
     
     app = wx.App(redirect=False)
-    frame = Frame(None, -1, 'Media Player', mplayerPath,sys.argv[3],q)
+    frame = Frame(None, -1, 'Media Player', mplayerPath,sys.argv[3])
     app.MainLoop() 
 
 
@@ -223,54 +222,38 @@ class ClientHandler():
     """
     Handler class to set up client socket connection
     """
-    def main(self,q):
-		"""
-		Main method to create client process
-        Uses command line args :
-        argv[1] : Server IP
-        argv[2] : Port number
-        argv[3] : Filename 
-		"""
-		s = soc.socket(soc.AF_INET,soc.SOCK_STREAM)
-		s.connect((sys.argv[1],int(sys.argv[2])))
-		
-		s.send("GET:"+sys.argv[3])	# Get filename
-		cmd = s.recv(512)
-		if(cmd == "SENT"):
-			second=open(sys.argv[3],'wb')
-			count=0
-			first = True
-			while(True):#create thread
-				if(q.empty() == True):
-					s.send("\n")
-				else:
-					s.send("GET:"+str(q.get()))
-				inp = s.recv(10*1024*1024)
-				count+=1
-				if(inp==""):
-					print("Got video!")
-					break    
-				else:
-					second.write(inp)
-					#Start mediaplayer only 1st time
-					if(first and count>3):#change condition to count>header_length
-						first = False
-						p2 = multiprocessing.Process(target=MediaHandler,args=(q,))
-						p2.start()     
-		else:
-			raise Exception("Server didnt respond!")
-		second.close()    
-		s.close()
-
-        while True:
-           try:
-                os.remove(sys.argv[3])
-                break
-            except WindowsError:
-                time.sleep(10)
+    def main(self):
+        """
+        Main method to create client process
+        """
+        s = soc.socket(soc.AF_INET,soc.SOCK_STREAM)
+        s.connect((sys.argv[1],int(sys.argv[2])))
+        
+        s.send("GET:"+sys.argv[3])  # Get filename
+        cmd = s.recv(512)
+        if(cmd == "SENT"):
+            second=open(sys.argv[3],'wb')
+            count=0
+            first = True
+            while(True):#create thread
+                inp = s.recv(10*1024*1024)
+                count+=1
+                if(inp==""):
+                    print("Got video!")
+                    break    
+                else:
+                    second.write(inp)
+                    #Start mediaplayer only 1st time
+                    if(first and count>3):#change condition to count>header_length
+                        first = False
+                        p2 = multiprocessing.Process(target=MediaHandler)
+                        p2.start()     
+        else:
+            raise Exception("Server didnt respond!")
+        second.close()    
+        s.close()
 
 if __name__=="__main__":
     # Start the main process
-    q = multiprocessing.Queue()
     ch = ClientHandler()
-    ch.main(q)
+    ch.main()

@@ -23,6 +23,7 @@ public class Main
 	 */
 	public static void startDaemonProcess()
 	{
+            // Start new thread for the handler
 		new Thread(new TrackerClient()).start();
 	}
 

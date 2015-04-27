@@ -1,11 +1,25 @@
 package constants;
+/***************************************************************************
+*
+*   SOFTWARE ENGINEERING PROJECT - 12CS354 - VI SEM BE (PESIT)
+*
+*       NETWORK STORAGE - SE PROJECT TEAM 1
+*
+*       JOB     - CONSTANTS
+*
+*       AUTHORS - ARVIND SRIKANTAN
+*               - ANISH NARANG
+*
+*       TASK    - To maintain a repository of constants
 
+****************************************************************************/
+
+public class Constants
+{
 /*
  *   Contains all globally used constants in the application 
  */
 
-public class Constants
-{
 	public static String serverIp;
 	public static String myIp;
 	public static final int daemonServerPort = 3000;

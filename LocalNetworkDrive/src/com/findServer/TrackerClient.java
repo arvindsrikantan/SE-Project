@@ -27,6 +27,7 @@ import RTP.FTPServerAPI;
 import utils.Addressing;
 import constants.Constants;
 import rtspMirror.RTSPServer;
+import rtspVideo.RunRTSPServerPython;
 /**
  *   Creates a UDP socket to receive a message from the tracker server.
  *   If a message is not received in 7 tries,the current host becomes the tracker server.
@@ -42,6 +43,7 @@ public class TrackerClient implements Runnable
 		DatagramSocket dsend = null;
 		try
 		{
+                    // New UDP socket
 			dsend = new DatagramSocket();
 		}
 		catch (SocketException e)
@@ -64,6 +66,7 @@ public class TrackerClient implements Runnable
 			//send first and wait for reply
 			String ipad = Addressing.getIpAddress();
 
+                        // Setup broadcast IP address
 			System.out.println("try no:"+tries);
 			String serverIP = ipad;
 			System.out.println(ipad);
@@ -74,6 +77,7 @@ public class TrackerClient implements Runnable
 			InetAddress ip = null;
 			try
 			{
+                            // Broadcast entry to the network 
 				ip = InetAddress.getByName(inetName);
 			}
 			catch (UnknownHostException e1)
@@ -92,9 +96,6 @@ public class TrackerClient implements Runnable
 			{
 				e.printStackTrace();
 			}
-
-			
-			
 			//waiting for reply
 			dp = new DatagramPacket(buf, 1024);
 			try
@@ -107,10 +108,7 @@ public class TrackerClient implements Runnable
 			{
 				if(tries == 6)
 				{
-					//Start tracker server
-					//new Tracker();
-					//run abhinavs script
-					//start ip provider server
+					//Start tracker server since no reply was received
 					new Thread(new TrackerServer()).start();
 					
 				}
@@ -123,10 +121,14 @@ public class TrackerClient implements Runnable
 			
 //			ds.close();
 		}
+                
+                // Receive tracker server IP address
 		String str = new String(dp.getData(), 0, dp.getLength());
 		if(str.trim().equals(""))
 			str = Addressing.getIpAddress();
-		System.out.println("final server ip:"+str+"sdf");
+		System.out.println("final server ip:"+str);
+                
+                // Set tracker server IP address
 		Constants.serverIp = str;
 		
 		/**
@@ -138,7 +140,7 @@ public class TrackerClient implements Runnable
 		// Start hooks
 		try
 		{
-			//WatchDir.startHooks();
+			WatchDir.startHooks();
 		}
 		catch (Exception e)
 		{
@@ -146,9 +148,9 @@ public class TrackerClient implements Runnable
 		}
 		
 		// Start RTSP Server
-//		RunRTSPServerPython rtspServer = new RunRTSPServerPython();
-//		Thread startRtspServer = new Thread(rtspServer);
-//		startRtspServer.start();
+		RunRTSPServerPython rtspServer = new RunRTSPServerPython();
+		Thread startRtspServer = new Thread(rtspServer);
+		startRtspServer.start();
 		
 		// Start  FTP Server
 		FTPServerAPI ftpServer = new FTPServerAPI();
