@@ -152,9 +152,12 @@ app.post('/video/delete', function(req, res){
 //// keshav
 app.get('/getfreesize/:size', function(req, res){
 	var size = req.params.size;
-	var getip = getIp(size);
+	var getip = getIp(size,req._remoteAddress);
 	getip.then(function(data){
-		res.send(data.rows[0].ip);
+    if(data.rows=="")
+      res.send('none');
+    else
+		  res.send(data.rows[0].ip);
 	});
 });
 //// abhishek
@@ -191,11 +194,11 @@ var getHash = function(ip)
 	});
 	return deferred.promise;
 }
-var getIp = function(size)
+var getIp = function(size,ip)
 {
 	var deferred = q.defer();
 	pg.connect(conString, function(err, client, done) {
-    client.query("select ip from freesize where freesize>"+size+";", function(err, result) 
+    client.query("select ip from freesize where freesize>"+size+" and ip!='"+ip+"';", function(err, result) 
     {
       done();
       	if (err)
@@ -304,7 +307,7 @@ var insertDevice = function(ip, freesize,hash)
 {
 	var deferred = q.defer();
 	pg.connect(conString, function(err, client, done) {
-    client.query("delete from freesize where ip='"+ip+"';insert into freesize values('"+ip+"',"+freesize+");", function(err, result) {
+    client.query("delete from freesize where ip='"+ip+"';insert into freesize values('"+ip+"',"+freesize+",'"+hash+"');", function(err, result) {
       done();
       	if (err)
        	{
