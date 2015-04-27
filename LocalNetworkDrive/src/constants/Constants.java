@@ -22,6 +22,7 @@ public class Constants
 
 	public static String serverIp;
 	public static String myIp;
+        public static String myName;
 	public static final int daemonServerPort = 3000;
 	public static final int daemonClientPort = 2000;
 	public static final int videoServerPort  = 6000;
