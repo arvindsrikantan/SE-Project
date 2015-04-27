@@ -712,7 +712,7 @@ public static String trackerip;
     private void uploadbut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadbut1ActionPerformed
          // Perform Upload operation
         File f = uploadfile.getSelectedFile();
-        String ip = new fetchfiles().getHTML("http://"+trackerip+"/getfreesize/"+String.valueOf(f.length()));
+        String ip = new fetchfiles().getHTML("http://"+trackerip+"/getfreesize/"+String.valueOf(f.length()));JOptionPane.showMessageDialog(null, String.valueOf(f.length()));
         if(!ip.equals("none"))
             JOptionPane.showMessageDialog(null,"Unfortunately there is not enough space available on remote drives.");
         else

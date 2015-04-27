@@ -413,7 +413,7 @@ public class WatchDir
             total+=usableSpace;
          }
       }
-      total/=1024;//in KBs
+//      total/=1024;//in KBs
       
       return Long.toString(total);
    }
