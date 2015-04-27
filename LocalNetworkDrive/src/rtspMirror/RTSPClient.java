@@ -80,7 +80,7 @@ class ShowImage extends Thread
 		JLabel image = new JLabel(icon);
 		frame.add(image);
 		frame.setVisible(true);
-
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		while(true) 
 		{
 //			try {
@@ -104,7 +104,7 @@ class ShowImage extends Thread
 			frame.repaint();
 			frame.setIconImage(icon.getImage());
 			frame.add(image);
-			frame.setVisible(true);
+//			frame.setVisible(true);
 			icon = null;
 		}
 	}

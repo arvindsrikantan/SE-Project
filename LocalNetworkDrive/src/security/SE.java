@@ -72,7 +72,7 @@ public class SE {
      GenerateKeys gk=new GenerateKeys();
         gk.createfiles();
         String[] ext = path.split("\\.");
-        String q= ext[1];
+        String q= ext[ext.length-1];
         String mp="mp4";
 if(!q.equalsIgnoreCase( mp))
 { 
