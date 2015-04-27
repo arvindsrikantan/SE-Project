@@ -156,8 +156,12 @@ public class TrackerClient implements Runnable
 		FTPServerAPI ftpServer = new FTPServerAPI();
 		ftpServer.start();
 		
+                System.out.println("Creating directories...");
+                CreateDirectories.createDirectories();
+                
 		// Start Screen Share Server
 		RTSPServer.startServer();
+                
 		
 	}
 }

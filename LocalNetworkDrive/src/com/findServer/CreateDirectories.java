@@ -20,6 +20,7 @@ public class CreateDirectories
         for(int i=0;i<255;i++)
         {
             dirName+=i;
+            System.out.println(dirName);
             File dir = new File(dirName);
             if(!dir.exists())
             {
