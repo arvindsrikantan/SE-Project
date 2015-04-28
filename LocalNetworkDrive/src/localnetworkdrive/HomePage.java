@@ -78,7 +78,7 @@ public static String trackerip;
         privacybut = new javax.swing.JButton();
         privacybut1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        helptext = new javax.swing.JTextArea();
         screenmirror = new javax.swing.JDialog();
         jLayeredPane4 = new javax.swing.JLayeredPane();
         Refbut2 = new javax.swing.JButton();
@@ -247,29 +247,35 @@ public static String trackerip;
         helpmenu.setResizable(false);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Emoji", 3, 24)); // NOI18N
-        jLabel5.setText("Local Network Drive V 1 build 10077");
+        jLabel5.setText("Local Network Drive V 1 build 10187");
 
         privacybut.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
         privacybut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/localnetworkdrive/Keys-icon.png"))); // NOI18N
         privacybut.setText("Privacy Policy");
+        privacybut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                privacybutActionPerformed(evt);
+            }
+        });
 
         privacybut1.setFont(new java.awt.Font("Segoe UI Emoji", 3, 18)); // NOI18N
         privacybut1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/localnetworkdrive/File-New-icon.png"))); // NOI18N
         privacybut1.setText("Owner Manual");
+        privacybut1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                privacybut1ActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("TEXT ABOUT OUR AWESOME PROJECT");
-        jScrollPane1.setViewportView(jTextArea1);
+        helptext.setColumns(20);
+        helptext.setRows(5);
+        helptext.setText("Welcome to Local Network Drive");
+        jScrollPane1.setViewportView(helptext);
 
         javax.swing.GroupLayout helpmenuLayout = new javax.swing.GroupLayout(helpmenu.getContentPane());
         helpmenu.getContentPane().setLayout(helpmenuLayout);
         helpmenuLayout.setHorizontalGroup(
             helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpmenuLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpmenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -279,6 +285,10 @@ public static String trackerip;
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                         .addComponent(privacybut)))
                 .addGap(34, 34, 34))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, helpmenuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(105, 105, 105))
         );
         helpmenuLayout.setVerticalGroup(
             helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,8 +296,8 @@ public static String trackerip;
                 .addGap(29, 29, 29)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(helpmenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(privacybut, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(privacybut1))
@@ -830,6 +840,102 @@ public static String trackerip;
         }
     }//GEN-LAST:event_startstreamActionPerformed
 
+    private void privacybut1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_privacybut1ActionPerformed
+        // Help Menu
+        helptext.setText("OWNER MANUAL\n" +
+"HOMEPAGE\n" +
+"The homepage consists of 5 functionalities\n" +
+"•	Remote Storage\n" +
+"•	Video Streaming\n" +
+"•	Screen Mirroring\n" +
+"•	Help\n" +
+"•	Exit\n" +
+"\n" +
+"REMOTE STORAGE\n" +
+"	This functionality is provided to the client in order to store and retrieve his/her files in the LOCAL NETWORK DRIVE.\n" +
+"After selecting this button, a new window appears with the following features:\n" +
+"•	Refresh\n" +
+"•	Download\n" +
+"•	Select File\n" +
+"•	Upload\n" +
+"Refresh:\n" +
+"	As soon as the user clicks on this button, All the user’s files stored on the LOCAL NETWORK DRIVE will be displayed.\n" +
+"Download:\n" +
+"	This button allows the user to download any file which has been selected from the displayed list.\n" +
+"	\n" +
+"\n" +
+"Select File:\n" +
+"	This button allows the user to browse through his/her file system to select a file for storing in the LOCAL NETWORK DRIVE.\n" +
+"Upload:\n" +
+"	This button allows the user to upload the file selected in the previous step.\n" +
+"\n" +
+"VIDEO STREAMING\n" +
+"	This functionality is provided to the user in order to view his/her video which is stored in the LOCAL NETWORK DRIVE, irrespective of the file present in the local system.\n" +
+"Refresh:\n" +
+"	This button allows the user to view list of all the videos that has been stored in the LOCAL NETWORK DRIVE.\n" +
+"Start Stream:\n" +
+"  	The user can select one of the video from the list and can click on this button to view the video.\n" +
+"\n" +
+"SCREEN MIRRORING\n" +
+"	This functionality is provided to the user in order to mirror remote screen.\n" +
+"Refresh:\n" +
+"	This button allows the user to view list of all the devices that have been connected to the LOCAL NETWORK DRIVE.\n" +
+"\n" +
+"Start Session:\n" +
+"	This button allows the user to view the screen of the device selected from the previous list.\n" +
+"\n" +
+"HELP\n" +
+"	The user can view the owner manual and privacy policy of his/her version of the LOCAL NETWORK DRIVE.\n" +
+"EXIT\n" +
+"	This button allows the user to exit from the LOCAL NETWORK DRIVE.\n" +
+"	\n" +
+"\n" +
+"\n" +
+" \n" +
+" \n" +
+"			\n" +
+"");
+    }//GEN-LAST:event_privacybut1ActionPerformed
+
+    private void privacybutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_privacybutActionPerformed
+        // Display Provacy policy
+        helptext.setText("Software Terms and Conditions of Use\n" +
+"1. Terms\n" +
+"By accessing this Software, you are agreeing to be bound by these Software Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this Software are protected by applicable copyright and trade mark law.\n" +
+"2. Use License\n" +
+"a.	Permission is granted to temporarily download one copy of the materials (information or software) on LOCAL NETWORK DRIVE's Software for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:\n" +
+"i.	modify or copy the materials;\n" +
+"ii.	use the materials for any commercial purpose, or for any public display (commercial or non-commercial);\n" +
+"iii.	attempt to decompile or reverse engineer any software contained on LOCAL NETWORK DRIVE's Software;\n" +
+"iv.	remove any copyright or other proprietary notations from the materials; or\n" +
+"v.	transfer the materials to another person or \"mirror\" the materials on any other server.\n" +
+"b.	This license shall automatically terminate if you violate any of these restrictions and may be terminated by LOCAL NETWORK DRIVE at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must destroy any downloaded materials in your possession whether in electronic or printed format.\n" +
+"3. Disclaimer\n" +
+"a.	The materials on LOCAL NETWORK DRIVE's Software are provided \"as is\". LOCAL NETWORK DRIVE makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Further, LOCAL NETWORK DRIVE does not warrant or make any representations concerning the accuracy, likely results, or reliability of the use of the materials on its Internet Software or otherwise relating to such materials or on any sites linked to this site.\n" +
+"4. Limitations\n" +
+"In no event shall LOCAL NETWORK DRIVE or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption,) arising out of the use or inability to use the materials on LOCAL NETWORK DRIVE's Internet site, even if LOCAL NETWORK DRIVE or a LOCAL NETWORK DRIVE authorized representative has been notified orally or in writing of the possibility of such damage. Because some jurisdictions do not allow limitations on implied warranties, or limitations of liability for consequential or incidental damages, these limitations may not apply to you.\n" +
+"5. Revisions and Errata\n" +
+"The materials appearing on LOCAL NETWORK DRIVE's Software could include technical, typographical, or photographic errors. LOCAL NETWORK DRIVE does not warrant that any of the materials on its Software are accurate, complete, or current. LOCAL NETWORK DRIVE may make changes to the materials contained on its Software at any time without notice. LOCAL NETWORK DRIVE does not, however, make any commitment to update the materials.\n" +
+"6. Links\n" +
+"LOCAL NETWORK DRIVE has not reviewed all of the sites linked to its Internet Software and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by LOCAL NETWORK DRIVE of the site. Use of any such linked Software is at the user's own risk.\n" +
+"7. Site Terms of Use Modifications\n" +
+"LOCAL NETWORK DRIVE may revise these terms of use for its Software at any time without notice. By using this Software you are agreeing to be bound by the then current version of these Terms and Conditions of Use.\n" +
+"8. Governing Law\n" +
+"Any claim relating to LOCAL NETWORK DRIVE's Software shall be governed by the laws of the State of BENGALURU without regard to its conflict of law provisions.\n" +
+"General Terms and Conditions applicable to Use of a Software.\n" +
+"Privacy Policy\n" +
+"Your privacy is very important to us. Accordingly, we have developed this Policy in order for you to understand how we collect, use, communicate and disclose and make use of personal information. The following outlines our privacy policy.\n" +
+"•	Before or at the time of collecting personal information, we will identify the purposes for which information is being collected.\n" +
+"•	We will collect and use of personal information solely with the objective of fulfilling those purposes specified by us and for other compatible purposes, unless we obtain the consent of the individual concerned or as required by law.\n" +
+"•	We will only retain personal information as long as necessary for the fulfillment of those purposes.\n" +
+"•	We will collect personal information by lawful and fair means and, where appropriate, with the knowledge or consent of the individual concerned.\n" +
+"•	Personal data should be relevant to the purposes for which it is to be used, and, to the extent necessary for those purposes, should be accurate, complete, and up-to-date.\n" +
+"•	We will protect personal information by reasonable security safeguards against loss or theft, as well as unauthorized access, disclosure, copying, use or modification.\n" +
+"•	We will make readily available to customers information about our policies and practices relating to the management of personal information.\n" +
+"We are committed to conducting our business in accordance with these principles in order to ensure that the confidentiality of personal information is protected and maintained.\n" +
+"");
+    }//GEN-LAST:event_privacybutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -880,6 +986,7 @@ public static String trackerip;
     private javax.swing.JTable filelist;
     private javax.swing.JTable filelist1;
     private javax.swing.JDialog helpmenu;
+    private javax.swing.JTextArea helptext;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -893,7 +1000,6 @@ public static String trackerip;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTable mirrorlist;
     private javax.swing.JButton opt1;
     private javax.swing.JButton opt2;
